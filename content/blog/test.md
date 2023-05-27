@@ -1,8 +1,8 @@
 ---
-title: "新的开始"
+title: "test-blog"
 date: 2023-05-27T21:17:35+08:00
 draft: false
-tags: ["觉悟","博客","开始"]
+tags: ["test"]
 ---
 
 ## 赏心悦目的博客
