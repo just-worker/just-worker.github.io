@@ -5,7 +5,79 @@
     <link>https://just-worker.github.io/</link>
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 28 May 2023 23:41:19 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 May 2023 23:31:46 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>两数之和</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Mon, 29 May 2023 23:31:46 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</guid>
+      <description>&lt;h2 id=&#34;两数之和httpsleetcodecnproblemstwo-sum&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/two-sum/&#34;&gt;两数之和&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出 和为目标值 &lt;code&gt;target&lt;/code&gt;  的那两个整数，并返回它们的数组下标。&lt;/p&gt;
+&lt;p&gt;你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。&lt;/p&gt;
+&lt;p&gt;你可以按任意顺序返回答案。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [2,7,11,15], target = 9&lt;/li&gt;
+&lt;li&gt;输出：[0,1]&lt;/li&gt;
+&lt;li&gt;解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;h3 id=&#34;爆破&#34;&gt;爆破&lt;/h3&gt;
+&lt;p&gt;对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(n^2) : 最坏情况需要遍历全部可能配对
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)  : 无额外空间消耗
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;two_sum&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;(len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; j &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; nums[j] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![i &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; , j &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;];
+                }
+            }
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;按图索骥&#34;&gt;按图索骥&lt;/h3&gt;
+&lt;p&gt;这里有两个特殊的视角&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于确定等式的三个数值，我们只要确定了其中两个，就能够唯一确定第三个&lt;/li&gt;
+&lt;li&gt;可以列一个清单去进行匹配，而不是每次都需要重新计算(缓存)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本质的核心，其实就是等式关系的延续，把一个&lt;code&gt;满足等式的数&lt;/code&gt;的判断，转化为&lt;code&gt;某个确定的数&lt;/code&gt;的限定条件。&lt;!-- raw HTML omitted --&gt;
+更关键的是，对于&lt;code&gt;target&lt;/code&gt;和&lt;code&gt;nums[?]&lt;/code&gt;的依赖，做了一个特殊的持久化，不用每次计算都携带，降低了信息传递的消耗。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N) : 只用遍历一遍
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N) : 最坏情况首尾相加
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;two_sum&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; map &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashMap::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;nums.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums[i];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; map.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;value);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; last.is_some() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![last.unwrap().to_owned(), index];
+            }
+            map.insert(target &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; value, index);
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;关键技巧&#34;&gt;关键技巧&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;缓存&lt;/code&gt;固然是一个关键的技巧，但是我更宁愿把&lt;code&gt;固化&lt;/code&gt;称为其中核心秘籍。&lt;/p&gt;
+&lt;p&gt;正是因为&lt;code&gt;固化&lt;/code&gt;了其中的计算关系，&lt;code&gt;缓存&lt;/code&gt;才能发挥更大的能力。
+所谓&lt;code&gt;缓存&lt;/code&gt;，其实就是耗费资源去得到的一个结果，当我们重复的去获取这个结果的时候，使用已经计算好的副本，能够极大的避免计算的开销。
+因此，在涉及重复计算的场景下，缓存有很大的作用空间；但是，&lt;code&gt;固化&lt;/code&gt;作为其核心要义，并非只是简单的存储结果。
+一个计算结果本身就有来由的原因。&lt;/p&gt;
+&lt;p&gt;本题中，正式因为把算式的因果关系转换，并且利用缓存进行&lt;code&gt;固化&lt;/code&gt;，把查找转换为匹配，才根源上完成解题的突破。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>记录的必要</title>
       <link>https://just-worker.github.io/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/</link>
