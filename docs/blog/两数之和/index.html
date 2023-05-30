@@ -3,36 +3,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>两数之和</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-你可以按任意顺序返回答案。
-  输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。   题目分析 爆破 对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案
-// time: O(n^2) : 最坏情况需要遍历全部可能配对 // space: O(1) : 无额外空间消耗 impl Solution { pub fn two_sum(nums: Vec&lt;i32&gt;, target: i32) -&gt; Vec&lt;i32&gt; { let len = nums.len(); for i in 0..(len - 1) { for j in (i &#43; 1).">
+    <meta name="description" content="Ladder@两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。 你可以假设每种输入">
     <meta name="author" content="just-worker">
     <link rel="canonical" href="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxx"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-xxx', { 'anonymize_ip': false });
-}
-</script>
-
 
 
     <meta property="og:title" content="两数之和" />
-<meta property="og:description" content="两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-你可以按任意顺序返回答案。
-  输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。   题目分析 爆破 对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案
-// time: O(n^2) : 最坏情况需要遍历全部可能配对 // space: O(1) : 无额外空间消耗 impl Solution { pub fn two_sum(nums: Vec&lt;i32&gt;, target: i32) -&gt; Vec&lt;i32&gt; { let len = nums.len(); for i in 0..(len - 1) { for j in (i &#43; 1)." />
+<meta property="og:description" content="两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。 你可以假设每种输入" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" /><meta property="article:section" content="blog" />
 <meta property="article:published_time" content="2023-05-29T23:31:46+08:00" />
@@ -41,11 +22,7 @@ if (!doNotTrack) {
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="两数之和"/>
-<meta name="twitter:description" content="两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-你可以按任意顺序返回答案。
-  输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。   题目分析 爆破 对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案
-// time: O(n^2) : 最坏情况需要遍历全部可能配对 // space: O(1) : 无额外空间消耗 impl Solution { pub fn two_sum(nums: Vec&lt;i32&gt;, target: i32) -&gt; Vec&lt;i32&gt; { let len = nums.len(); for i in 0..(len - 1) { for j in (i &#43; 1)."/>
+<meta name="twitter:description" content="两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。 你可以假设每种输入"/>
 
 
 <script type="application/ld+json">
@@ -74,12 +51,12 @@ if (!doNotTrack) {
   "@type": "BlogPosting",
   "headline": "两数之和",
   "name": "两数之和",
-  "description": "两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\n你可以按任意顺序返回答案。\n  输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。   题目分析 爆破 对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案\n// time: O(n^2) : 最坏情况需要遍历全部可能配对 // space: O(1) : 无额外空间消耗 impl Solution { pub fn two_sum(nums: Vec\u0026lt;i32\u0026gt;, target: i32) -\u0026gt; Vec\u0026lt;i32\u0026gt; { let len = nums.len(); for i in 0..(len - 1) { for j in (i + 1).",
+  "description": "两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。 你可以假设每种输入",
   "keywords": [
     "leetcode", "算法"
   ],
   "articleBody": "两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\n你可以按任意顺序返回答案。\n  输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。   题目分析 爆破 对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案\n// time: O(n^2) : 最坏情况需要遍历全部可能配对 // space: O(1) : 无额外空间消耗 impl Solution { pub fn two_sum(nums: Veci32, target: i32) - Veci32 { let len = nums.len(); for i in 0..(len - 1) { for j in (i + 1)..len { if nums[i] + nums[j] == target { return vec![i as i32 , j as i32]; } } } unreachable!(\"illegal status\") } } 按图索骥 这里有两个特殊的视角\n 对于确定等式的三个数值，我们只要确定了其中两个，就能够唯一确定第三个 可以列一个清单去进行匹配，而不是每次都需要重新计算(缓存)  本质的核心，其实就是等式关系的延续，把一个满足等式的数的判断，转化为某个确定的数的限定条件。更关键的是，对于target和nums[?]的依赖，做了一个特殊的持久化，不用每次计算都携带，降低了信息传递的消耗。\nuse std::collections::HashMap; // time: O(N) : 只用遍历一遍 // space: O(N) : 最坏情况首尾相加 impl Solution { pub fn two_sum(nums: Veci32, target: i32) - Veci32 { let mut map = HashMap::i32, i32::new(); for i in 0..nums.len() { let index = i as i32; let value = nums[i]; let last = map.get(\u0026value); if last.is_some() { return vec![last.unwrap().to_owned(), index]; } map.insert(target - value, index); } unreachable!(\"illegal status\") } } 关键技巧 缓存固然是一个关键的技巧，但是我更宁愿把固化称为其中核心秘籍。\n正是因为固化了其中的计算关系，缓存才能发挥更大的能力。 所谓缓存，其实就是耗费资源去得到的一个结果，当我们重复的去获取这个结果的时候，使用已经计算好的副本，能够极大的避免计算的开销。 因此，在涉及重复计算的场景下，缓存有很大的作用空间；但是，固化作为其核心要义，并非只是简单的存储结果。 一个计算结果本身就有来由的原因。\n本题中，正式因为把算式的因果关系转换，并且利用缓存进行固化，把查找转换为匹配，才根源上完成解题的突破。\n",
-  "wordCount" : "169",
+  "wordCount" : "779",
   "inLanguage": "zh",
   "datePublished": "2023-05-29T23:31:46+08:00",
   "dateModified": "2023-05-29T23:31:46+08:00",
@@ -185,7 +162,7 @@ if (!doNotTrack) {
 
   <p>
   <small>
-    2023年5月29日&nbsp;· 169 字&nbsp;· 1 分钟</small>
+    2023年5月29日&nbsp;· 779 字&nbsp;· 2 分钟</small>
 
   <small>
       
@@ -268,6 +245,12 @@ if (!doNotTrack) {
   
   
   <div class="paginator">
+    
+    <a class="prev" href="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>两数相加</span></a>
     
     
     <a class="next" href="https://just-worker.github.io/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/"><span>记录的必要</span>
