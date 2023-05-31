@@ -6,7 +6,70 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 30 May 2023 22:55:18 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 May 2023 23:04:18 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>无重复字符的最长子串</title>
+      <link>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Wed, 31 May 2023 23:04:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;无重复字符的最长子串httpsleetcodecnproblemslongest-substring-without-repeating-characters&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-substring-without-repeating-characters/&#34;&gt;无重复字符的最长子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: s = &amp;ldquo;abcabcbb&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出: 3&lt;/li&gt;
+&lt;li&gt;解释: 因为无重复字符的最长子串是 &amp;ldquo;abc&amp;rdquo;，所以其长度为 3。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;对于这种基础的题目，爆破始终是第一选项。如果有过更近一步的经验，感觉也能和递推产生一些关系。但是首选项必然是&lt;code&gt;滑动窗口&lt;/code&gt;。
+&lt;code&gt;滑动窗口&lt;/code&gt;其实没有什么高深的原理，只是维护一个动态的窗口条件，通过边界的缩放，判断、修改窗口内的数据关系。不过是看起来像窗口而已，我更宁愿把它归纳为之前提炼出来的&lt;code&gt;关系传导&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当然是使用&lt;code&gt;缓存&lt;/code&gt;的，但是这所谓缓存的结果，隐含了之前计算的元素之间的微妙联系。滑动窗口也是如此，它通过窗口边界的收缩，把某种关系限定在窗口数据内，当我们进行新一轮的判断的时候，&lt;code&gt;关系&lt;/code&gt;的传导让我们不必关心更多的干扰，从而去针对的制定逻辑。把纷繁的问题逐步拆分，这样就使得求解变得简单、清晰。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N) 需要遍历一遍
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(X) 字符集长度
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashSet;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;length_of_longest_substring&lt;/span&gt;(s: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; len &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; container &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashSet::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[right];
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 剔除重复字符串
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; container.contains(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left_char &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[left];
+                container.remove(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;left_char);
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 窗口内有效字符
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            container.insert(ch);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; container.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; container.len();
+            }
+        }
+        res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;基础维护&#34;&gt;基础维护&lt;/h2&gt;
+&lt;p&gt;我们为什么需要学习，因为我们想具备某种能力，从而让自己变得更加的自由。&lt;/p&gt;
+&lt;p&gt;这里隐含了一种关系，&lt;code&gt;维护&lt;/code&gt;和&lt;code&gt;使用&lt;/code&gt;。学习红黑树的时候，让我十分厌倦；不论是各种旋转还是条件、染色，只是让我觉得啰嗦。我觉得学习这种东西，除了应付差事，我大概永远和它无缘。后面知晓数据库使用了树结构，其实我也有一种想法，觉得数据库简直多余。的确，&lt;code&gt;维护&lt;/code&gt;是无用的，耗时且费力的，默默无闻一辈子，可能光辉的一瞬都不一定能换回来。&lt;/p&gt;
+&lt;p&gt;但是，俗话说得好，&lt;code&gt;一口吃不成&lt;/code&gt;胖子。想要成为胖子，那是需要&lt;code&gt;日积月累&lt;/code&gt;的，&lt;code&gt;水滴石穿，非一日之功&lt;/code&gt;。面对一些事情，我们的能力，我们的选择，并不能&lt;code&gt;一蹴而就&lt;/code&gt;。正如使用数据库，尽管实现很麻烦，使用&lt;code&gt;SQL&lt;/code&gt;也不简单，但是面对海量的数据的时候，我们能够轻易的完成查找、聚合、排序等操作。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。显而易见的是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;比起瞬间聚集的能力，维护是小步的、简单的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;我这一拳二十年的功力，你挡得住么&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;正如扭螺丝的奇葩账单，有些简单的事情背后真的很不简单。为什么不同岗位的工资差别如此的巨大，仅仅是因为工作内容的不一致么。并不是，而是来源于工作能力的培养难度。学了二十年才能出师的岗位，显然比学习一周上岗的岗位薪酬高的多。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。短小的时日并不能集聚太多的知识。&lt;/p&gt;
+&lt;p&gt;这也正是要专心写博客的原因，没有之一。你想有的能力，需要维护。维护的多好，当你使用的时候就能发挥多大的效果。比起完成瞬间积聚巨大能量的不可能，水滴石穿、细水长流的积累，显得如此的轻松。请放心，付出终究会有收获，如果每一份耕耘都太过艰难，那只是预示你将会有巨大的丰收。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>两数相加</title>
       <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</link>

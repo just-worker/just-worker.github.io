@@ -39,7 +39,7 @@ params:
   options:
     showDarkMode: true
     enableImgZooming: true
-    enableMultiLang: false
+    enableMultiLang: true
     showMetaTags: true
   darkModeTheme: data-dark-mode
   #darkModeTheme: icy-dark-mode
