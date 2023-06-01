@@ -6,7 +6,141 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 31 May 2023 23:04:18 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jun 2023 22:51:53 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>寻找两个正序数组的中位数</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</link>
+      <pubDate>Thu, 01 Jun 2023 22:51:53 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;寻找两个正序数组的中位数httpsleetcodecnproblemsmedian-of-two-sorted-arrays&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/median-of-two-sorted-arrays/&#34;&gt;寻找两个正序数组的中位数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。&lt;/p&gt;
+&lt;p&gt;算法的时间复杂度应该为 O(log (m+n)) 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums1 = [1,3], nums2 = [2]&lt;/li&gt;
+&lt;li&gt;输出：2.00000&lt;/li&gt;
+&lt;li&gt;解释：合并数组 = [1,2,3] ，中位数 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;数组的中位数，值的一提的就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果数组长度是奇数，中位数就是有序数组的最中间的值&lt;/li&gt;
+&lt;li&gt;如果数组长度是偶数，中位数就是有序数组中间两个值的平均&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;计算过程中，假设排序数组为&lt;code&gt;arr&lt;/code&gt;，数据长度为&lt;code&gt;len&lt;/code&gt;，中位数表示如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数组长度为奇数: &lt;code&gt;arr[len / 2]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;数组长度为偶数: &lt;code&gt;(arr[len / 2] + arr[len / 2 + 1]) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然是分支逻辑，但是通过特殊的计算，我们可以合并为相同的逻辑&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(arr[(len + 1) / 2] + arr[(len + 2) / 2]) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样就能够更简单的进行问题的求解。&lt;/p&gt;
+&lt;p&gt;本题目求解不难，难点在于&lt;code&gt;O(log(m + n))&lt;/code&gt;的时间复杂度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于合并之后直接求解的办法已经说明，这里专注其他技巧求解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;滑动窗口&#34;&gt;滑动窗口&lt;/h3&gt;
+&lt;p&gt;目前滑动窗口的出镜率极高，这道题也可用滑动窗口进行求解。并且和之前的&lt;code&gt;缓存&lt;/code&gt;有很大的区别，&lt;code&gt;窗口&lt;/code&gt;本身的概念也于抽象。&lt;/p&gt;
+&lt;p&gt;其实找到中位数，并不一定需要合并到同一个数组，使用两个指针维护查找的队列，其实就可以达到同样的目的。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M + N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(nums1: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, nums2: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (nums1.len(), nums2.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_idx, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_idx) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; current, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;(len &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+            last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_idx &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums2[b_idx];
+                b_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; b_idx &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b_len {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1[a_idx];
+                a_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums1[a_idx] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; nums2[b_idx] {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1[a_idx];
+                a_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums2[b_idx];
+                b_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; current &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (current &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; last &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; ) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;二分法&#34;&gt;二分法&lt;/h3&gt;
+&lt;p&gt;其实对于&lt;code&gt;O(log(m + n))&lt;/code&gt;的第一反应，必定就是二分法，关键在于如何构造二分。&lt;/p&gt;
+&lt;p&gt;这里其实有一个很细微的理解问题，正如&lt;code&gt;三&lt;/code&gt;在古文中表示的意思是&lt;code&gt;多&lt;/code&gt;，而非真的是&lt;code&gt;3&lt;/code&gt;。所谓的二分法，并非严格意义上的丛中分断，它不仅可以是&lt;code&gt;1/n&lt;/code&gt;，甚至在一些边界条件中，也是允许不严格的划分的。尤其是其中的&lt;code&gt;O(log(m + n))&lt;/code&gt;，底数并没有固定展示，这只是一种表示方法，一种趋势，如果是&lt;code&gt;1/n&lt;/code&gt;分，底数不过就变成了&lt;code&gt;n&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;说到这里，结合前面的方法，其实我们已经掌握了核心的办法，这要从两个问题进行引申&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么我们需要查找&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果是单个数组的话，直接通过计算就可以得出结果，但是我们为什么需要进行查找。查找其实只是为了区分两个数组之间的关系，而对于一个数组中的中位数，我们可以直接计算出来。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于滑动窗口的优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到，边界情况下，只剩下了一个数组，我们可以直接进行计算，而非继续傻傻的一个个查找。但是为什么会到这一步呢，因为我们&lt;code&gt;排除&lt;/code&gt;了其中一些非法的答案。查找类的问题经常有两种办法进行求解，正向的匹配检查，和反向的非法排除。常用的二分法，其实就是在规则匹配的条件下对空间进行排除，并且排除优先于匹配。可能对于经典的二分法而言，每一步空间的缩小似乎都是正向的匹配，但其实排除大量的干扰，才是二分的要义。&lt;/p&gt;
+&lt;p&gt;可能相较于单个数组的精准匹配，排除似乎更废时间；但是对于本题中类似的模糊区间查找，排除才是王道。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(log(m+n))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cmp;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(nums1: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, nums2: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1.len() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; nums2.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 两数平均
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (Self::find_nth(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums1, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums2, left) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::find_nth(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums1, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums2, right)) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_nth&lt;/span&gt;(a: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, b: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, k: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_begin, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_begin) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;loop&lt;/span&gt; {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 单边直接计算
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_begin &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; b[b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; b_begin &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;b_len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a[a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 核心步骤
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cmp::min(a[a_begin], b[b_begin]) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分移除： 因为对于half而言是可以稳定移除的
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; half &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 边界条件下非二分移除
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; half, a_len) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; half, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 降低 k 缩小边界
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a[next_a_begin] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; b[next_b_begin] {
+                k &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                a_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                k &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                b_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;二分之所以威力巨大，其实是因为它只用判断一半的元素，正如我们查找中位数，正向查找完全不好关心后半截的数据一样。&lt;/p&gt;
+&lt;h3 id=&#34;明天继续&#34;&gt;明天继续&lt;/h3&gt;
+&lt;p&gt;对于基础的解法到这里，明天继续第二弹的扩充。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>无重复字符的最长子串</title>
       <link>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</link>
