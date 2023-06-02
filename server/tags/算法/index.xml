@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on just-worker</title>
+    <link>https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on just-worker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 02 Jun 2023 20:51:49 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>寻找两个正序数组的中位数2</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/</link>
+      <pubDate>Fri, 02 Jun 2023 20:51:49 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/</guid>
+      <description>&lt;h2 id=&#34;紧跟上文&#34;&gt;紧跟上文&lt;/h2&gt;
+&lt;p&gt;紧跟上文&lt;a href=&#34;https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/&#34;&gt;寻找两个正序数组的中位数&lt;/a&gt;，在二分之后，继续深入。&lt;/p&gt;
+&lt;h2 id=&#34;原理分析&#34;&gt;原理分析&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;中位数: 将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;具体的分析可以从&lt;a href=&#34;https://leetcode.cn/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/&#34;&gt;官网解析&lt;/a&gt;找到详细的论述，我这里就不多费唇舌。&lt;/p&gt;
+&lt;p&gt;结论就是，针对数组&lt;code&gt;a&lt;/code&gt;选取坐标&lt;code&gt;i&lt;/code&gt;，对于数组&lt;code&gt;b&lt;/code&gt;选取坐标&lt;code&gt;j&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;left&lt;/code&gt; : &lt;code&gt;a[0..i] + b[0..j]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt; : &lt;code&gt;a[i..] + b[j..]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;max(left) &amp;lt;= min(right)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;0 &amp;lt;= i &amp;lt; a_len, 0 &amp;lt;= j &amp;lt; b_len, i + j = (a_len + b_len + 1) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其中 i + j 公式来自于&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;总长偶数: &lt;code&gt;left.len == right.len&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;总长奇数: &lt;code&gt;left.len = right.len + 1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;换句话说，换算成等式关系之后，我们只需要检索其中一个数组之后，就可以得出结论了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(log(min(M, N)))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cmp;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(a: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, b: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 始终保证 a 长度小于 b
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b_len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::find_median_sorted_arrays(b, a);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len;
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, a_len);
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界数据
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_max, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_min) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 检索
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; right {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分检索 i
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 计算对应的 j 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; i;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// a[i-1] 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; a_i_prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最小
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MIN
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                a[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// a[i]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; a_i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最大
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MAX
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                a[i]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// b[j-1]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; b_j_prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最小
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MIN
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                b[j &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// b[j]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; b_j &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b_len {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最大
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MAX
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                b[j]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 满足条件，非最大 i ,向右查找
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_i_prev &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; b_j {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 左侧数组的最大值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                a_max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::max(a_i_prev, b_j_prev);
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 右侧数组的最小值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                b_min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(a_i, b_j);
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 向右推进
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; { 
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 向左查找
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 因为 左侧 多收容，中位数就是左侧最大数字
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            a_max &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 双边界平均
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            (a_max &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_min) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;降维打击&#34;&gt;降维打击&lt;/h2&gt;
+&lt;p&gt;看完之后，只能说要常复习，常练习，只能看懂却不能掌握，实在太遗憾。&lt;/p&gt;
+&lt;p&gt;同时，有两个启发&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;另辟蹊径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本题中，从另一个角度去分析题目，把一道&lt;code&gt;搜索题&lt;/code&gt;变成了一道&lt;code&gt;计算题&lt;/code&gt;。虽然还是有搜索的部分，但是更偏向于&lt;code&gt;计算+匹配&lt;/code&gt;了，比起之前的简单计算+复杂搜索，把搜索的复杂度，向计算过度，从而达到足够优化的算法复杂度；进一步对原有的实现方法形成降维打击。&lt;/p&gt;
+&lt;p&gt;一方面，可以说是思维的精妙。一般时间复杂度的降低，除了大量空间的牺牲可以提高，剩下的只能够凭借精妙的算法得以达成。&lt;/p&gt;
+&lt;p&gt;另一方面，则是思维上的开拓。不仅仅是对于思维的跳脱，还需要有开阔的眼界，否则，何来的素材；多积累才有的多选择。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关系传导&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;很多事情，哪怕算法，只有抓到核心关键，才能够事半功倍。正如斐波那契，正如汉诺塔。如果只是一昧的暴力，总有碰壁的时候。同样是规律，越是接近事物的本质，效率也来的更加的快速；刨除了无用的损耗，效率自然成倍的提高。&lt;/p&gt;
+&lt;p&gt;越来越相信大道至简，因为越是了解越多，越是接近本质，如此的简单，威力却如此的巨大。降维打击，莫过如此。&lt;/p&gt;
+&lt;p&gt;的确，如果真的想要时时顺心，事事如意，我们必须要提高我们的效率，去达成面临的事情；但是面临的事情逐渐的庞大，我们的效率不能只是&lt;code&gt;速度&lt;/code&gt;，还要有&lt;code&gt;质量&lt;/code&gt;，快速的，摧枯拉朽的去解决掉阻碍的事情，这才是我们需要积累的能力。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>寻找两个正序数组的中位数</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</link>
+      <pubDate>Thu, 01 Jun 2023 22:51:53 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;寻找两个正序数组的中位数httpsleetcodecnproblemsmedian-of-two-sorted-arrays&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/median-of-two-sorted-arrays/&#34;&gt;寻找两个正序数组的中位数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。&lt;/p&gt;
+&lt;p&gt;算法的时间复杂度应该为 O(log (m+n)) 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums1 = [1,3], nums2 = [2]&lt;/li&gt;
+&lt;li&gt;输出：2.00000&lt;/li&gt;
+&lt;li&gt;解释：合并数组 = [1,2,3] ，中位数 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;数组的中位数，值的一提的就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果数组长度是奇数，中位数就是有序数组的最中间的值&lt;/li&gt;
+&lt;li&gt;如果数组长度是偶数，中位数就是有序数组中间两个值的平均&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;计算过程中，假设排序数组为&lt;code&gt;arr&lt;/code&gt;，数据长度为&lt;code&gt;len&lt;/code&gt;，中位数表示如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数组长度为奇数: &lt;code&gt;arr[len / 2]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;数组长度为偶数: &lt;code&gt;(arr[len / 2] + arr[len / 2 + 1]) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然是分支逻辑，但是通过特殊的计算，我们可以合并为相同的逻辑&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(arr[(len + 1) / 2] + arr[(len + 2) / 2]) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样就能够更简单的进行问题的求解。&lt;/p&gt;
+&lt;p&gt;本题目求解不难，难点在于&lt;code&gt;O(log(m + n))&lt;/code&gt;的时间复杂度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于合并之后直接求解的办法已经说明，这里专注其他技巧求解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;滑动窗口&#34;&gt;滑动窗口&lt;/h3&gt;
+&lt;p&gt;目前滑动窗口的出镜率极高，这道题也可用滑动窗口进行求解。并且和之前的&lt;code&gt;缓存&lt;/code&gt;有很大的区别，&lt;code&gt;窗口&lt;/code&gt;本身的概念也于抽象。&lt;/p&gt;
+&lt;p&gt;其实找到中位数，并不一定需要合并到同一个数组，使用两个指针维护查找的队列，其实就可以达到同样的目的。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M + N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(nums1: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, nums2: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (nums1.len(), nums2.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_idx, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_idx) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; current, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;(len &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+            last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_idx &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums2[b_idx];
+                b_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; b_idx &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b_len {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1[a_idx];
+                a_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums1[a_idx] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; nums2[b_idx] {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1[a_idx];
+                a_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums2[b_idx];
+                b_idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; current &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (current &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; last &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; ) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;二分法&#34;&gt;二分法&lt;/h3&gt;
+&lt;p&gt;其实对于&lt;code&gt;O(log(m + n))&lt;/code&gt;的第一反应，必定就是二分法，关键在于如何构造二分。&lt;/p&gt;
+&lt;p&gt;这里其实有一个很细微的理解问题，正如&lt;code&gt;三&lt;/code&gt;在古文中表示的意思是&lt;code&gt;多&lt;/code&gt;，而非真的是&lt;code&gt;3&lt;/code&gt;。所谓的二分法，并非严格意义上的丛中分断，它不仅可以是&lt;code&gt;1/n&lt;/code&gt;，甚至在一些边界条件中，也是允许不严格的划分的。尤其是其中的&lt;code&gt;O(log(m + n))&lt;/code&gt;，底数并没有固定展示，这只是一种表示方法，一种趋势，如果是&lt;code&gt;1/n&lt;/code&gt;分，底数不过就变成了&lt;code&gt;n&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;说到这里，结合前面的方法，其实我们已经掌握了核心的办法，这要从两个问题进行引申&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么我们需要查找&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果是单个数组的话，直接通过计算就可以得出结果，但是我们为什么需要进行查找。查找其实只是为了区分两个数组之间的关系，而对于一个数组中的中位数，我们可以直接计算出来。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于滑动窗口的优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到，边界情况下，只剩下了一个数组，我们可以直接进行计算，而非继续傻傻的一个个查找。但是为什么会到这一步呢，因为我们&lt;code&gt;排除&lt;/code&gt;了其中一些非法的答案。查找类的问题经常有两种办法进行求解，正向的匹配检查，和反向的非法排除。常用的二分法，其实就是在规则匹配的条件下对空间进行排除，并且排除优先于匹配。可能对于经典的二分法而言，每一步空间的缩小似乎都是正向的匹配，但其实排除大量的干扰，才是二分的要义。&lt;/p&gt;
+&lt;p&gt;可能相较于单个数组的精准匹配，排除似乎更废时间；但是对于本题中类似的模糊区间查找，排除才是王道。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(log(m+n))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cmp;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(nums1: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, nums2: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums1.len() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; nums2.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 两数平均
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (Self::find_nth(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums1, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums2, left) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::find_nth(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums1, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums2, right)) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_nth&lt;/span&gt;(a: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, b: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, k: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_begin, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_begin) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;loop&lt;/span&gt; {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 单边直接计算
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_begin &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; b[b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; b_begin &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;b_len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a[a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 核心步骤
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cmp::min(a[a_begin], b[b_begin]) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分移除： 因为对于half而言是可以稳定移除
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; half &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 边界条件下非二分移除
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; half, a_len) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; half, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 降低 k 缩小边界
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a[next_a_begin] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; b[next_b_begin] {
+                k &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                a_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                k &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                b_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_b_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;二分之所以威力巨大，其实是因为它只用判断一半的元素，正如我们查找中位数，正向查找完全不好关心后半截的数据一样。&lt;/p&gt;
+&lt;h3 id=&#34;反向排除&#34;&gt;反向排除&lt;/h3&gt;
+&lt;p&gt;在迷茫的时候，缺乏正确的指引，盲目的追求正确，试错成本很高，而且可能要经受多次的失败。但如果是深思熟虑，通过少数的关键特征，些许的试错然后去排除错误的选项，这就能让我们更快，更有效的找到正确的选项。&lt;/p&gt;
+&lt;p&gt;学习算法，学会高效的处理的方式，同样可以使用于人生。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>无重复字符的最长子串</title>
+      <link>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Wed, 31 May 2023 23:04:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;无重复字符的最长子串httpsleetcodecnproblemslongest-substring-without-repeating-characters&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-substring-without-repeating-characters/&#34;&gt;无重复字符的最长子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: s = &amp;ldquo;abcabcbb&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出: 3&lt;/li&gt;
+&lt;li&gt;解释: 因为无重复字符的最长子串是 &amp;ldquo;abc&amp;rdquo;，所以其长度为 3。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;对于这种基础的题目，爆破始终是第一选项。如果有过更近一步的经验，感觉也能和递推产生一些关系。但是首选项必然是&lt;code&gt;滑动窗口&lt;/code&gt;。
+&lt;code&gt;滑动窗口&lt;/code&gt;其实没有什么高深的原理，只是维护一个动态的窗口条件，通过边界的缩放，判断、修改窗口内的数据关系。不过是看起来像窗口而已，我更宁愿把它归纳为之前提炼出来的&lt;code&gt;关系传导&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当然是使用&lt;code&gt;缓存&lt;/code&gt;的，但是这所谓缓存的结果，隐含了之前计算的元素之间的微妙联系。滑动窗口也是如此，它通过窗口边界的收缩，把某种关系限定在窗口数据内，当我们进行新一轮的判断的时候，&lt;code&gt;关系&lt;/code&gt;的传导让我们不必关心更多的干扰，从而去针对的制定逻辑。把纷繁的问题逐步拆分，这样就使得求解变得简单、清晰。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N) 需要遍历一遍
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(X) 字符集长度
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashSet;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;length_of_longest_substring&lt;/span&gt;(s: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; len &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; container &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashSet::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[right];
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 剔除重复字符串
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; container.contains(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left_char &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[left];
+                container.remove(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;left_char);
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 窗口内有效字符
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            container.insert(ch);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; container.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; container.len();
+            }
+        }
+        res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;基础维护&#34;&gt;基础维护&lt;/h2&gt;
+&lt;p&gt;我们为什么需要学习，因为我们想具备某种能力，从而让自己变得更加的自由。&lt;/p&gt;
+&lt;p&gt;这里隐含了一种关系，&lt;code&gt;维护&lt;/code&gt;和&lt;code&gt;使用&lt;/code&gt;。学习红黑树的时候，让我十分厌倦；不论是各种旋转还是条件、染色，只是让我觉得啰嗦。我觉得学习这种东西，除了应付差事，我大概永远和它无缘。后面知晓数据库使用了树结构，其实我也有一种想法，觉得数据库简直多余。的确，&lt;code&gt;维护&lt;/code&gt;是无用的，耗时且费力的，默默无闻一辈子，可能光辉的一瞬都不一定能换回来。&lt;/p&gt;
+&lt;p&gt;但是，俗话说得好，&lt;code&gt;一口吃不成&lt;/code&gt;胖子。想要成为胖子，那是需要&lt;code&gt;日积月累&lt;/code&gt;的，&lt;code&gt;水滴石穿，非一日之功&lt;/code&gt;。面对一些事情，我们的能力，我们的选择，并不能&lt;code&gt;一蹴而就&lt;/code&gt;。正如使用数据库，尽管实现很麻烦，使用&lt;code&gt;SQL&lt;/code&gt;也不简单，但是面对海量的数据的时候，我们能够轻易的完成查找、聚合、排序等操作。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。显而易见的是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;比起瞬间聚集的能力，维护是小步的、简单的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;我这一拳二十年的功力，你挡得住么&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;正如扭螺丝的奇葩账单，有些简单的事情背后真的很不简单。为什么不同岗位的工资差别如此的巨大，仅仅是因为工作内容的不一致么。并不是，而是来源于工作能力的培养难度。学了二十年才能出师的岗位，显然比学习一周上岗的岗位薪酬高的多。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。短小的时日并不能集聚太多的知识。&lt;/p&gt;
+&lt;p&gt;这也正是要专心写博客的原因，没有之一。你想有的能力，需要维护。维护的多好，当你使用的时候就能发挥多大的效果。比起完成瞬间积聚巨大能量的不可能，水滴石穿、细水长流的积累，显得如此的轻松。请放心，付出终究会有收获，如果每一份耕耘都太过艰难，那只是预示你将会有巨大的丰收。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>两数相加</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</link>
+      <pubDate>Tue, 30 May 2023 22:55:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</guid>
+      <description>&lt;h2 id=&#34;两数相加httpsleetcodecnproblemsadd-two-numbers&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/add-two-numbers/&#34;&gt;两数相加&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。&lt;/p&gt;
+&lt;p&gt;请你将两个数相加，并以相同形式返回一个表示和的链表。&lt;/p&gt;
+&lt;p&gt;你可以假设除了数字 0 之外，这两个数都不会以 0 开头。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：l1 = [2,4,3], l2 = [5,6,4]&lt;/li&gt;
+&lt;li&gt;输出：[7,0,8]&lt;/li&gt;
+&lt;li&gt;解释：342 + 465 = 807.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;逐位相加，算是最简单的办法了；当然，也可以转换成数字后相加，但是如果数据溢出，也会有问题。&lt;/p&gt;
+&lt;p&gt;本题最关键的，就是如何计算&lt;code&gt;进位&lt;/code&gt;。当然，谁都能看出来，但是最关键有如下几点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;位数补齐&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果其中一个链表用完了该怎么办呢，可能大多数人直接反应就是将后续的列表进行拼接，容易忽略进位。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据溢出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;计算出的结果也不一定就是和最大输入同长度的，额外的进位需要再后面进行补足。&lt;/p&gt;
+&lt;p&gt;和上一篇&lt;a href=&#34;https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/&#34;&gt;两数之和&lt;/a&gt;一样，所谓进位，也可以算得上一种关系的固化和传递，虽然很浅显，但是需要继续保有这种意识，才能逐步加深认知，才能敏锐的发现一些相似的东西。&lt;/p&gt;
+&lt;h3 id=&#34;原始解题&#34;&gt;原始解题&lt;/h3&gt;
+&lt;p&gt;先用最简单的办法实现一遍。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add_two_numbers&lt;/span&gt;(l1: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, l2: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; l1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; l1;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; l2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; l2;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; l1.is_some() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; l2.is_some() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; l1.is_some() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; node &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; l1.unwrap();
+                a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node.val;
+                l1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node.next;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; l2.is_some() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; node &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; l2.unwrap();
+                b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node.val;
+                l2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node.next;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; carry;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; {
+                sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+                carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(sum)));
+            last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last.as_mut().unwrap().next;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; carry &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)));
+        }
+        res
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;模式匹配&#34;&gt;模式匹配&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add_two_numbers&lt;/span&gt;(l1: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, l2: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (l1, l2, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// (list1, list2, sum, carry)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;loop&lt;/span&gt; {
+            data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; data {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 无数据
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                (None, None, _, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;,
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 直接进位
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                (None, None, _, carry) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; (None, None, carry, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 其中一个有数据，且能进位
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                (Some(list), None, _, carry) &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (None, Some(list), _, carry) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; list.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; carry;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; {
+                        sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+                        c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                    }
+                    (list.next, None, sum, c)
+                }
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 两个数进位加法
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                (Some(l1), Some(l2), _, carry) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; l1.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; l2.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; carry;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; {
+                        sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+                        c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                    }
+                    (l1.next, l2.next, sum, c)
+                }
+            };
+
+            &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(data.&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)));
+            last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last.as_mut().unwrap().next;
+        }
+        res
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;递归处理&#34;&gt;递归处理&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add_two_numbers&lt;/span&gt;(l1: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, l2: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res;
+        Self::add_two_numbers_recursive(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, last, l1, l2);
+        res
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add_two_numbers_recursive&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; carry: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, last: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, l1: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, l2: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; (l1, l2, carry) {
+            (None, None, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))),
+            (Some(node), None, _) &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (None, Some(node), _) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; carry;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; {
+                    sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+                    carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                }
+                &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(sum)));
+                Self::add_two_numbers_recursive(carry, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last.as_mut().unwrap().next, node.next, None);
+            },
+            (Some(node1), Some(node2), _) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node1.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; node2.val &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; carry;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt; {
+                    sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+                    carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    carry &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                }
+                &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode::new(sum)));
+                Self::add_two_numbers_recursive(carry, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last.as_mut().unwrap().next, node1.next, node2.next);
+            },
+            _ &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {}
+            
+        }  
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;优化处理&#34;&gt;优化处理&lt;/h2&gt;
+&lt;p&gt;关于这个问题的主体，还是在&lt;code&gt;进位&lt;/code&gt;的计算，不论是只剩下单边数据了还能继续进位，还是说溢出产生的额外进位。&lt;/p&gt;
+&lt;p&gt;虽然问题的核心得到了解决，不过还有几个方面让我们的方案变得更好&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进位终止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;前面虽然说了即使单边数据也能连续进位，但是对于不可进位的单边数据，可以采取直接嫁接的方法，提前结束判断。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原地相加&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以不利用额外的数据结构，直接以单边数据为容器进行相加。不过这种方式还是避免不了进位溢出和选取了数据较短的一方，空间复杂度还是一样的。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>两数之和</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Mon, 29 May 2023 23:31:46 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</guid>
+      <description>&lt;h2 id=&#34;两数之和httpsleetcodecnproblemstwo-sum&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/two-sum/&#34;&gt;两数之和&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出 和为目标值 &lt;code&gt;target&lt;/code&gt;  的那两个整数，并返回它们的数组下标。&lt;/p&gt;
+&lt;p&gt;你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。&lt;/p&gt;
+&lt;p&gt;你可以按任意顺序返回答案。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [2,7,11,15], target = 9&lt;/li&gt;
+&lt;li&gt;输出：[0,1]&lt;/li&gt;
+&lt;li&gt;解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;h3 id=&#34;爆破&#34;&gt;爆破&lt;/h3&gt;
+&lt;p&gt;对于这道题，粗暴的求解方式就是对于数组中的的两两组合求值，从而判断结果是否符合答案&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(n^2) : 最坏情况需要遍历全部可能配对
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)  : 无额外空间消耗
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;two_sum&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;(len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; j &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; nums[j] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![i &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; , j &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;];
+                }
+            }
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;按图索骥&#34;&gt;按图索骥&lt;/h3&gt;
+&lt;p&gt;这里有两个特殊的视角&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于确定等式的三个数值，我们只要确定了其中两个，就能够唯一确定第三个&lt;/li&gt;
+&lt;li&gt;可以列一个清单去进行匹配，而不是每次都需要重新计算(缓存)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本质的核心，其实就是等式关系的延续，把一个&lt;code&gt;满足等式的数&lt;/code&gt;的判断，转化为&lt;code&gt;某个确定的数&lt;/code&gt;的限定条件。&lt;!-- raw HTML omitted --&gt;
+更关键的是，对于&lt;code&gt;target&lt;/code&gt;和&lt;code&gt;nums[?]&lt;/code&gt;的依赖，做了一个特殊的持久化，不用每次计算都携带，降低了信息传递的消耗。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N) : 只用遍历一遍
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N) : 最坏情况首尾相加
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;two_sum&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; map &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashMap::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;nums.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums[i];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; map.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;value);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; last.is_some() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![last.unwrap().to_owned(), index];
+            }
+            map.insert(target &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; value, index);
+        }
+        unreachable!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;illegal status&amp;#34;&lt;/span&gt;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;关键技巧&#34;&gt;关键技巧&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;缓存&lt;/code&gt;固然是一个关键的技巧，但是我更宁愿把&lt;code&gt;固化&lt;/code&gt;称为其中核心秘籍。&lt;/p&gt;
+&lt;p&gt;正是因为&lt;code&gt;固化&lt;/code&gt;了其中的计算关系，&lt;code&gt;缓存&lt;/code&gt;才能发挥更大的能力。
+所谓&lt;code&gt;缓存&lt;/code&gt;，其实就是耗费资源去得到的一个结果，当我们重复的去获取这个结果的时候，使用已经计算好的副本，能够极大的避免计算的开销。
+因此，在涉及重复计算的场景下，缓存有很大的作用空间；但是，&lt;code&gt;固化&lt;/code&gt;作为其核心要义，并非只是简单的存储结果。
+一个计算结果本身就有来由的原因。&lt;/p&gt;
+&lt;p&gt;本题中，正式因为把算式的因果关系转换，并且利用缓存进行&lt;code&gt;固化&lt;/code&gt;，把查找转换为匹配，才根源上完成解题的突破。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

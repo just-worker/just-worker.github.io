@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>觉悟 on just-worker</title>
+    <link>https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/</link>
+    <description>Recent content in 觉悟 on just-worker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 31 May 2023 23:04:18 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>无重复字符的最长子串</title>
+      <link>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Wed, 31 May 2023 23:04:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;无重复字符的最长子串httpsleetcodecnproblemslongest-substring-without-repeating-characters&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-substring-without-repeating-characters/&#34;&gt;无重复字符的最长子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: s = &amp;ldquo;abcabcbb&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出: 3&lt;/li&gt;
+&lt;li&gt;解释: 因为无重复字符的最长子串是 &amp;ldquo;abc&amp;rdquo;，所以其长度为 3。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目分析&#34;&gt;题目分析&lt;/h2&gt;
+&lt;p&gt;对于这种基础的题目，爆破始终是第一选项。如果有过更近一步的经验，感觉也能和递推产生一些关系。但是首选项必然是&lt;code&gt;滑动窗口&lt;/code&gt;。
+&lt;code&gt;滑动窗口&lt;/code&gt;其实没有什么高深的原理，只是维护一个动态的窗口条件，通过边界的缩放，判断、修改窗口内的数据关系。不过是看起来像窗口而已，我更宁愿把它归纳为之前提炼出来的&lt;code&gt;关系传导&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当然是使用&lt;code&gt;缓存&lt;/code&gt;的，但是这所谓缓存的结果，隐含了之前计算的元素之间的微妙联系。滑动窗口也是如此，它通过窗口边界的收缩，把某种关系限定在窗口数据内，当我们进行新一轮的判断的时候，&lt;code&gt;关系&lt;/code&gt;的传导让我们不必关心更多的干扰，从而去针对的制定逻辑。把纷繁的问题逐步拆分，这样就使得求解变得简单、清晰。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N) 需要遍历一遍
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(X) 字符集长度
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashSet;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;length_of_longest_substring&lt;/span&gt;(s: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; len &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; container &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashSet::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[right];
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 剔除重复字符串
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; container.contains(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left_char &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chars[left];
+                container.remove(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;left_char);
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 窗口内有效字符
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            container.insert(ch);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; container.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; container.len();
+            }
+        }
+        res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;基础维护&#34;&gt;基础维护&lt;/h2&gt;
+&lt;p&gt;我们为什么需要学习，因为我们想具备某种能力，从而让自己变得更加的自由。&lt;/p&gt;
+&lt;p&gt;这里隐含了一种关系，&lt;code&gt;维护&lt;/code&gt;和&lt;code&gt;使用&lt;/code&gt;。学习红黑树的时候，让我十分厌倦；不论是各种旋转还是条件、染色，只是让我觉得啰嗦。我觉得学习这种东西，除了应付差事，我大概永远和它无缘。后面知晓数据库使用了树结构，其实我也有一种想法，觉得数据库简直多余。的确，&lt;code&gt;维护&lt;/code&gt;是无用的，耗时且费力的，默默无闻一辈子，可能光辉的一瞬都不一定能换回来。&lt;/p&gt;
+&lt;p&gt;但是，俗话说得好，&lt;code&gt;一口吃不成&lt;/code&gt;胖子。想要成为胖子，那是需要&lt;code&gt;日积月累&lt;/code&gt;的，&lt;code&gt;水滴石穿，非一日之功&lt;/code&gt;。面对一些事情，我们的能力，我们的选择，并不能&lt;code&gt;一蹴而就&lt;/code&gt;。正如使用数据库，尽管实现很麻烦，使用&lt;code&gt;SQL&lt;/code&gt;也不简单，但是面对海量的数据的时候，我们能够轻易的完成查找、聚合、排序等操作。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。显而易见的是&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;比起瞬间聚集的能力，维护是小步的、简单的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;我这一拳二十年的功力，你挡得住么&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;正如扭螺丝的奇葩账单，有些简单的事情背后真的很不简单。为什么不同岗位的工资差别如此的巨大，仅仅是因为工作内容的不一致么。并不是，而是来源于工作能力的培养难度。学了二十年才能出师的岗位，显然比学习一周上岗的岗位薪酬高的多。这全部是&lt;code&gt;维护&lt;/code&gt;的功劳。短小的时日并不能集聚太多的知识。&lt;/p&gt;
+&lt;p&gt;这也正是要专心写博客的原因，没有之一。你想有的能力，需要维护。维护的多好，当你使用的时候就能发挥多大的效果。比起完成瞬间积聚巨大能量的不可能，水滴石穿、细水长流的积累，显得如此的轻松。请放心，付出终究会有收获，如果每一份耕耘都太过艰难，那只是预示你将会有巨大的丰收。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>记录的必要</title>
+      <link>https://just-worker.github.io/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/</link>
+      <pubDate>Sun, 28 May 2023 23:41:19 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/</guid>
+      <description>&lt;h2 id=&#34;为什么记录&#34;&gt;为什么记录&lt;/h2&gt;
+&lt;p&gt;今天突然有一个感悟：先有的目的，然后有的方法。或者说，因为想，所以成。虽然有点心想事成的玄学，但事实的确如此。&lt;/p&gt;
+&lt;p&gt;生活之中，别人向你求解某些东西的时候，别人弄不明白，反而说你讲不清楚；这让人十分的气愤。不过，有些人，的确也会，却热衷于让人弄明白，也让我感叹：这真是十足的叛徒。
+不论他背叛的了什么，但是后续一种称为&lt;code&gt;沟通技巧&lt;/code&gt;的东西的确的会流传开，正如开发背叛了技术，去舔了产品，从而出现了&lt;code&gt;DDD&lt;/code&gt;。开个玩笑，不过事实的确如此。抛开主观的臆想和情绪，真正的投入到关注的东西上面去，才会真的衍生出某种超脱的东西，而非局限于现状。终究，研究的东西终会明了，阻碍的问题也会得以解决。&lt;/p&gt;
+&lt;p&gt;这对于我而言，真的十分重要，至少，我发现很多时候我都在原地踏步。谈不上刻苦，算不上勤勉，也不是懒惰，我还是有一点点的努力的。只是偶尔回顾的时候，我发现我始终在重复。之前我的观点是，&amp;ldquo;脚踏实地，一步一步&amp;rdquo;，但是一直没能前进。后来，我想的是先探路，再夯实，结果是脚步虚浮。现在，我不知道我经历过什么，也说不清我将要遭遇什么，对于过去和现在以及将来，似乎有所感，却朦朦胧胧。&lt;/p&gt;
+&lt;p&gt;这就是我现在面临的最大的问题：不清晰。&lt;/p&gt;
+&lt;p&gt;必定是有什么办法去解决的，只要我真的关注这件事情，不分心，也不推辞的话。过去的学习，思考和经验，由于没有进一步的归纳和总结，它们就消逝得无影无踪，但的确的曾经出现过。
+这是必然是让人恍惚的，当再次回忆的时候，那种朦胧和迷离，给不了当下的我一种明晰的回馈。由此，它给我带来了一些盲目的自信，因为一个圆满的成功，一个失误都消逝了的单纯的结果；它也给我带来更多惶恐的自卑，因为一个虚浮的结果，一个没用具体支撑的空中楼阁。这种糟糕的心灵折磨，每天都轮番上阵。尤其是当我正投入的学习的时候，总是会回想起我上一次的学习，明白的告诉我，这的确是我对于同样的东西的不只一次的学习，明确的表明，我仍然没有学会，以及领悟更多的东西。&lt;/p&gt;
+&lt;p&gt;势必要让它变得更明白一些了。让一些念头，真切的坦露；让一些学习，镌刻心头；让一些妄念，剥离开来。我想当我谈及某种东西的时候，我能够清晰的回忆起细节；记忆固然是不可靠的，那我也能找到我当时的领悟。简而言之，我想让将来的我，能够稳定且准确的回到我当前的状态；只有这样，我才能够为自己的努力自豪；也才能够依循上次的脚步，继续加深，而非从头来过。&lt;/p&gt;
+&lt;p&gt;那就详细的记录下来，关于自己的学习，自己的思想。把真实留住，把妄想驱逐。&lt;/p&gt;
+&lt;h2 id=&#34;记录些什么&#34;&gt;记录些什么&lt;/h2&gt;
+&lt;p&gt;从我现在的需求，应该能够确定我将来需要回溯的场景。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当我想发挥的时候，我能分辨我是否有(过)这种能力&lt;/li&gt;
+&lt;li&gt;当我想学习的时候，我能知晓我的学习程度&lt;/li&gt;
+&lt;li&gt;当我想规划的时候，我能权衡我的知识储备&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也就是说，我应该详尽的去记录自己想要回溯的状态，尽量的表明我所掌握的知识，体现我掌握的程度。不要夸大，也不要遗漏，即使是错误的也不要紧，后续我也能够发现自己的更正(进步)。&lt;/p&gt;
+&lt;p&gt;回到之前所说的感悟，套用到我当前的状态。正式因为要解决我当前的迷茫状态，我才需要去分析和关注我当前的行为。可能不能够马上达到正确的结果，但是我需要继续专注。&lt;/p&gt;
+&lt;h2 id=&#34;记录的规则&#34;&gt;记录的规则&lt;/h2&gt;
+&lt;p&gt;即使当前只有一个模糊的想法，但是把它逐渐清晰的雕刻出来，才是最终的目的。因此，需要一些限制，防止懒散入侵，让此刻的想法得以坚持。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;每天都要记录
+这是最基础的点了，我觉得要必要保持每天的思考。顶层设计，自上而下的倒逼的话，就是每天都需要记录，以此来强迫自己每日对于思考的追逐。&lt;/li&gt;
+&lt;li&gt;非发泄的记录
+记录的东西可以是学习，可以是回忆，可以是感想，唯独不能是单纯的情绪发泄。记录将是一种旅行，每一步都将是脚印，让脚印清晰，让脚印整齐，让脚印前进这才有记录的意义。纯粹的情绪发泄，正如原地踏步，它无法深刻任何东西，感受不到任何具体，不能让人前进。&lt;/li&gt;
+&lt;li&gt;清晰的分类
+记录的范围的确过于宽泛了，但是目前也不能够约定的足够详细，那样就抹灭了灵性。因此，对于宽泛的记录，有必要分门别类的进行整理，需要慎重、清晰的对文章进行标记整理。&lt;/li&gt;
+&lt;li&gt;准确且详细的表达
+记录不仅仅是给自己带来自信，不可否认的一点，将来某一时刻，它必将被查看，或者说，我们都将回到现在。因此，关于现在的记录，势必要有一定的详尽且真实的记载。在将来的某一刻，我们才能够准确无误的抵达现在，没有虚假，也没有确实，完整的回来。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>再一次开始</title>
+      <link>https://just-worker.github.io/blog/%E5%86%8D%E4%B8%80%E6%AC%A1%E5%BC%80%E5%A7%8B/</link>
+      <pubDate>Sat, 27 May 2023 21:17:35 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%86%8D%E4%B8%80%E6%AC%A1%E5%BC%80%E5%A7%8B/</guid>
+      <description>&lt;h2 id=&#34;赏心悦目的博客&#34;&gt;赏心悦目的博客&lt;/h2&gt;
+&lt;p&gt;从最开始的 &lt;code&gt;csdn&lt;/code&gt;，后面的 &lt;code&gt;gitPages&lt;/code&gt; ，后续自建的 &lt;code&gt;hexo&lt;/code&gt;。不断来回反复，却始终原地踏步。
+我不太确信博客的定义，我只是希望它&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无广告&lt;/li&gt;
+&lt;li&gt;简洁轻便明了&lt;/li&gt;
+&lt;li&gt;公网访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以此去规范自己逐步的学习、记录进步。&lt;/p&gt;
+&lt;p&gt;现在，我大概找到了最中意的样式和方式了。剩下的，只能是向内求取了，也杜绝了分神的接口。&lt;/p&gt;
+&lt;h2 id=&#34;迟迟未到的觉悟&#34;&gt;迟迟未到的觉悟&lt;/h2&gt;
+&lt;p&gt;一直都是觉得，&lt;code&gt;只有...我才能...&lt;/code&gt;。这么一个欺骗自己的句式，因为之前的太多铺垫造就的顺风，让我沉迷太久。
+现在也算是划一个句号吧。年龄比觉悟早早的就到了，我也不确定这个觉悟能够持续多久。可能过不了多久就会消散，也没有确切的方法一直维持；唯一能做的，就是应该把当前想做的做到，让后续的努力不再重复，得以到达更远的地方。&lt;/p&gt;
+&lt;h2 id=&#34;稳稳当当的以后&#34;&gt;稳稳当当的以后&lt;/h2&gt;
+&lt;p&gt;不一定是稳定的，可能也会继续波折。
+只是对个人而言，我希望今后能够稳定一点。学习和积累方面吧，其他方面个人说了也不算。
+今后博客这条路也就不再重复了，也不找借口挥霍时间和精力了。&lt;/p&gt;
+&lt;p&gt;记录生活，记录学习，记录人生；从现在开始。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
