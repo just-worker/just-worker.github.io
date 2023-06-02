@@ -6,7 +6,128 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 01 Jun 2023 22:51:53 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Jun 2023 20:51:49 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>寻找两个正序数组的中位数2</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/</link>
+      <pubDate>Fri, 02 Jun 2023 20:51:49 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/</guid>
+      <description>&lt;h2 id=&#34;紧跟上文&#34;&gt;紧跟上文&lt;/h2&gt;
+&lt;p&gt;紧跟上文&lt;a href=&#34;https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/&#34;&gt;寻找两个正序数组的中位数&lt;/a&gt;，在二分之后，继续深入。&lt;/p&gt;
+&lt;h2 id=&#34;原理分析&#34;&gt;原理分析&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;中位数: 将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;具体的分析可以从&lt;a href=&#34;https://leetcode.cn/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/&#34;&gt;官网解析&lt;/a&gt;找到详细的论述，我这里就不多费唇舌。&lt;/p&gt;
+&lt;p&gt;结论就是，针对数组&lt;code&gt;a&lt;/code&gt;选取坐标&lt;code&gt;i&lt;/code&gt;，对于数组&lt;code&gt;b&lt;/code&gt;选取坐标&lt;code&gt;j&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;left&lt;/code&gt; : &lt;code&gt;a[0..i] + b[0..j]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt; : &lt;code&gt;a[i..] + b[j..]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;max(left) &amp;lt;= min(right)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;0 &amp;lt;= i &amp;lt; a_len, 0 &amp;lt;= j &amp;lt; b_len, i + j = (a_len + b_len + 1) / 2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其中 i + j 公式来自于&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;总长偶数: &lt;code&gt;left.len == right.len&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;总长奇数: &lt;code&gt;left.len = right.len + 1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;换句话说，换算成等式关系之后，我们只需要检索其中一个数组之后，就可以得出结论了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(log(min(M, N)))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cmp;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median_sorted_arrays&lt;/span&gt;(a: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, b: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 始终保证 a 长度小于 b
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b_len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::find_median_sorted_arrays(b, a);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len;
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, a_len);
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界数据
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a_max, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b_min) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 检索
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; right {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分检索 i
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 计算对应的 j 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; i;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// a[i-1] 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; a_i_prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最小
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MIN
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                a[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// a[i]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; a_i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; a_len {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最大
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MAX
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                a[i]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// b[j-1]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; b_j_prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最小
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MIN
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                b[j &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// b[j]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; b_j &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; j &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b_len {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 边界最大
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MAX
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                b[j]
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 满足条件，非最大 i ,向右查找
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_i_prev &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; b_j {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 左侧数组的最大值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                a_max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::max(a_i_prev, b_j_prev);
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 右侧数组的最小值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                b_min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(a_i, b_j);
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 向右推进
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; { 
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 向左查找
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 因为 左侧 多收容，中位数就是左侧最大数字
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            a_max &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 双边界平均
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            (a_max &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_min) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;降维打击&#34;&gt;降维打击&lt;/h2&gt;
+&lt;p&gt;看完之后，只能说要常复习，常练习，只能看懂却不能掌握，实在太遗憾。&lt;/p&gt;
+&lt;p&gt;同时，有两个启发&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;另辟蹊径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本题中，从另一个角度去分析题目，把一道&lt;code&gt;搜索题&lt;/code&gt;变成了一道&lt;code&gt;计算题&lt;/code&gt;。虽然还是有搜索的部分，但是更偏向于&lt;code&gt;计算+匹配&lt;/code&gt;了，比起之前的简单计算+复杂搜索，把搜索的复杂度，向计算过度，从而达到足够优化的算法复杂度；进一步对原有的实现方法形成降维打击。&lt;/p&gt;
+&lt;p&gt;一方面，可以说是思维的精妙。一般时间复杂度的降低，除了大量空间的牺牲可以提高，剩下的只能够凭借精妙的算法得以达成。&lt;/p&gt;
+&lt;p&gt;另一方面，则是思维上的开拓。不仅仅是对于思维的跳脱，还需要有开阔的眼界，否则，何来的素材；多积累才有的多选择。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关系传导&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;很多事情，哪怕算法，只有抓到核心关键，才能够事半功倍。正如斐波那契，正如汉诺塔。如果只是一昧的暴力，总有碰壁的时候。同样是规律，越是接近事物的本质，效率也来的更加的快速；刨除了无用的损耗，效率自然成倍的提高。&lt;/p&gt;
+&lt;p&gt;越来越相信大道至简，因为越是了解越多，越是接近本质，如此的简单，威力却如此的巨大。降维打击，莫过如此。&lt;/p&gt;
+&lt;p&gt;的确，如果真的想要时时顺心，事事如意，我们必须要提高我们的效率，去达成面临的事情；但是面临的事情逐渐的庞大，我们的效率不能只是&lt;code&gt;速度&lt;/code&gt;，还要有&lt;code&gt;质量&lt;/code&gt;，快速的，摧枯拉朽的去解决掉阻碍的事情，这才是我们需要积累的能力。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>寻找两个正序数组的中位数</title>
       <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</link>
@@ -117,7 +238,7 @@
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
                 &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cmp::min(a[a_begin], b[b_begin]) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
             }
-            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分移除： 因为对于half而言是可以稳定移除的
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 二分移除： 因为对于half而言是可以稳定移除
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; half &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
             &lt;span style=&#34;color:#75715e&#34;&gt;// 边界条件下非二分移除
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_a_begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cmp::min(a_begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; half, a_len) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
@@ -136,8 +257,9 @@
 }
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;二分之所以威力巨大，其实是因为它只用判断一半的元素，正如我们查找中位数，正向查找完全不好关心后半截的数据一样。&lt;/p&gt;
-&lt;h3 id=&#34;明天继续&#34;&gt;明天继续&lt;/h3&gt;
-&lt;p&gt;对于基础的解法到这里，明天继续第二弹的扩充。&lt;/p&gt;
+&lt;h3 id=&#34;反向排除&#34;&gt;反向排除&lt;/h3&gt;
+&lt;p&gt;在迷茫的时候，缺乏正确的指引，盲目的追求正确，试错成本很高，而且可能要经受多次的失败。但如果是深思熟虑，通过少数的关键特征，些许的试错然后去排除错误的选项，这就能让我们更快，更有效的找到正确的选项。&lt;/p&gt;
+&lt;p&gt;学习算法，学会高效的处理的方式，同样可以使用于人生。&lt;/p&gt;
 </description>
     </item>
     
