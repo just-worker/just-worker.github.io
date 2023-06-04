@@ -6,7 +6,129 @@
     <description>Recent content in 算法 on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 02 Jun 2023 20:51:49 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Jun 2023 22:46:53 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最长回文子串</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Sun, 04 Jun 2023 22:46:53 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;最长回文子串httpsleetcodecnproblemslongest-palindromic-substring&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-palindromic-substring/&#34;&gt;最长回文子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串 s，找到 s 中最长的回文子串。&lt;/p&gt;
+&lt;p&gt;如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;babad&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：&amp;ldquo;bab&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;解释：&amp;ldquo;aba&amp;rdquo; 同样是符合题意的答案。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;看到这种类似数组的东西，可能第一想法已经是&lt;code&gt;滑动窗口&lt;/code&gt;一类的了，但是仔细想一下，因为是&lt;code&gt;字符串&lt;/code&gt;，我们可能要重复扫描，滑动窗后就不行了。但是对于复用原来计算结果的&lt;code&gt;关系传递&lt;/code&gt;，我们还是可以利用的，这就诞生了第一种解法。&lt;/p&gt;
+&lt;h3 id=&#34;dp&#34;&gt;dp&lt;/h3&gt;
+&lt;p&gt;因为不可能一次性扫描，为了复用结果而采用&lt;code&gt;dp&lt;/code&gt;，我们可以轻易的得出如下结论&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;arr[i][i]&lt;/code&gt; 单字符串必然是回文&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;arr[i] == arr[j]&lt;/code&gt;那么，关键就看&lt;code&gt;arr[i+1]&lt;/code&gt;和&lt;code&gt;arr[j-1]&lt;/code&gt;，如果&lt;code&gt;i + 1 = j&lt;/code&gt;，也是回文&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中的递推关系出现了，但是问题才刚开始：长字符串始终是依赖短字符串的结果的，那么怎么开始遍历呢。&lt;/p&gt;
+&lt;p&gt;我们的递推关系式固然是根据子串的边界，但是需要从小的字符串优先计算，因此，必须使用特殊的遍历技巧。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(n^2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(n^2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;longest_palindrome&lt;/span&gt;(s: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; string_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; string_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp : Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;string_length).map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;vec![&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;; string_length]).collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars : Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; sub_length &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;string_length {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; left &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;string_length {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sub_length &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; string_length {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+                }
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; chars[left] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; chars[right] {
+                    dp[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sub_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; {
+                    dp[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    dp[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[left&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][right&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+                }
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dp[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sub_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; max_length {
+                    max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sub_length;
+                    begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left;
+                }
+            }
+        }
+        chars.iter().enumerate()
+        .filter(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;(i, v)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; max_length)
+        .map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;(i, v)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v)
+        .collect()
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;遍历检测&#34;&gt;遍历检测&lt;/h3&gt;
+&lt;p&gt;为什么我们总是去想到一些奇淫技巧呢，可能对于算法题，我们总是感觉有一种&lt;code&gt;技巧性&lt;/code&gt;在里面，否则就无法解题，至少效率不是很高。但是我们在原来的&lt;code&gt;dp&lt;/code&gt;基础上，直接解题会怎么样，我们直接定一个中心，然后向两边进行扩展。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;遍历字符串，定中心&lt;/li&gt;
+&lt;li&gt;检测回文，计算结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这似乎更简单，我们尝试一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(n^2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// spae: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;longest_palindrome&lt;/span&gt;(s: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; string_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; string_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;expand&lt;/span&gt;(arr: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, left: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; arr.len() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; right;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;loop&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; arr[left] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; arr[right] {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                }
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; arr.len() {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                }
+                left &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                right &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars : Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; center &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;string_length {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; odd_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; expand(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;chars, center, center);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; event_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; expand(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;chars, center, center &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; center_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(odd_length, event_length);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; center_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; max_length {
+                max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; center_length;
+                begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; center &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (center_length &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            }
+        }
+        chars.iter().enumerate()
+        .filter(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;(i, _)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; max_length)
+        .map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;(_, v)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v)
+        .collect()
+
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;虽然是笨办法，但是在同等时间复杂度下，不需要借助额外的辅助空间也能够达成目的。也就是说，对于递推类问题，维护关系式第一要素，但是无法做到滑动窗口那种对于元素的一次性计算，有可能还会造成空间的浪费。&lt;/p&gt;
+&lt;h2 id=&#34;马拉车&#34;&gt;马拉车&lt;/h2&gt;
+&lt;p&gt;明天马拉车，代办&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>寻找两个正序数组的中位数2</title>
       <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/</link>
