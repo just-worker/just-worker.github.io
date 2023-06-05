@@ -6,7 +6,169 @@
     <description>Recent content in 算法 on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 04 Jun 2023 22:46:53 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Jun 2023 22:55:57 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最长回文子串2</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B22/</link>
+      <pubDate>Mon, 05 Jun 2023 22:55:57 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B22/</guid>
+      <description>&lt;h2 id=&#34;前情回顾&#34;&gt;前情回顾&lt;/h2&gt;
+&lt;p&gt;上一篇&lt;a href=&#34;https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/&#34;&gt;最长回文子串&lt;/a&gt;中，我们尝试过两种办法去解答&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;递推：使用空间记录计算过的结果&lt;/li&gt;
+&lt;li&gt;扩展：直接扩展计算匹配&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在我们尝试去解决这两个方案的缺点。在此之前，因为&lt;code&gt;rust&lt;/code&gt;语法和我不想对&lt;code&gt;i32&lt;/code&gt;妥协的原因，前面的&lt;code&gt;expand&lt;/code&gt;方法实现比较扭曲。
+为了这次扩展，重写一下&lt;code&gt;expand&lt;/code&gt;，对&lt;code&gt;i32&lt;/code&gt;进行妥协。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;expand&lt;/span&gt;(arr: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, left: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; arr.len() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; arr[left &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; arr[right &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] {
+            left &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            right &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;问题分析&#34;&gt;问题分析&lt;/h2&gt;
+&lt;h3 id=&#34;奇偶串&#34;&gt;奇偶串&lt;/h3&gt;
+&lt;p&gt;在使用中心扩展的时候，我们需要扩展两次，因为我们不确定它是奇串还是偶串。这里有一个特殊的特性&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于奇数串，它的可插入空位是偶数；对于偶数串，它的可插入空位是奇数。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;根据这个特性，我们可以对原字符串进行空插，最后得出的一定是奇串；最后去剔除掉插入的字符，这样就能够完美解决奇偶串的问题。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fill&lt;/span&gt;(s: String) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt;];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ch &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; s.chars() {
+            res.push(ch);
+            res.push(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt;);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;这里的#字符并非一定要是原生字符串之外的字符；因为它自带的对称性并不破坏原有数据的对称性；根据它空插的特性，也可以详细的指定移除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;计算记忆&#34;&gt;计算记忆&lt;/h3&gt;
+&lt;p&gt;之前使用递推，结果不仅时间复杂度没有降低，空间复杂度反而更高，这是为什么呢。主要在于遍历的非线性。我们固然在逻辑上创建了一个具有线性关系的递推式，但是实际遍历过程中，为了维护这种逻辑的线性，我们的遍历方式反而是非线性的，这决定了它的时间复杂度&lt;code&gt;O(N^2)&lt;/code&gt;。其次，我们的存储结构，也要求了空间的复杂度&lt;code&gt;O(N^2)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;因此，核心的关系在于，我们能够找出一种线性的遍历关系，让我们既能线性遍历，又能复用计算结果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对称&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在强制要求线性遍历的场景下，我们先考察一下是否能够有一种办法去传递我们的计算结果。&lt;/p&gt;
+&lt;p&gt;对于未遍历导的场景，遍历是必然的。我们假设在遍历到的一个回文串中，关于中心点对称的两个点的性质。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为空插字符，始终是奇串。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因为两个点都是对称的，因此，他们的回文状态必然也是对称的；这样，的确存在了我们可以复用的传递关系。如果对称点不对称，我们必然要重新进行计算，这里当然选用中心扩展的办法。&lt;/p&gt;
+&lt;p&gt;这里引申出两个问题：我们需要如何确定这个对称的中心点，我们需要如何利用这个关系进行传导计算。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为了尽可能的复用计算结果，需要尽量将要计算的结果包裹在已经计算的范围内，因此，我们需要最靠近右边的中心对称边界&lt;/li&gt;
+&lt;li&gt;如果有对称的结果，我们能够确定最小的对称长度就是：对称点的对称长度和当前点到对称边界的长度&lt;/li&gt;
+&lt;li&gt;利用中心扩展，对于已知的对称长度，我们可以直接扩展到指定位置，无需重复计算&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;基于这三点，我们已经能够解答提出的疑问。但是还有一个问题，那就是用什么数据结构去描述这个对称结果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;臂长&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如无必要，勿增实体&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;根据奥卡姆剃刀原则，我们最后的结果实际上只和中心扩展的位置相关，只需要一个数据，无需关心具体的字符。其次，利用空插字符后，始终是进行奇串的中心匹配。&lt;/p&gt;
+&lt;p&gt;由此，&lt;code&gt;臂长&lt;/code&gt;这个概念应运而生，关于中心点左右对称，单边长度即为&lt;code&gt;臂长&lt;/code&gt;，回文长度就是两倍的臂长加上作为中心字符的长度。&lt;/p&gt;
+&lt;p&gt;至此，我们思考并收集了解题的全部要素。&lt;/p&gt;
+&lt;h3 id=&#34;马拉车&#34;&gt;马拉车&lt;/h3&gt;
+&lt;p&gt;前面的思路全部聚集，就是大名鼎鼎的&lt;a href=&#34;https://baike.baidu.com/item/Manachar%E7%AE%97%E6%B3%95/20415813?fr=aladdin&#34;&gt;Manachar算法&lt;/a&gt;，小名 &lt;code&gt;马拉车&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这里主要分析一下它的复杂度&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;空间复杂度 : &lt;code&gt;O(N)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因为要记住已经计算过的臂长的集合，总的就会有&lt;code&gt;N&lt;/code&gt;个元素，&lt;code&gt;O(N)&lt;/code&gt;空间必不可少。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间复杂度 : &lt;code&gt;O(N)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;需要提前申明的是，中心扩展是同时向两边扩展的，如果单边的长度是&lt;code&gt;N&lt;/code&gt;，总数据长度是&lt;code&gt;2N+1&lt;/code&gt;，但是复杂度依旧是&lt;code&gt;O(N)&lt;/code&gt;。因此这里只讨论单向扩展的问题。对于没有计算过的数据，首次计算他会拓展已经记录的右边界。如果对于已经计算过的对称字符内部，可以复用对称边界内的结果，直接推到边界点开始扩展。&lt;/p&gt;
+&lt;p&gt;因此，数据的每次扩展，都只会在边界外进行扩展，也就是说，时间复杂度是&lt;code&gt;O(N)&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;代码实现&#34;&gt;代码实现&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;longest_palindrome&lt;/span&gt;(s: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Self::fill(s);
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 马拉车
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; center &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; arms &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; chars.len()];
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 题解
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; current &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;chars.len() {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 边界内
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; current {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; mirror &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; center &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; current;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; min_arm &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::min(arms[mirror], right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; current);
+                arms[current] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Self::arm(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;chars, current &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; min_arm, current &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; min_arm);
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                arms[current] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Self::arm(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;chars, current, current);
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 马拉车
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; arms[current] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; right {
+                center &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current;
+                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; arms[current];
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 题解
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; arms[current] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; max_length {
+                max_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; arms[current] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; arms[current];
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界 + 空插字符
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        chars.iter().enumerate()
+        .filter(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;(i, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; max_length)
+        .map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;(_, v)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v)
+        .collect()
+
+    }
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 空插
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fill&lt;/span&gt;(s: String) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt;];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ch &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; s.chars() {
+            res.push(ch);
+            res.push(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt;);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 中心扩展
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;expand&lt;/span&gt;(arr: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, left: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; arr.len() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; arr[left &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; arr[right &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] {
+            left &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            right &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;// 计算臂长
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arm&lt;/span&gt;(arr: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, left: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::expand(arr, left, right) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+    }
+      
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;平心静气&#34;&gt;平心静气&lt;/h2&gt;
+&lt;p&gt;仔细研读之后，在细细思索，整理出其中思路不难，整理出自己的思路不难。&lt;/p&gt;
+&lt;p&gt;面对问题，主要的是分析，依据自身积累的储备，从各方面和角度进行详细的分析，寻求突破。&lt;/p&gt;
+&lt;p&gt;可以不会，但是要学会积累。积累到一定程度，就能够解决一些未知但是可以已知的问题了。要保持思考。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>最长回文子串</title>
       <link>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</link>
