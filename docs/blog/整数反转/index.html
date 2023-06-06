@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>整数反转</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@ - just-worker">
+    <meta name="description" content="Ladder@整数反转 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。 如果反转后整数超过 32 位的有符号整数的范围 [−231, 231 − 1] ，就返回 0。">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/archives/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="" />
-<meta property="og:description" content="" />
+    <meta property="og:title" content="整数反转" />
+<meta property="og:description" content="整数反转 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。 如果反转后整数超过 32 位的有符号整数的范围 [−231, 231 − 1] ，就返回 0。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/archives/" /><meta property="article:section" content="" />
-
-
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-06T23:50:22+08:00" />
+<meta property="article:modified_time" content="2023-06-06T23:50:22+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="整数反转"/>
+<meta name="twitter:description" content="整数反转 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。 如果反转后整数超过 32 位的有符号整数的范围 [−231, 231 − 1] ，就返回 0。"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +33,14 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "",
-      "item": "https://just-worker.github.io/archives/"
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "整数反转",
+      "item": "https://just-worker.github.io/blog/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/"
     }
   ]
 }
@@ -43,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
-  "description": "",
+  "headline": "整数反转",
+  "name": "整数反转",
+  "description": "整数反转 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。 如果反转后整数超过 32 位的有符号整数的范围 [−231, 231 − 1] ，就返回 0。",
   "keywords": [
-    
+    "leetcode", "算法"
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "整数反转 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。\n如果反转后整数超过 32 位的有符号整数的范围 [−231, 231 − 1] ，就返回 0。\n 假设环境不允许存储 64 位整数（有符号或无符号）。\n 输入：x = 123 输出：321   题目分析 // time: O(LEN) // space: O(1) impl Solution { pub fn reverse(x: i32) - i32 { let sign = if x  0 {-1} else {1}; let mut x = sign * x; let mut res = 0; while x  0 { if sign  0 { if i32::MAX / 10  res { return 0; } } else { if i32::MIN / 10  res { return 0; } } res = res * 10; let last = (x % 10) * sign; if sign  0 { if i32::MAX - res  last { return 0; } } else { if i32::MIN - res  last { return 0; } } res = res + last; x = x / 10; } return res; } } 主要在于边界判断\n",
+  "wordCount" : "246",
   "inLanguage": "zh",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "datePublished": "2023-06-06T23:50:22+08:00",
+  "dateModified": "2023-06-06T23:50:22+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/archives/"
+    "@id": "https://just-worker.github.io/blog/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/"
   },
   "publisher": {
     "@type": "Organization",
@@ -150,44 +156,12 @@
     </section>
 </nav>
 <div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>整数反转</h1>
+  </header>
 
-<div class="archive">
-
-<div class="archive-content">
-<div class="archive-year">
-  <h2 class="archive-year-header">2023<sup class="archive-count">&nbsp;&nbsp;13</sup>
-  </h2>
-  <div class="archive-month">
-    <h3 class="archive-month-header">06<sup class="archive-count">&nbsp;&nbsp;8</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">字符串转换整数
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月6日&nbsp;· 609 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 字符串转换整数" href="https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">整数反转
-        </h3>
-        <div class="archive-meta">
-          <p>
+  <p>
   <small>
     2023年6月6日&nbsp;· 246 字&nbsp;· 1 分钟</small>
 
@@ -203,272 +177,83 @@
     </small>
   
 <p>
-        </div>
-        <a class="archive-link" aria-label="post link to 整数反转" href="https://just-worker.github.io/blog/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">N字形变换
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月6日&nbsp;· 769 字&nbsp;· 2 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to N字形变换" href="https://just-worker.github.io/blog/n%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">最长回文子串2
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月5日&nbsp;· 1939 字&nbsp;· 4 分钟</small>
+  <section class="blog-content"><h2 id="整数反转httpsleetcodecnproblemsreverse-integer"><a href="https://leetcode.cn/problems/reverse-integer/">整数反转</a></h2>
+<p>给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。</p>
+<p>如果反转后整数超过 32 位的有符号整数的范围 [−231,  231 − 1] ，就返回 0。</p>
+<blockquote>
+<p>假设环境不允许存储 64 位整数（有符号或无符号）。</p>
+<ul>
+<li>输入：x = 123</li>
+<li>输出：321</li>
+</ul>
+</blockquote>
+<h2 id="题目分析">题目分析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(LEN) 
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">reverse</span>(x: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> sign <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>} <span style="color:#66d9ef">else</span> {<span style="color:#ae81ff">1</span>};
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> sign <span style="color:#f92672">*</span> x;
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#66d9ef">if</span> sign <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> {
+                <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">i32</span>::MAX <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">&lt;</span> res {
+                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+                }
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">i32</span>::MIN <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">&gt;</span> res {
+                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+                }
+            }
+            res <span style="color:#f92672">=</span> res <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>;
+            <span style="color:#66d9ef">let</span> last <span style="color:#f92672">=</span> (x <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">*</span> sign;
+            <span style="color:#66d9ef">if</span> sign <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> {
+                <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">i32</span>::MAX <span style="color:#f92672">-</span> res <span style="color:#f92672">&lt;</span> last {
+                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+                }
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">i32</span>::MIN <span style="color:#f92672">-</span> res <span style="color:#f92672">&gt;</span> last {
+                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+                }
+            }
+            res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> last;
+            x <span style="color:#f92672">=</span> x <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>;
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+}
+</code></pre></div><p>主要在于边界判断</p>
+</section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 最长回文子串2" href="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B22/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">最长回文子串
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月4日&nbsp;· 965 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 最长回文子串" href="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">感情的失真
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月3日&nbsp;· 2441 字&nbsp;· 5 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 感情的失真" href="https://just-worker.github.io/blog/%E6%84%9F%E6%83%85%E7%9A%84%E5%A4%B1%E7%9C%9F/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">寻找两个正序数组的中位数2
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月2日&nbsp;· 1110 字&nbsp;· 3 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 寻找两个正序数组的中位数2" href="https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">寻找两个正序数组的中位数
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年6月1日&nbsp;· 1612 字&nbsp;· 4 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 寻找两个正序数组的中位数" href="https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/"></a>
-      </div>
-    </div>
+  <div class="paginator">
+    
+    <a class="prev" href="https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>字符串转换整数</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/n%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/"><span>N字形变换</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
   </div>
-  <div class="archive-month">
-    <h3 class="archive-month-header">05<sup class="archive-count">&nbsp;&nbsp;5</sup></h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">无重复字符的最长子串
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年5月31日&nbsp;· 1150 字&nbsp;· 3 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
   
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 无重复字符的最长子串" href="https://just-worker.github.io/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">两数相加
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年5月30日&nbsp;· 1095 字&nbsp;· 3 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 两数相加" href="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">两数之和
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年5月29日&nbsp;· 779 字&nbsp;· 2 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 两数之和" href="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">记录的必要
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年5月28日&nbsp;· 1744 字&nbsp;· 4 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E6%80%9D%E8%80%83/">思考</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
   
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 记录的必要" href="https://just-worker.github.io/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title">再一次开始
-        </h3>
-        <div class="archive-meta">
-          <p>
-  <small>
-    2023年5月27日&nbsp;· 418 字&nbsp;· 1 分钟</small>
+  
+</article>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E5%BC%80%E5%A7%8B/">开始</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-        </div>
-        <a class="archive-link" aria-label="post link to 再一次开始" href="https://just-worker.github.io/blog/%E5%86%8D%E4%B8%80%E6%AC%A1%E5%BC%80%E5%A7%8B/"></a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
     Powered by
