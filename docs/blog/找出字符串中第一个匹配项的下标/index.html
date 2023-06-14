@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>找出字符串中第一个匹配项的下标</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="找出字符串中第一个匹配项的下标" />
+<meta property="og:description" content="找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-14T23:46:55+08:00" />
+<meta property="article:modified_time" content="2023-06-14T23:46:55+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="找出字符串中第一个匹配项的下标"/>
+<meta name="twitter:description" content="找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "找出字符串中第一个匹配项的下标",
+      "item": "https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "找出字符串中第一个匹配项的下标",
+  "name": "找出字符串中第一个匹配项的下标",
+  "description": "找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回 -1 。\n  输入：haystack = “sadbutsad”, needle = “sad” 输出：0 解释：“sad” 在下标 0 和 6 处匹配。   题目解析 逐个匹配\n// time: O(M * N) // space: O(1) impl Solution { pub fn str_str(haystack: String, needle: String) - i32 { let origin: Vecchar = haystack.chars().collect(); let pattern: Vecchar = needle.chars().collect(); let (origin_len, pattern_len) = (origin.len(), pattern.len()); if pattern_len  origin_len { return -1; } 'outer: for origin_idx in 0..(origin_len - pattern_len + 1) { for pattern_idx in 0..pattern_len { if origin[origin_idx + pattern_idx] != pattern[pattern_idx] { continue 'outer; } } return origin_idx as i32; } return -1; } } 下回继续 和之前的马拉车一样，有没有什么信息能够继续传递的呢。下一章继续。\n",
+  "wordCount" : "248",
+  "inLanguage": "zh",
+  "datePublished": "2023-06-14T23:46:55+08:00",
+  "dateModified": "2023-06-14T23:46:55+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,14 +156,12 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/">找出字符串中第一个匹配项的下标</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>找出字符串中第一个匹配项的下标</h1>
+  </header>
+
+  <p>
   <small>
     2023年6月14日&nbsp;· 248 字&nbsp;· 1 分钟</small>
 
@@ -138,217 +177,64 @@
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">移除元素</a></h3>
-              <p>
-  <small>
-    2023年6月14日&nbsp;· 293 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">删除有序数组中的重复项</a></h3>
-              <p>
-  <small>
-    2023年6月14日&nbsp;· 373 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="找出字符串中第一个匹配项的下标httpsleetcodecnproblemsfind-the-index-of-the-first-occurrence-in-a-string"><a href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/">找出字符串中第一个匹配项的下标</a></h2>
+<p>给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回  -1 。</p>
+<blockquote>
+<ul>
+<li>输入：haystack = &ldquo;sadbutsad&rdquo;, needle = &ldquo;sad&rdquo;</li>
+<li>输出：0</li>
+<li>解释：&ldquo;sad&rdquo; 在下标 0 和 6 处匹配。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>逐个匹配</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(M * N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">str_str</span>(haystack: String, needle: String) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> origin: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> haystack.chars().collect();
+        <span style="color:#66d9ef">let</span> pattern: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> needle.chars().collect();
+        <span style="color:#66d9ef">let</span> (origin_len, pattern_len) <span style="color:#f92672">=</span> (origin.len(), pattern.len());
+        <span style="color:#66d9ef">if</span> pattern_len <span style="color:#f92672">&gt;</span> origin_len {
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#f92672">&#39;</span><span style="color:#a6e22e">outer</span>: <span style="color:#a6e22e">for</span> origin_idx <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>(origin_len <span style="color:#f92672">-</span> pattern_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) {
+            <span style="color:#66d9ef">for</span> pattern_idx <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>pattern_len {
+                <span style="color:#66d9ef">if</span> origin[origin_idx <span style="color:#f92672">+</span> pattern_idx] <span style="color:#f92672">!=</span> pattern[pattern_idx] {
+                    <span style="color:#66d9ef">continue</span> &#39;outer;
+                }
+            }
+            <span style="color:#66d9ef">return</span> origin_idx <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+}
+</code></pre></div><h2 id="下回继续">下回继续</h2>
+<p>和之前的<a href="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B22/">马拉车</a>一样，有没有什么信息能够继续传递的呢。下一章继续。</p>
+</section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/k%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/">K个一组翻转链表</a></h3>
-              <p>
-  <small>
-    2023年6月14日&nbsp;· 158 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/">两两交换链表中的节点</a></h3>
-              <p>
-  <small>
-    2023年6月14日&nbsp;· 197 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%90%88%E5%B9%B6k%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/">合并K个升序链表</a></h3>
-              <p>
-  <small>
-    2023年6月12日&nbsp;· 366 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/">括号生成</a></h3>
-              <p>
-  <small>
-    2023年6月12日&nbsp;· 240 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/">合并两个有序链表</a></h3>
-              <p>
-  <small>
-    2023年6月12日&nbsp;· 205 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/">有效的括号</a></h3>
-              <p>
-  <small>
-    2023年6月12日&nbsp;· 250 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACn%E4%B8%AA%E7%BB%93%E7%82%B9/">删除链表的倒数第N个结点</a></h3>
-              <p>
-  <small>
-    2023年6月11日&nbsp;· 450 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      
-      <a class="next" href="/blog/page/2/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/"><span>移除元素</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
