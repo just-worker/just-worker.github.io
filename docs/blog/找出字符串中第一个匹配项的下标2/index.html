@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找出字符串中第一个匹配项的下标2</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传">
+    <meta name="author" content="just-worker">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/">
+
+    <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
+
+    
+
+
+    <meta property="og:title" content="找出字符串中第一个匹配项的下标2" />
+<meta property="og:description" content="再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-15T22:37:40+08:00" />
+<meta property="article:modified_time" content="2023-06-15T22:37:40+08:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="找出字符串中第一个匹配项的下标2"/>
+<meta name="twitter:description" content="再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "找出字符串中第一个匹配项的下标2",
+      "item": "https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "找出字符串中第一个匹配项的下标2",
+  "name": "找出字符串中第一个匹配项的下标2",
+  "description": "再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传导已经计算过的结果。\n其中马拉车是利用了对称的特性，那么KMP怎么复用信息呢，我们自己推理一波。\n计算复用 原来计算过程中，我们每次都需要匹配，这是必不可少的。那么，有什么信息是可以复用的呢。\n我们比对失败之后，都会向后移动一位，这样对么？反过来，我们在哪一位比对失败的呢，之前比对过的信息能够发挥一些余热呢。\n当然，这个特征肯定只和pattern字符息息相关，我们深入挖掘一下。\n字符前缀  如果当前位置匹配失败，什么情况下可以复用已经比对过的信息?\n 我们之前始终是向前移动一位，肯定不会错，但是的确漏掉了什么。假设我们比对过程中，记住原字符串中和首字符串相等的位置，每次移动是否会更加便捷呢，答案是肯定的。这样我们肯定是会比原来的效率高一些的，但是极端情况下，并没有任何改善。因为如果同首字符串相等的位置太多，避免不了重复计算。\n从这里吸取教训，我们每次移动的位置，应该是尽可能匹配的最长的前缀的进行移动。单纯的依靠首字符是不够的。然而，比较的字符串是不可靠的，是未知的，我们只能从pattern字符串着手。\n现在，我们模糊的知道三个关键要素\n 尽量按照最大匹配前缀进行移动 匹配失败字符之前必定存在匹配字符(首字符匹配失败当空字符匹配)  找出不依靠外物的前缀匹配字符的关系，自然而然就落在了匹配失败的字符之前的必定匹配好的字符上面了。\n前缀相等 abcabcabe和abcabe怎么进行匹配呢，首次匹配必定在c对e的地方匹配失败，那对于abcabc和abcabe怎么进行移动最好呢。\n很明显，可定是直接跳过前面三个，第二个abc进行对齐匹配，然后直接得出答案。\n是的，这就是我们需要的关键因素了：通过在已经匹配的字符中，直接跳到前缀匹配的下一个位置，然后开始新的一轮比较。\n 这样保证了每次检查都是有效检查，避免了重复检测，时间复杂度来到了线性的O(N)\n 对称计算 怎么计算这个前缀的对称性呢，回到我们的例子:abcabcabe和abcabe。\n不难发现两个点\n 字符串始终只能够从首字符串进行匹配 后续字符串依赖前一个字符串的匹配结果  首先，把每个位置匹配失败后移动的位数总集表示为一个数组arr[N]，每个位置匹配失败需要移动的位数就确定了。现在按照前面两个主旨下降成具体操作\n 当前字符作为某个字符起始的前缀，和真实前缀进行匹配，匹配成功则当前位移+1，匹配失败则向前查找相似前缀 最初前缀即真实前缀，即查找字符的首字母，如果没有相似前缀，只能把当前字符进行前缀进行比较  fn next(chars: \u0026Vecchar) - Vecusize { let len = chars.len(); // 首位肯定不和自己匹配  let mut next = vec![0; len]; // 前缀长度  let mut cursor = 0; for current in 1..len { // 非首位匹配，查找相似前缀  while cursor  0 \u0026\u0026 chars[current] != chars[cursor] { cursor = next[cursor - 1]; } // 首位匹配: 前缀+1  // 前缀匹配: 前缀+1  if chars[current] == chars[cursor] { cursor += 1; } // 更新当前的前缀值  next[current] = cursor; } return next; } 这样，对于在i位置的字符串匹配失败，我们通过查表就可以知道下一位应该从哪里继续匹配。如果没有匹配前缀，那下一位只能从查找字符的首字符进行匹配。\n结合例子：abcabcabe和abcabe。计算出的next=[0,0,0,1,2,0]\n首次匹配失败之后，对于(c)ab，我们就不会从头进行匹配，这对下一个位置，我们会从第二个位置开始匹配，也就是(ab)c进行匹配。\nKMP 重新解读了一下，这就是KMP\n// time: O(M + N) // space: O(M) impl Solution { pub fn str_str(haystack: String, needle: String) - i32 { let origin: Vecchar = haystack.chars().collect(); let pattern: Vecchar = needle.chars().collect(); let (origin_len, pattern_len) = (origin.len(), pattern.len()); if pattern_len  origin_len { return -1; } let next = Self::next(\u0026pattern); let mut pattern_idx = 0; for origin_idx in 0..origin_len { while pattern_idx  0 \u0026\u0026 pattern[pattern_idx] != origin[origin_idx] { pattern_idx = next[pattern_idx - 1]; } if pattern[pattern_idx] == origin[origin_idx] { pattern_idx += 1; } if pattern_idx == pattern_len { return (origin_idx - pattern_len + 1) as i32; } } return -1; } fn next(chars: \u0026Vecchar) - Vecusize { let len = chars.len(); // 首位肯定不和自己匹配  let mut next = vec![0; len]; // 前缀长度  let mut cursor = 0; for current in 1..len { // 非首位匹配，查找相似前缀  while cursor  0 \u0026\u0026 chars[current] != chars[cursor] { cursor = next[cursor - 1]; } // 首位匹配: 前缀+1  // 前缀匹配: 前缀+1  if chars[current] == chars[cursor] { cursor += 1; } // 更新当前的前缀值  next[current] = cursor; } return next; } } ",
+  "wordCount" : "1605",
+  "inLanguage": "zh",
+  "datePublished": "2023-06-15T22:37:40+08:00",
+  "dateModified": "2023-06-15T22:37:40+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.jpeg">
+
+<link rel="manifest" href="/images/avatar.jpeg">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.67948f7c66a9fbc41a44bdf373913a59c1ee97594879c9b41f62c08440af5291.css" integrity="sha256-Z5SPfGap&#43;8QaRL3zc5E6WcHul1lIecm0H2LAhECvUpE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.f6a23da83df7f66cbfe262036561fe5a3f8d59f21314b55aae8c09ea70eb5212.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var b=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,a=localStorage.getItem("theme");b&&a===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),b&&a==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),a==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            我的主页
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">全部文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类管理</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史记录</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>找出字符串中第一个匹配项的下标2</h1>
+  </header>
+
+  <p>
+  <small>
+    2023年6月15日&nbsp;· 1605 字&nbsp;· 4 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+
+  <section class="blog-content"><h2 id="再续前缘">再续前缘</h2>
+<p>前面说过<a href="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/">找出字符串中第一个匹配项的下标</a>和<a href="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B22/">最长回文子串</a>很像；其中一个是<code>KMP</code>，另一个是<code>马拉车</code>。两者都是字符串匹配，而且核心观念是<code>如何传导已经计算过的结果</code>。</p>
+<p>其中<code>马拉车</code>是利用了对称的特性，那么<code>KMP</code>怎么复用信息呢，我们自己推理一波。</p>
+<h2 id="计算复用">计算复用</h2>
+<p>原来计算过程中，我们每次都需要匹配，这是必不可少的。那么，有什么信息是可以复用的呢。</p>
+<p>我们比对失败之后，都会向后移动一位，这样对么？反过来，我们在哪一位比对失败的呢，之前比对过的信息能够发挥一些余热呢。</p>
+<p>当然，这个特征肯定只和<code>pattern</code>字符息息相关，我们深入挖掘一下。</p>
+<h2 id="字符前缀">字符前缀</h2>
+<blockquote>
+<p>如果当前位置匹配失败，什么情况下可以复用已经比对过的信息?</p>
+</blockquote>
+<p>我们之前始终是向前移动一位，肯定不会错，但是的确漏掉了什么。假设我们比对过程中，记住原字符串中和首字符串相等的位置，每次移动是否会更加便捷呢，答案是肯定的。这样我们肯定是会比原来的效率高一些的，但是极端情况下，并没有任何改善。因为如果同首字符串相等的位置太多，避免不了重复计算。</p>
+<p>从这里吸取教训，我们每次移动的位置，应该是尽可能匹配的最长的前缀的进行移动。单纯的依靠首字符是不够的。然而，比较的字符串是不可靠的，是未知的，我们只能从<code>pattern</code>字符串着手。</p>
+<p>现在，我们模糊的知道三个关键要素</p>
+<ul>
+<li>尽量按照最大匹配前缀进行移动</li>
+<li>匹配失败字符之前必定存在匹配字符(首字符匹配失败当空字符匹配)</li>
+</ul>
+<p>找出不依靠外物的前缀匹配字符的关系，自然而然就落在了匹配失败的字符之前的必定匹配好的字符上面了。</p>
+<h2 id="前缀相等">前缀相等</h2>
+<p><code>abcabcabe</code>和<code>abcabe</code>怎么进行匹配呢，首次匹配必定在<code>c</code>对<code>e</code>的地方匹配失败，那对于<code>abcabc</code>和<code>abcabe</code>怎么进行移动最好呢。</p>
+<p>很明显，可定是直接跳过前面三个，第二个<code>abc</code>进行对齐匹配，然后直接得出答案。</p>
+<p>是的，这就是我们需要的关键因素了：通过在已经匹配的字符中，直接跳到前缀匹配的下一个位置，然后开始新的一轮比较。</p>
+<blockquote>
+<p>这样保证了每次检查都是有效检查，避免了重复检测，时间复杂度来到了线性的<code>O(N)</code></p>
+</blockquote>
+<h2 id="对称计算">对称计算</h2>
+<p>怎么计算这个前缀的对称性呢，回到我们的例子:<code>abcabcabe</code>和<code>abcabe</code>。</p>
+<p>不难发现两个点</p>
+<ul>
+<li>字符串始终只能够从首字符串进行匹配</li>
+<li>后续字符串依赖前一个字符串的匹配结果</li>
+</ul>
+<p>首先，把每个位置匹配失败后移动的位数总集表示为一个数组<code>arr[N]</code>，每个位置匹配失败需要移动的位数就确定了。现在按照前面两个主旨下降成具体操作</p>
+<ol>
+<li>当前字符作为某个字符起始的前缀，和真实前缀进行匹配，匹配成功则当前位移+1，匹配失败则向前查找相似前缀</li>
+<li>最初前缀即真实前缀，即查找字符的首字母，如果没有相似前缀，只能把当前字符进行前缀进行比较</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(chars: <span style="color:#66d9ef">&amp;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> chars.len();
+        <span style="color:#75715e">// 首位肯定不和自己匹配
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> next <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>; len];
+        <span style="color:#75715e">// 前缀长度
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cursor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> current <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>len {
+            <span style="color:#75715e">// 非首位匹配，查找相似前缀
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> cursor <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> chars[current] <span style="color:#f92672">!=</span> chars[cursor] {
+                cursor <span style="color:#f92672">=</span> next[cursor <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+            }
+            <span style="color:#75715e">// 首位匹配: 前缀+1
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 前缀匹配: 前缀+1
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> chars[current] <span style="color:#f92672">==</span> chars[cursor] {
+                cursor <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#75715e">// 更新当前的前缀值
+</span><span style="color:#75715e"></span>            next[current] <span style="color:#f92672">=</span> cursor;
+        }
+        <span style="color:#66d9ef">return</span> next;
+    }
+</code></pre></div><p>这样，对于在<code>i</code>位置的字符串匹配失败，我们通过查表就可以知道下一位应该从哪里继续匹配。如果没有匹配前缀，那下一位只能从查找字符的首字符进行匹配。</p>
+<p>结合例子：<code>abcabcabe</code>和<code>abcabe</code>。计算出的<code>next=[0,0,0,1,2,0]</code></p>
+<p>首次匹配失败之后，对于<code>(c)ab</code>，我们就不会从头进行匹配，这对下一个位置，我们会从第二个位置开始匹配，也就是<code>(ab)c</code>进行匹配。</p>
+<h2 id="kmp">KMP</h2>
+<p>重新解读了一下，这就是<code>KMP</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(M + N)
+</span><span style="color:#75715e">// space: O(M)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">str_str</span>(haystack: String, needle: String) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> origin: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> haystack.chars().collect();
+        <span style="color:#66d9ef">let</span> pattern: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> needle.chars().collect();
+        <span style="color:#66d9ef">let</span> (origin_len, pattern_len) <span style="color:#f92672">=</span> (origin.len(), pattern.len());
+        <span style="color:#66d9ef">if</span> pattern_len <span style="color:#f92672">&gt;</span> origin_len {
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">let</span> next <span style="color:#f92672">=</span> Self::next(<span style="color:#f92672">&amp;</span>pattern);
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> pattern_idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> origin_idx <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>origin_len {
+            <span style="color:#66d9ef">while</span> pattern_idx <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> pattern[pattern_idx] <span style="color:#f92672">!=</span> origin[origin_idx] {
+                pattern_idx <span style="color:#f92672">=</span> next[pattern_idx <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+            }
+            <span style="color:#66d9ef">if</span> pattern[pattern_idx] <span style="color:#f92672">==</span> origin[origin_idx] {
+                pattern_idx <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#66d9ef">if</span> pattern_idx <span style="color:#f92672">==</span> pattern_len {
+                <span style="color:#66d9ef">return</span> (origin_idx <span style="color:#f92672">-</span> pattern_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+            }
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(chars: <span style="color:#66d9ef">&amp;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> chars.len();
+        <span style="color:#75715e">// 首位肯定不和自己匹配
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> next <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>; len];
+        <span style="color:#75715e">// 前缀长度
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cursor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> current <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>len {
+            <span style="color:#75715e">// 非首位匹配，查找相似前缀
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> cursor <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> chars[current] <span style="color:#f92672">!=</span> chars[cursor] {
+                cursor <span style="color:#f92672">=</span> next[cursor <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+            }
+            <span style="color:#75715e">// 首位匹配: 前缀+1
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 前缀匹配: 前缀+1
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> chars[current] <span style="color:#f92672">==</span> chars[cursor] {
+                cursor <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#75715e">// 更新当前的前缀值
+</span><span style="color:#75715e"></span>            next[current] <span style="color:#f92672">=</span> cursor;
+        }
+        <span style="color:#66d9ef">return</span> next;
+    }
+}
+</code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/"><span>找出字符串中第一个匹配项的下标</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.e02624bc38670c46ea2d95b7a5526a080a0d890af856155bbae501d0e248f2a49b4c1cfe5c3a7902d1edc9dff4333eec594df8a39d9510cdee06ce12f2dd9009.js" integrity="sha512-4CYkvDhnDEbqLZW3pVJqCAoNiQr4VhVbuuUB0OJI8qSbTBz&#43;XDp5AtHtyd/0Mz7sWU34o52VEM3uBs4S8t2QCQ==" crossorigin="anonymous" defer></script></html>
