@@ -6,7 +6,96 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 15 Jun 2023 22:37:40 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Jun 2023 22:36:23 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>两数相除</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/</link>
+      <pubDate>Fri, 16 Jun 2023 22:36:23 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/</guid>
+      <description>&lt;h2 id=&#34;两数相除httpsleetcodecnproblemsdivide-two-integers&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/divide-two-integers/&#34;&gt;两数相除&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。&lt;/p&gt;
+&lt;p&gt;整数除法应该向零截断，也就是截去（truncate）其小数部分。例如，8.345 将被截断为 8 ，-2.7335 将被截断至 -2 。&lt;/p&gt;
+&lt;p&gt;返回被除数 dividend 除以除数 divisor 得到的 商 。&lt;/p&gt;
+&lt;p&gt;注意：假设我们的环境只能存储 32 位 有符号整数，其数值范围是 [−231,  231 − 1] 。本题中，如果商 严格大于 231 − 1 ，则返回 231 − 1 ；如果商 严格小于 -231 ，则返回 -231 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: dividend = 10, divisor = 3&lt;/li&gt;
+&lt;li&gt;输出: 3&lt;/li&gt;
+&lt;li&gt;解释: 10/3 = 3.33333.. ，向零截断后得到 3 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;两个技巧&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;移位作为乘2&lt;/li&gt;
+&lt;li&gt;进制作为基础&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;微软面试题：把水果放篮子里，放好之后说出任意数字，只准提篮子组成任意数字。答案：按照二进制放。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;解这道题已经足够了，在修饰一下边界情况&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;被除数等于零&lt;/li&gt;
+&lt;li&gt;除数等于正负1&lt;/li&gt;
+&lt;li&gt;负数转正数会溢出，一律转为负数进行计算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(logC)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;divide&lt;/span&gt;(dividend: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, divisor: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; divisor &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dividend;
+        }
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; divisor &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MIN {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;::MAX;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;dividend;
+        }
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; rev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            rev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;dividend
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            dividend
+        };
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; divisor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; divisor &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            rev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;rev;
+            &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;divisor
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            divisor
+        };
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; candidate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![divisor];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; candidate[last] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; candidate[last] {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; double &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; candidate[last] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; candidate[last];
+            candidate.push(double);
+            last &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;last).rev() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dividend &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; candidate[i] {
+                dividend &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; candidate[i];
+                res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; i);
+            } 
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; rev {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;res;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>找出字符串中第一个匹配项的下标2</title>
       <link>https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/</link>
