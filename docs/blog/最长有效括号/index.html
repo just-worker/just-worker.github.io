@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>两数相除</title>
+    <title>最长有效括号</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。 整数除法应该向零截断，也就是截去（trunc">
+    <meta name="description" content="Ladder@最长有效括号 给你一个只包含 &lsquo;(&rsquo; 和 &lsquo;)&rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。 输入：s = &ldquo;(()&rdquo; 输出：2 解释：最长有效括号子串是 &ldquo;()&rdquo; 题目解">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="两数相除" />
-<meta property="og:description" content="两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。 整数除法应该向零截断，也就是截去（trunc" />
+    <meta property="og:title" content="最长有效括号" />
+<meta property="og:description" content="最长有效括号 给你一个只包含 &lsquo;(&rsquo; 和 &lsquo;)&rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。 输入：s = &ldquo;(()&rdquo; 输出：2 解释：最长有效括号子串是 &ldquo;()&rdquo; 题目解" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-06-16T22:36:23+08:00" />
-<meta property="article:modified_time" content="2023-06-16T22:36:23+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-17T23:18:55+08:00" />
+<meta property="article:modified_time" content="2023-06-17T23:18:55+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="两数相除"/>
-<meta name="twitter:description" content="两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。 整数除法应该向零截断，也就是截去（trunc"/>
+<meta name="twitter:title" content="最长有效括号"/>
+<meta name="twitter:description" content="最长有效括号 给你一个只包含 &lsquo;(&rsquo; 和 &lsquo;)&rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。 输入：s = &ldquo;(()&rdquo; 输出：2 解释：最长有效括号子串是 &ldquo;()&rdquo; 题目解"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "两数相除",
-      "item": "https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/"
+      "name": "最长有效括号",
+      "item": "https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "两数相除",
-  "name": "两数相除",
-  "description": "两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。 整数除法应该向零截断，也就是截去（trunc",
+  "headline": "最长有效括号",
+  "name": "最长有效括号",
+  "description": "最长有效括号 给你一个只包含 \u0026lsquo;(\u0026rsquo; 和 \u0026lsquo;)\u0026rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。 输入：s = \u0026ldquo;(()\u0026rdquo; 输出：2 解释：最长有效括号子串是 \u0026ldquo;()\u0026rdquo; 题目解",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。\n整数除法应该向零截断，也就是截去（truncate）其小数部分。例如，8.345 将被截断为 8 ，-2.7335 将被截断至 -2 。\n返回被除数 dividend 除以除数 divisor 得到的 商 。\n注意：假设我们的环境只能存储 32 位 有符号整数，其数值范围是 [−231, 231 − 1] 。本题中，如果商 严格大于 231 − 1 ，则返回 231 − 1 ；如果商 严格小于 -231 ，则返回 -231 。\n  输入: dividend = 10, divisor = 3 输出: 3 解释: 10/3 = 3.33333.. ，向零截断后得到 3 。   题目解析 两个技巧\n 移位作为乘2 进制作为基础   微软面试题：把水果放篮子里，放好之后说出任意数字，只准提篮子组成任意数字。答案：按照二进制放。\n 解这道题已经足够了，在修饰一下边界情况\n 被除数等于零 除数等于正负1 负数转正数会溢出，一律转为负数进行计算  // time: O(logC) // space: O(1) impl Solution { pub fn divide(dividend: i32, divisor: i32) - i32 { if dividend == 0 { return 0; } if divisor == 1 { return dividend; } if divisor == -1 { if dividend == i32::MIN { return i32::MAX; } return -dividend; } let mut rev = false; let mut dividend = if dividend  0 { rev = true; -dividend } else { dividend }; let divisor = if divisor  0 { rev = !rev; -divisor } else { divisor }; let mut candidate = vec![divisor]; let mut last = 0; while candidate[last] = dividend - candidate[last] { let double = candidate[last] + candidate[last]; candidate.push(double); last += 1; } let mut res = 0; for i in (0..=last).rev() { if dividend  candidate[i] { dividend -= candidate[i]; res += (1  i); } } if rev { res = -res; } return res; } } ",
-  "wordCount" : "500",
+  "articleBody": "最长有效括号 给你一个只包含 ‘(’ 和 ‘)’ 的字符串，找出最长有效（格式正确且连续）括号子串的长度。\n  输入：s = “(()” 输出：2 解释：最长有效括号子串是 “()”   题目解析 本题关键在于连通性\n 对于()((()))怎么判断联通性，直接计算即可 对于()))，右侧匹配过多，打断即可 对于()((()如何判断联通性，因为不能提前打断匹配，无法判断  因此，我们只能有两种办法来测试这种联通性\n 采用栈匹配+临时变量，在打断匹配和字符结束的时候，结合匹配和残余的栈数据强行计算 连通性正反对称，且如果存在打断，正向无法提前判断的逆向可以提前判断  当然，我们选择正反遍历，单纯的只关心左右括号相等以及打断的情况，结合正反两个结果取最高。\n// time: O(N) // space: O(1) impl Solution { pub fn longest_valid_parentheses(s: String) - i32 { let chars:Vecchar = s.chars().collect(); if chars.len() == 1 { return 0; } let mut res = 0; let (mut left, mut right) = (0, 0); for \u0026ch in chars.iter() { if '(' == ch { left += 1; } else { right += 1; } if right  left { left = 0; right = 0; } if left == right { res = std::cmp::max(res, left + right); } } let (mut left, mut right) = (0, 0); for \u0026ch in chars.iter().rev() { if '(' == ch { left += 1; } else { right += 1; } if right  left { left = 0; right = 0; } if left == right { res = std::cmp::max(res, left + right); } } return res as i32; } } ",
+  "wordCount" : "435",
   "inLanguage": "zh",
-  "datePublished": "2023-06-16T22:36:23+08:00",
-  "dateModified": "2023-06-16T22:36:23+08:00",
+  "datePublished": "2023-06-17T23:18:55+08:00",
+  "dateModified": "2023-06-17T23:18:55+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/"
+    "@id": "https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>两数相除</h1>
+    <h1>最长有效括号</h1>
   </header>
 
   <p>
   <small>
-    2023年6月16日&nbsp;· 500 字&nbsp;· 1 分钟</small>
+    2023年6月17日&nbsp;· 435 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,84 +178,68 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="两数相除httpsleetcodecnproblemsdivide-two-integers"><a href="https://leetcode.cn/problems/divide-two-integers/">两数相除</a></h2>
-<p>给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。</p>
-<p>整数除法应该向零截断，也就是截去（truncate）其小数部分。例如，8.345 将被截断为 8 ，-2.7335 将被截断至 -2 。</p>
-<p>返回被除数 dividend 除以除数 divisor 得到的 商 。</p>
-<p>注意：假设我们的环境只能存储 32 位 有符号整数，其数值范围是 [−231,  231 − 1] 。本题中，如果商 严格大于 231 − 1 ，则返回 231 − 1 ；如果商 严格小于 -231 ，则返回 -231 。</p>
+  <section class="blog-content"><h2 id="最长有效括号httpsleetcodecnproblemslongest-valid-parentheses"><a href="https://leetcode.cn/problems/longest-valid-parentheses/">最长有效括号</a></h2>
+<p>给你一个只包含 &lsquo;(&rsquo; 和 &lsquo;)&rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。</p>
 <blockquote>
 <ul>
-<li>输入: dividend = 10, divisor = 3</li>
-<li>输出: 3</li>
-<li>解释: 10/3 = 3.33333.. ，向零截断后得到 3 。</li>
+<li>输入：s = &ldquo;(()&rdquo;</li>
+<li>输出：2</li>
+<li>解释：最长有效括号子串是 &ldquo;()&rdquo;</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>两个技巧</p>
+<p>本题关键在于连通性</p>
 <ul>
-<li>移位作为乘2</li>
-<li>进制作为基础</li>
+<li>对于<code>()((()))</code>怎么判断联通性，直接计算即可</li>
+<li>对于<code>()))</code>，右侧匹配过多，打断即可</li>
+<li>对于<code>()((()</code>如何判断联通性，因为不能提前打断匹配，无法判断</li>
 </ul>
-<blockquote>
-<p>微软面试题：把水果放篮子里，放好之后说出任意数字，只准提篮子组成任意数字。答案：按照二进制放。</p>
-</blockquote>
-<p>解这道题已经足够了，在修饰一下边界情况</p>
+<p>因此，我们只能有两种办法来测试这种联通性</p>
 <ul>
-<li>被除数等于零</li>
-<li>除数等于正负1</li>
-<li>负数转正数会溢出，一律转为负数进行计算</li>
+<li>采用栈匹配+临时变量，在打断匹配和字符结束的时候，结合匹配和残余的栈数据强行计算</li>
+<li>连通性正反对称，且如果存在打断，正向无法提前判断的逆向可以提前判断</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(logC)
+<p>当然，我们选择正反遍历，单纯的只关心左右括号相等以及打断的情况，结合正反两个结果取最高。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
 </span><span style="color:#75715e">// space: O(1)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">divide</span>(dividend: <span style="color:#66d9ef">i32</span>, divisor: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">i32</span> {
-        <span style="color:#66d9ef">if</span> dividend <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">longest_valid_parentheses</span>(s: String) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> chars:Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> s.chars().collect();
+        <span style="color:#66d9ef">if</span> chars.len() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
             <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
         }
-        <span style="color:#66d9ef">if</span> divisor <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
-            <span style="color:#66d9ef">return</span> dividend;
-        }
-
-        <span style="color:#66d9ef">if</span> divisor <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
-            <span style="color:#66d9ef">if</span> dividend <span style="color:#f92672">==</span> <span style="color:#66d9ef">i32</span>::MIN {
-                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">i32</span>::MAX;
-            }
-            <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>dividend;
-        }
-
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> rev <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dividend <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> dividend <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> {
-            rev <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-            <span style="color:#f92672">-</span>dividend
-        } <span style="color:#66d9ef">else</span> {
-            dividend
-        };
-        <span style="color:#66d9ef">let</span> divisor <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> divisor <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> {
-            rev <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>rev;
-            <span style="color:#f92672">-</span>divisor
-        } <span style="color:#66d9ef">else</span> {
-            divisor
-        };
-
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> candidate <span style="color:#f92672">=</span> vec![divisor];
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> last <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">while</span> candidate[last] <span style="color:#f92672">&gt;=</span> dividend <span style="color:#f92672">-</span> candidate[last] {
-            <span style="color:#66d9ef">let</span> double <span style="color:#f92672">=</span> candidate[last] <span style="color:#f92672">+</span> candidate[last];
-            candidate.push(double);
-            last <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-        }
         <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..=</span>last).rev() {
-            <span style="color:#66d9ef">if</span> dividend <span style="color:#f92672">&lt;=</span> candidate[i] {
-                dividend <span style="color:#f92672">-=</span> candidate[i];
-                res <span style="color:#f92672">+=</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> i);
-            } 
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> left, <span style="color:#66d9ef">mut</span> right) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span>ch <span style="color:#66d9ef">in</span> chars.iter() {
+            <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">==</span> ch {
+                left <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            } <span style="color:#66d9ef">else</span> {
+                right <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#66d9ef">if</span> right <span style="color:#f92672">&gt;</span> left {
+                left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                right <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            }
+            <span style="color:#66d9ef">if</span> left <span style="color:#f92672">==</span> right {
+                res <span style="color:#f92672">=</span> std::cmp::max(res, left <span style="color:#f92672">+</span> right);
+            }
         }
-        <span style="color:#66d9ef">if</span> rev {
-            res <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>res;
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> left, <span style="color:#66d9ef">mut</span> right) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span>ch <span style="color:#66d9ef">in</span> chars.iter().rev() {
+            <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">==</span> ch {
+                left <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            } <span style="color:#66d9ef">else</span> {
+                right <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#66d9ef">if</span> right <span style="color:#f92672">&lt;</span> left {
+                left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                right <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            }
+            <span style="color:#66d9ef">if</span> left <span style="color:#f92672">==</span> right {
+                res <span style="color:#f92672">=</span> std::cmp::max(res, left <span style="color:#f92672">+</span> right);
+            }
         }
-        <span style="color:#66d9ef">return</span> res;
-
+        <span style="color:#66d9ef">return</span> res <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
     }
 }
 </code></pre></div></section>
@@ -264,14 +248,8 @@
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/">
-      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
-      </svg>
-      <span>串联所有单词的子串</span></a>
     
-    
-    <a class="next" href="https://just-worker.github.io/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/"><span>找出字符串中第一个匹配项的下标2</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/"><span>下一个排列</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>

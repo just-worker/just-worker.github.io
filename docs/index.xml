@@ -6,7 +6,212 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 16 Jun 2023 22:36:23 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Jun 2023 23:18:55 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最长有效括号</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/</link>
+      <pubDate>Sat, 17 Jun 2023 23:18:55 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/</guid>
+      <description>&lt;h2 id=&#34;最长有效括号httpsleetcodecnproblemslongest-valid-parentheses&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-valid-parentheses/&#34;&gt;最长有效括号&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个只包含 &amp;lsquo;(&amp;rsquo; 和 &amp;lsquo;)&amp;rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;(()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：2&lt;/li&gt;
+&lt;li&gt;解释：最长有效括号子串是 &amp;ldquo;()&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;本题关键在于连通性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于&lt;code&gt;()((()))&lt;/code&gt;怎么判断联通性，直接计算即可&lt;/li&gt;
+&lt;li&gt;对于&lt;code&gt;()))&lt;/code&gt;，右侧匹配过多，打断即可&lt;/li&gt;
+&lt;li&gt;对于&lt;code&gt;()((()&lt;/code&gt;如何判断联通性，因为不能提前打断匹配，无法判断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，我们只能有两种办法来测试这种联通性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;采用栈匹配+临时变量，在打断匹配和字符结束的时候，结合匹配和残余的栈数据强行计算&lt;/li&gt;
+&lt;li&gt;连通性正反对称，且如果存在打断，正向无法提前判断的逆向可以提前判断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然，我们选择正反遍历，单纯的只关心左右括号相等以及打断的情况，结合正反两个结果取最高。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;longest_valid_parentheses&lt;/span&gt;(s: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chars:Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.chars().collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; chars.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; chars.iter() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; ch {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                right &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; left {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; right {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(res, left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; chars.iter().rev() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;(&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; ch {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                right &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; left {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; right {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(res, left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>下一个排列</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</link>
+      <pubDate>Sat, 17 Jun 2023 23:01:05 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/</guid>
+      <description>&lt;h2 id=&#34;下一个排列httpsleetcodecnproblemsnext-permutation&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/next-permutation/&#34;&gt;下一个排列&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。&lt;/li&gt;
+&lt;li&gt;类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。&lt;/li&gt;
+&lt;li&gt;而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;给你一个整数数组 nums ，找出 nums 的下一个排列。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;首先，考虑一个极端情况：已经是最大自然序怎么办。当然是回归到最小自然序，考虑到当前就是最大自然序，通过双指针交换可以很便捷的完成这一操作。&lt;/p&gt;
+&lt;p&gt;第二个问题，怎么计算下一个自然序呢。好像回到了题目本身，不过真实的思考是：怎么样才能让当前的序列更大一些。
+这样就很好办了，可以把一个序列更大的数值向前移动，这样就能够让整体序列更大了。
+因为要下一个自然序，我们必然从尾部开始查找，找到第一个&lt;code&gt;nums[i] &amp;gt; nums[i-1]&lt;/code&gt;，这就是我们要操作的边界。&lt;/p&gt;
+&lt;p&gt;要让&lt;code&gt;nums[i-1]&lt;/code&gt;变得更大的前提是，不能动&lt;code&gt;0~i&lt;/code&gt;之间的数，我们必须在&lt;code&gt;[i..]&lt;/code&gt;之间找到一个比&lt;code&gt;nums[i-1]&lt;/code&gt;更大一些的数值来替换它。&lt;/p&gt;
+&lt;p&gt;最后一个问题：因为&lt;code&gt;nums[i-1]&lt;/code&gt;发生了进位，剩下的数值需要回归最小自然序，怎么办呢。&lt;/p&gt;
+&lt;p&gt;根据&lt;code&gt;i&lt;/code&gt;的查找定义，&lt;code&gt;nums[i..]&lt;/code&gt;肯定是一个降序排列，我们只需要采用最开始的办法进行操作即可。&lt;/p&gt;
+&lt;p&gt;同时，查找到&lt;code&gt;i=0&lt;/code&gt;的情况，本身也是一样的操作，两者合并，题解完成。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;next_permutation&lt;/span&gt;(nums: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len).rev() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[i&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; nums[i] {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; swap &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (i&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len).rev() {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[swap] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; nums[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] {
+                        nums.swap(swap, i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+                    }
+                }
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; right {
+            nums.swap(left, right);
+            left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            right &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>串联所有单词的子串</title>
+      <link>https://just-worker.github.io/blog/%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Sat, 17 Jun 2023 22:33:55 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;串联所有单词的子串httpsleetcodecnproblemssubstring-with-concatenation-of-all-words&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/substring-with-concatenation-of-all-words/&#34;&gt;串联所有单词的子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个字符串 s 和一个字符串数组 words。 words 中所有字符串 长度相同。&lt;/p&gt;
+&lt;p&gt; s 中的 串联子串 是指一个包含  words 中所有字符串以任意顺序排列连接起来的子串。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如，如果 words = [&amp;ldquo;ab&amp;rdquo;,&amp;ldquo;cd&amp;rdquo;,&amp;ldquo;ef&amp;rdquo;]， 那么 &amp;ldquo;abcdef&amp;rdquo;， &amp;ldquo;abefcd&amp;rdquo;，&amp;ldquo;cdabef&amp;rdquo;， &amp;ldquo;cdefab&amp;rdquo;，&amp;ldquo;efabcd&amp;rdquo;， 和 &amp;ldquo;efcdab&amp;rdquo; 都是串联子串。 &amp;ldquo;acdbef&amp;rdquo; 不是串联子串，因为他不是任何 words 排列的连接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;barfoothefoobarman&amp;rdquo;, words = [&amp;ldquo;foo&amp;rdquo;,&amp;ldquo;bar&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;输出：[0,9]&lt;/li&gt;
+&lt;li&gt;解释：因为 words.length == 2 同时 words[i].length == 3，连接的子字符串的长度必须为 6。
+子串 &amp;ldquo;barfoo&amp;rdquo; 开始位置是 0。它是 words 中以 [&amp;ldquo;bar&amp;rdquo;,&amp;ldquo;foo&amp;rdquo;] 顺序排列的连接。
+子串 &amp;ldquo;foobar&amp;rdquo; 开始位置是 9。它是 words 中以 [&amp;ldquo;foo&amp;rdquo;,&amp;ldquo;bar&amp;rdquo;] 顺序排列的连接。
+输出顺序无关紧要。返回 [9,0] 也是可以的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;问题一：如何判断一个字符串的&lt;code&gt;字符异位词&lt;/code&gt;。答案不言而喻：词频统计。&lt;/p&gt;
+&lt;p&gt;问题二：一个长字符串，如何统计&lt;code&gt;字符异位词&lt;/code&gt;个数。答案：滚动词频统计。&lt;/p&gt;
+&lt;p&gt;问题三：长字符串有多少种分割方式。答案：&lt;code&gt;word_length&lt;/code&gt;种，因为确定了首位，后续的直接滚动即可。&lt;/p&gt;
+&lt;p&gt;这样就能解答本道题了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time : O(WORD_LENGTH * STRING_LENGTH)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(WORD_LENGTH * WORD_COUNT)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_substring&lt;/span&gt;(s: String, words: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (word_count, word_length) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (words.len(), words[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (combine_length, string_length) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (word_count &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; word_length, s.len());
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 长度不够，直接淘汰
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; combine_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; string_length {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 多种分割，依靠字符长度判断，后续都会周期重复
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; offset &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;word_length {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 词频统计
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; counter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashMap::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;::new();
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 基础词频
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; word &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; words.iter() {
+                &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;counter.entry(word).or_insert(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 滚动词频统计
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; begin &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (offset&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;string_length &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; word_length &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;).step_by(word_length) {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 滚动录入的单词
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[begin&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; word_length];
+                &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;counter.entry(current).or_insert(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; counter[current] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                    counter.remove(current);
+                }
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 滚动退出的单词
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; combine_length {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; combine_length&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; combine_length &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; word_length];
+                    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;counter.entry(last).or_insert(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; counter[last] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                        counter.remove(last);
+                    }
+                }
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 词频消弭，匹配
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; counter.is_empty() {
+                    res.push((begin &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; combine_length &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; word_length) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;);
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;滑动边界需要小心。&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>两数相除</title>
       <link>https://just-worker.github.io/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/</link>
