@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算法</title>
+    <title>在排序数组中查找元素的第一个和最后一个位置</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="算法" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/" />
+    <meta property="og:title" content="在排序数组中查找元素的第一个和最后一个位置" />
+<meta property="og:description" content="在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-18T23:12:21+08:00" />
+<meta property="article:modified_time" content="2023-06-18T23:12:21+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="算法"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="在排序数组中查找元素的第一个和最后一个位置"/>
+<meta name="twitter:description" content="在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "在排序数组中查找元素的第一个和最后一个位置",
+      "item": "https://just-worker.github.io/blog/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在排序数组中查找元素的第一个和最后一个位置",
+  "name": "在排序数组中查找元素的第一个和最后一个位置",
+  "description": "在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。\n如果数组中不存在目标值 target，返回 [-1, -1]。\n你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。\n  输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4]   题目解析 看时间复杂度，还是二分；这里主要分析一下什么情况下靠左，什么情况下靠右。\n遇见二分的时候，会遇见这样的模板代码\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 仔细观察一下，比较符号采用的是，这种情况下，对于left而言，是不会错过target的，不断缩减的是right，当到达临界的时候，left就到达了target；\n如果是小于等于的情况呢\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 可以发现就算等于了target也会溜走，继续向右移动；不过此时得到的位置会向后偏移一位。\n",
+  "wordCount" : "382",
+  "inLanguage": "zh",
+  "datePublished": "2023-06-18T23:12:21+08:00",
+  "dateModified": "2023-06-18T23:12:21+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,14 +156,12 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">在排序数组中查找元素的第一个和最后一个位置</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>在排序数组中查找元素的第一个和最后一个位置</h1>
+  </header>
+
+  <p>
   <small>
     2023年6月18日&nbsp;· 382 字&nbsp;· 1 分钟</small>
 
@@ -123,227 +177,60 @@
     </small>
   
 <p>
-          在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/">搜索旋转排序数组</a></h3>
-          <p>
-  <small>
-    2023年6月18日&nbsp;· 460 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          搜索旋转排序数组 整数数组 nums 按升序排列，数组中的值 互不相同 。 在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt; nums.length）
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">最长有效括号</a></h3>
-          <p>
-  <small>
-    2023年6月17日&nbsp;· 435 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="在排序数组中查找元素的第一个和最后一个位置httpsleetcodecnproblemsfind-first-and-last-position-of-element-in-sorted-array"><a href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/">在排序数组中查找元素的第一个和最后一个位置</a></h2>
+<p>给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。</p>
+<p>如果数组中不存在目标值 target，返回 [-1, -1]。</p>
+<p>你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。</p>
+<blockquote>
+<ul>
+<li>输入：nums = [5,7,7,8,8,10], target = 8</li>
+<li>输出：[3,4]</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>看时间复杂度，还是二分；这里主要分析一下什么情况下靠左，什么情况下靠右。</p>
+<p>遇见二分的时候，会遇见这样的模板代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">if</span> nums[mid] <span style="color:#f92672">&lt;</span> target {
+    left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+} <span style="color:#66d9ef">else</span> {
+    right <span style="color:#f92672">=</span> mid;
+}
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          最长有效括号 给你一个只包含 &lsquo;(&rsquo; 和 &lsquo;)&rsquo; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。 输入：s = &ldquo;(()&rdquo; 输出：2 解释：最长有效括号子串是 &ldquo;()&rdquo; 题目解
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/">下一个排列</a></h3>
-          <p>
-  <small>
-    2023年6月17日&nbsp;· 810 字&nbsp;· 2 分钟</small>
+</code></pre></div><p>仔细观察一下，比较符号采用的是<code>&lt;</code>，这种情况下，对于<code>left</code>而言，是不会错过<code>target</code>的，不断缩减的是<code>right</code>，当到达临界的时候，<code>left</code>就到达了<code>target</code>；</p>
+<p>如果是小于等于的情况呢</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">if</span> nums[mid] <span style="color:#f92672">&lt;=</span> target {
+    left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+} <span style="color:#66d9ef">else</span> {
+    right <span style="color:#f92672">=</span> mid;
+}
+</code></pre></div><p>可以发现就算等于了<code>target</code>也会溜走，继续向右移动；不过此时得到的位置会向后偏移一位。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          下一个排列 整数数组的一个 排列 就是将其所有成员以序列或线性顺序排列。 例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/">串联所有单词的子串</a></h3>
-          <p>
-  <small>
-    2023年6月17日&nbsp;· 741 字&nbsp;· 2 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          串联所有单词的子串 给定一个字符串 s 和一个字符串数组 words。 words 中所有字符串 长度相同。 s 中的 串联子串 是指一个包含 words 中所有字符串以任意顺序排列
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/">两数相除</a></h3>
-          <p>
-  <small>
-    2023年6月16日&nbsp;· 500 字&nbsp;· 1 分钟</small>
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          两数相除 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。 整数除法应该向零截断，也就是截去（trunc
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%872/">找出字符串中第一个匹配项的下标2</a></h3>
-          <p>
-  <small>
-    2023年6月15日&nbsp;· 1605 字&nbsp;· 4 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          再续前缘 前面说过找出字符串中第一个匹配项的下标和最长回文子串很像；其中一个是KMP，另一个是马拉车。两者都是字符串匹配，而且核心观念是如何传
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/">找出字符串中第一个匹配项的下标</a></h3>
-          <p>
-  <small>
-    2023年6月14日&nbsp;· 248 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          找出字符串中第一个匹配项的下标 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">移除元素</a></h3>
-          <p>
-  <small>
-    2023年6月14日&nbsp;· 293 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          移除元素 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。 不要使用额外的数组空间，你必须仅使用 O(1) 额
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">删除有序数组中的重复项</a></h3>
-          <p>
-  <small>
-    2023年6月14日&nbsp;· 373 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          删除有序数组中的重复项 给你一个 升序排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      
-      <a class="next" href="/tags/%E7%AE%97%E6%B3%95/page/2/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"><span>搜索旋转排序数组</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
