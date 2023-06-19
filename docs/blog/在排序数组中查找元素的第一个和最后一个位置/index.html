@@ -55,8 +55,8 @@
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。\n如果数组中不存在目标值 target，返回 [-1, -1]。\n你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。\n  输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4]   题目解析 看时间复杂度，还是二分；这里主要分析一下什么情况下靠左，什么情况下靠右。\n遇见二分的时候，会遇见这样的模板代码\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 仔细观察一下，比较符号采用的是，这种情况下，对于left而言，是不会错过target的，不断缩减的是right，当到达临界的时候，left就到达了target；\n如果是小于等于的情况呢\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 可以发现就算等于了target也会溜走，继续向右移动；不过此时得到的位置会向后偏移一位。\n",
-  "wordCount" : "382",
+  "articleBody": "在排序数组中查找元素的第一个和最后一个位置 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。\n如果数组中不存在目标值 target，返回 [-1, -1]。\n你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。\n  输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4]   题目解析 看时间复杂度，还是二分；这里主要分析一下什么情况下靠左，什么情况下靠右。\n遇见二分的时候，会遇见这样的模板代码\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 仔细观察一下，比较符号采用的是，这种情况下，对于left而言，是不会错过target的，不断缩减的是right，当到达临界的时候，left就到达了target；\n如果是小于等于的情况呢\nif nums[mid]  target { left = mid + 1; } else { right = mid; } 可以发现就算等于了target也会溜走，继续向右移动；不过此时得到的位置会向后偏移一位。\n不过由于外层的left 的循环，对于一些特殊的场景，无法做到万金油。换一种思路，我们只要搜索到left + 1 = right的地步，其实就能够直接拿到当前的结果，只是需要在具体搜索的地方进行额外的判断即可。\n// time: O(log N) // space: O(1) impl Solution { pub fn search_range(nums: Veci32, target: i32) - Veci32 { let len = nums.len(); if len == 0 { return vec![-1,-1]; } if target  nums[0] || nums[len - 1]  target { return vec![-1,-1]; } let left = Self::search(\u0026nums, target, 0, len - 1, false); if left == -1 { return vec![-1, -1]; } return vec![ left, Self::search(\u0026nums, target, left as usize, len - 1, true) ] } fn search(nums: \u0026Veci32, target: i32, left: usize, right: usize, close_right: bool) - i32 { let (mut left, mut right) = (left, right); while left  right { let mid = (left + right) / 2; // left == right || left + 1 == right  if left == mid { break; } // mid 不进行偏移，尽可能的保证 target  if close_right { if nums[mid]  target { left = mid; } else { right = mid; } } else { if nums[mid]  target { left = mid; } else { right = mid; } } } // 靠近左侧  if !close_right { // 优先取左侧  if nums[left] == target { return left as i32; } // 次一点取右侧  if nums[right] == target { return right as i32; } } else if nums[right] == target { // 优先右侧  return right as i32; } else if nums[left] == target { // 次一点左侧  return left as i32; } // 都不匹配  return -1; } } 一个陷进 有一个坑点，那就是既然知道了left，顺序查找right是否能够加速；因为如果都是同数字的数组，遍历一遍就是O(N)了，这样并不能达成结果。\n",
+  "wordCount" : "828",
   "inLanguage": "zh",
   "datePublished": "2023-06-18T23:12:21+08:00",
   "dateModified": "2023-06-18T23:12:21+08:00",
@@ -163,7 +163,7 @@
 
   <p>
   <small>
-    2023年6月18日&nbsp;· 382 字&nbsp;· 1 分钟</small>
+    2023年6月18日&nbsp;· 828 字&nbsp;· 2 分钟</small>
 
   <small>
       
@@ -205,14 +205,84 @@
     right <span style="color:#f92672">=</span> mid;
 }
 </code></pre></div><p>可以发现就算等于了<code>target</code>也会溜走，继续向右移动；不过此时得到的位置会向后偏移一位。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<p>不过由于外层的<code>left &lt; right</code>的循环，对于一些特殊的场景，无法做到万金油。换一种思路，我们只要搜索到<code>left + 1 &gt;= right</code>的地步，其实就能够直接拿到当前的结果，只是需要在具体搜索的地方进行额外的判断即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(log N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">search_range</span>(nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, target: <span style="color:#66d9ef">i32</span>) -&gt; Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> nums.len();
+        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#66d9ef">return</span> vec![<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+        }
+        <span style="color:#66d9ef">if</span> target <span style="color:#f92672">&lt;</span> nums[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">||</span> nums[len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;</span> target {
+            <span style="color:#66d9ef">return</span> vec![<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+        }
+        <span style="color:#66d9ef">let</span> left <span style="color:#f92672">=</span> Self::search(<span style="color:#f92672">&amp;</span>nums, target, <span style="color:#ae81ff">0</span>, len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">false</span>);
+        <span style="color:#66d9ef">if</span> left <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> vec![<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+        }
+        <span style="color:#66d9ef">return</span> vec![
+            left,
+            Self::search(<span style="color:#f92672">&amp;</span>nums, target, left <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>, len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+        ]
 
+    }
 
-</code></pre></div></section>
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">search</span>(nums: <span style="color:#66d9ef">&amp;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, target: <span style="color:#66d9ef">i32</span>, left: <span style="color:#66d9ef">usize</span>, right: <span style="color:#66d9ef">usize</span>, close_right: <span style="color:#66d9ef">bool</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> left, <span style="color:#66d9ef">mut</span> right) <span style="color:#f92672">=</span> (left, right);
+        <span style="color:#66d9ef">while</span> left <span style="color:#f92672">&lt;</span> right {
+            <span style="color:#66d9ef">let</span> mid <span style="color:#f92672">=</span> (left <span style="color:#f92672">+</span> right) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+            <span style="color:#75715e">// left == right || left + 1 == right
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> left <span style="color:#f92672">==</span> mid {
+                <span style="color:#66d9ef">break</span>;
+            }
+            <span style="color:#75715e">// mid 不进行偏移，尽可能的保证 target
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> close_right {
+                <span style="color:#66d9ef">if</span> nums[mid] <span style="color:#f92672">&lt;=</span> target {
+                    left <span style="color:#f92672">=</span> mid;
+                } <span style="color:#66d9ef">else</span> {
+                    right <span style="color:#f92672">=</span> mid;
+                }
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">if</span> nums[mid] <span style="color:#f92672">&lt;</span> target {
+                    left <span style="color:#f92672">=</span> mid;
+                } <span style="color:#66d9ef">else</span> {
+                    right <span style="color:#f92672">=</span> mid;
+                }
+            }
+        }
+        <span style="color:#75715e">// 靠近左侧
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>close_right {
+            <span style="color:#75715e">// 优先取左侧
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> nums[left] <span style="color:#f92672">==</span> target {
+                <span style="color:#66d9ef">return</span> left <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+            }
+            <span style="color:#75715e">// 次一点取右侧
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> nums[right] <span style="color:#f92672">==</span> target {
+                <span style="color:#66d9ef">return</span> right <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+            }
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> nums[right] <span style="color:#f92672">==</span> target { <span style="color:#75715e">// 优先右侧
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> right <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> nums[left] <span style="color:#f92672">==</span> target {  <span style="color:#75715e">// 次一点左侧
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> left <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+        } 
+        <span style="color:#75715e">// 都不匹配
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+}
+</code></pre></div><h2 id="一个陷进">一个陷进</h2>
+<p>有一个坑点，那就是既然知道了<code>left</code>，顺序查找<code>right</code>是否能够加速；因为如果都是同数字的数组，遍历一遍就是<code>O(N)</code>了，这样并不能达成结果。</p>
+</section>
 
   
   
   <div class="paginator">
+    
+    <a class="prev" href="https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>搜索插入位置</span></a>
     
     
     <a class="next" href="https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/"><span>搜索旋转排序数组</span>
