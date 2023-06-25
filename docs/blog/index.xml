@@ -6,7 +6,97 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 21 Jun 2023 23:12:28 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jun 2023 20:41:25 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>收假戒烟</title>
+      <link>https://just-worker.github.io/blog/%E6%94%B6%E5%81%87%E6%88%92%E7%83%9F/</link>
+      <pubDate>Sun, 25 Jun 2023 20:41:25 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%94%B6%E5%81%87%E6%88%92%E7%83%9F/</guid>
+      <description>&lt;h2 id=&#34;端午戒烟&#34;&gt;端午戒烟&lt;/h2&gt;
+&lt;p&gt;端午已经达成了三天一包，虽然在家里还是抽烟了，但是总的来说都在减少，而不是家里面不抽，外面狠抽。&lt;/p&gt;
+&lt;p&gt;其实比较不确定的是收假的时候，因为收假第一天就是早班，起一大早，不太确定精神状态。&lt;/p&gt;
+&lt;h2 id=&#34;收假吸烟&#34;&gt;收假吸烟&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;上班：1&lt;/li&gt;
+&lt;li&gt;值班：1&lt;/li&gt;
+&lt;li&gt;中午：1&lt;/li&gt;
+&lt;li&gt;下午：1&lt;/li&gt;
+&lt;li&gt;烦闷：1&lt;/li&gt;
+&lt;li&gt;下班：1&lt;/li&gt;
+&lt;li&gt;日记：1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今天虽然值班，但还是控制在了预定范围内，虽然好像才克制了 1 ，但这个基准，肯定不是随便定的，只要控制在范围内，就是好的。&lt;/p&gt;
+&lt;p&gt;回想之前值班，每小时下楼，每次 1~2 根，一天消耗实在巨大。&lt;/p&gt;
+&lt;h2 id=&#34;今日小结&#34;&gt;今日小结&lt;/h2&gt;
+&lt;p&gt;从细节上看，每次下楼强制只吸一根，打断萎靡状态，是很有必要的；今后吸烟也要秉承这个宗旨，不能连续多洗的。&lt;/p&gt;
+&lt;p&gt;从长远来看，目前比较稳妥的限制在了两天一包，下面的目标还是调节自身，稳定在三天一包。&lt;/p&gt;
+&lt;p&gt;允许短时间的波动，但是长远是一定要下降的，逐渐变为选择之一，而不是唯一选择。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>字符串相乘</title>
+      <link>https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/</link>
+      <pubDate>Sun, 25 Jun 2023 20:19:48 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/</guid>
+      <description>&lt;h2 id=&#34;字符串相乘httpsleetcodecnproblemsmultiply-strings&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/multiply-strings/&#34;&gt;字符串相乘&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。&lt;/p&gt;
+&lt;p&gt;注意：不能使用任何内置的 BigInteger 库或直接将输入转换为整数。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: num1 = &amp;ldquo;123&amp;rdquo;, num2 = &amp;ldquo;456&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出: &amp;ldquo;56088&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/solution-static/43/sol1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;不能转整数后相乘，也就只能各位相乘后相加了。&lt;/p&gt;
+&lt;p&gt;如果中途转字符的话，还要遍历相加，这里直接使用数组承接，避免后续数值相加遍历。&lt;/p&gt;
+&lt;p&gt;两个数的长度分别为&lt;code&gt;A&lt;/code&gt;和&lt;code&gt;B&lt;/code&gt;，如果相乘之后进位，结果长度为&lt;code&gt;A+B&lt;/code&gt;，否则为&lt;code&gt;A+B-1&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;直接使用数组，每个坑位计算数值，顺便相加，后续统一计算进位。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(M+N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;multiply&lt;/span&gt;(num1: String, num2: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a, b) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (num1.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;(), num2.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a_len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; a[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; (b_len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; b[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;.to_string();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; arr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len];
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 对应相乘
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ai &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;a_len).rev() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; av &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a[ai].to_digit(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;).unwrap() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; bi &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;b_len).rev() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; bv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[bi].to_digit(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;).unwrap() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+                arr[ai &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; bi &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; av &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; bv;
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 逐步进位
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;(a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len)).rev() {
+            arr[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; arr[i] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+            arr[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; arr[i] &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 进位判断
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; arr[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+        };
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; String::new();
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 数据收集
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; begin&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;a_len&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;b_len {
+            res.push_str(arr[i].to_string().as_str());
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>实施戒烟</title>
       <link>https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/</link>

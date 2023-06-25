@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实施戒烟</title>
+    <title>字符串相乘</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@计划回顾 上班：1 中午：1.5 下午：1.5 烦闷：2 下班：1 日记：1 实施结果 上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什">
+    <meta name="description" content="Ladder@字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 注意：不能使用任何内置的 BigInteger 库或直接">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="实施戒烟" />
-<meta property="og:description" content="计划回顾 上班：1 中午：1.5 下午：1.5 烦闷：2 下班：1 日记：1 实施结果 上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什" />
+    <meta property="og:title" content="字符串相乘" />
+<meta property="og:description" content="字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 注意：不能使用任何内置的 BigInteger 库或直接" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-06-21T23:12:28+08:00" />
-<meta property="article:modified_time" content="2023-06-21T23:12:28+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-25T20:19:48+08:00" />
+<meta property="article:modified_time" content="2023-06-25T20:19:48+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="实施戒烟"/>
-<meta name="twitter:description" content="计划回顾 上班：1 中午：1.5 下午：1.5 烦闷：2 下班：1 日记：1 实施结果 上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什"/>
+<meta name="twitter:title" content="字符串相乘"/>
+<meta name="twitter:description" content="字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 注意：不能使用任何内置的 BigInteger 库或直接"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "实施戒烟",
-      "item": "https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/"
+      "name": "字符串相乘",
+      "item": "https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "实施戒烟",
-  "name": "实施戒烟",
-  "description": "计划回顾 上班：1 中午：1.5 下午：1.5 烦闷：2 下班：1 日记：1 实施结果 上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什",
+  "headline": "字符串相乘",
+  "name": "字符串相乘",
+  "description": "字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 注意：不能使用任何内置的 BigInteger 库或直接",
   "keywords": [
-    "戒烟日记"
+    "leetcode", "算法"
   ],
-  "articleBody": "计划回顾 上班：1 中午：1.5 下午：1.5 烦闷：2 下班：1 日记：1\n实施结果 上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什么要中途思考的。 消耗完之后也就到公司(家)了，这个时候状态要跳变，所以不会有半途不吸，也能做到到了后不吸。\n烦闷的时候的确是有，今天有过一次，不过克制住了，消耗 1 之后继续办事了。 这个和手头的事情的多寡相关，之前只有任务很多且特别烦闷的时候，可能会持续一段时间，消耗比较大。 现在逐渐去调节心情，调节心态，就算烦闷后吸烟，大抵是太忙了，挺过之后的一个里程碑，可以克制一下。\n中午和下午，的确下来了，吸了一个就赶快上楼了，呆下面的确热，而且的确是收益最小的。\n日记后估计还是免不了，也算一种里程碑的状态转换？\n战绩一览 上班：1 中午：1 下午：1 烦闷：1 下班：1 日记：1\n今日消耗总数 6 ， 维持及格线之上，整体无异常，继续保持。\n",
-  "wordCount" : "373",
+  "articleBody": "字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。\n注意：不能使用任何内置的 BigInteger 库或直接将输入转换为整数。\n  输入: num1 = “123”, num2 = “456” 输出: “56088”   题目解析 不能转整数后相乘，也就只能各位相乘后相加了。\n如果中途转字符的话，还要遍历相加，这里直接使用数组承接，避免后续数值相加遍历。\n两个数的长度分别为A和B，如果相乘之后进位，结果长度为A+B，否则为A+B-1。\n直接使用数组，每个坑位计算数值，顺便相加，后续统一计算进位。\n// time: O(MN) // space: O(M+N) impl Solution { pub fn multiply(num1: String, num2: String) - String { let (a, b) = (num1.chars().collect::Vec_(), num2.chars().collect::Vec_()); let (a_len, b_len) = (a.len(), b.len()); if (a_len == 1 \u0026\u0026 a[0] == '0') || (b_len == 1 \u0026\u0026 b[0] == '0') { return \"0\".to_string(); } let mut arr = vec![0; a_len + b_len]; // 对应相乘  for ai in (0..a_len).rev() { let av = a[ai].to_digit(10).unwrap() as i32; for bi in (0..b_len).rev() { let bv = b[bi].to_digit(10).unwrap() as i32; arr[ai + bi + 1] += av * bv; } } // 逐步进位  for i in (1..(a_len + b_len)).rev() { arr[i - 1] += arr[i] / 10; arr[i] = arr[i] % 10; } // 进位判断  let begin = if arr[0] == 0 { 1 } else { 0 }; let mut res = String::new(); // 数据收集  for i in begin..a_len+b_len { res.push_str(arr[i].to_string().as_str()); } return res; } } ",
+  "wordCount" : "388",
   "inLanguage": "zh",
-  "datePublished": "2023-06-21T23:12:28+08:00",
-  "dateModified": "2023-06-21T23:12:28+08:00",
+  "datePublished": "2023-06-25T20:19:48+08:00",
+  "dateModified": "2023-06-25T20:19:48+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/"
+    "@id": "https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,61 +158,93 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>实施戒烟</h1>
+    <h1>字符串相乘</h1>
   </header>
 
   <p>
   <small>
-    2023年6月21日&nbsp;· 373 字&nbsp;· 1 分钟</small>
+    2023年6月25日&nbsp;· 388 字&nbsp;· 1 分钟</small>
 
   <small>
       
       ·
       
       
-      <a href="https://just-worker.github.io/tags/%E6%88%92%E7%83%9F%E6%97%A5%E8%AE%B0/">戒烟日记</a>
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
       
     </small>
   
 <p>
 
-  <section class="blog-content"><h2 id="计划回顾">计划回顾</h2>
-<p>上班：1
-中午：1.5
-下午：1.5
-烦闷：2
-下班：1
-日记：1</p>
-<h2 id="实施结果">实施结果</h2>
-<p>上班和下班，时间说长不短的，基本上是直接消耗，因为要转变状态，没有什么要中途思考的。
-消耗完之后也就到公司(家)了，这个时候状态要跳变，所以不会有半途不吸，也能做到到了后不吸。</p>
-<p>烦闷的时候的确是有，今天有过一次，不过克制住了，消耗 1 之后继续办事了。
-这个和手头的事情的多寡相关，之前只有任务很多且特别烦闷的时候，可能会持续一段时间，消耗比较大。
-现在逐渐去调节心情，调节心态，就算烦闷后吸烟，大抵是太忙了，挺过之后的一个里程碑，可以克制一下。</p>
-<p>中午和下午，的确下来了，吸了一个就赶快上楼了，呆下面的确热，而且的确是收益最小的。</p>
-<p>日记后估计还是免不了，也算一种里程碑的状态转换？</p>
-<h2 id="战绩一览">战绩一览</h2>
-<p>上班：1
-中午：1
-下午：1
-烦闷：1
-下班：1
-日记：1</p>
-<p>今日消耗总数 6 ， 维持及格线之上，整体无异常，继续保持。</p>
-</section>
+  <section class="blog-content"><h2 id="字符串相乘httpsleetcodecnproblemsmultiply-strings"><a href="https://leetcode.cn/problems/multiply-strings/">字符串相乘</a></h2>
+<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
+<p>注意：不能使用任何内置的 BigInteger 库或直接将输入转换为整数。</p>
+<blockquote>
+<ul>
+<li>输入: num1 = &ldquo;123&rdquo;, num2 = &ldquo;456&rdquo;</li>
+<li>输出: &ldquo;56088&rdquo;</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p><img src="https://assets.leetcode-cn.com/solution-static/43/sol1.png" alt=""></p>
+<p>不能转整数后相乘，也就只能各位相乘后相加了。</p>
+<p>如果中途转字符的话，还要遍历相加，这里直接使用数组承接，避免后续数值相加遍历。</p>
+<p>两个数的长度分别为<code>A</code>和<code>B</code>，如果相乘之后进位，结果长度为<code>A+B</code>，否则为<code>A+B-1</code>。</p>
+<p>直接使用数组，每个坑位计算数值，顺便相加，后续统一计算进位。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(MN)
+</span><span style="color:#75715e">// space: O(M+N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">multiply</span>(num1: String, num2: String) -&gt; String {
+        <span style="color:#66d9ef">let</span> (a, b) <span style="color:#f92672">=</span> (num1.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>(), num2.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>());
+        <span style="color:#66d9ef">let</span> (a_len, b_len) <span style="color:#f92672">=</span> (a.len(), b.len());
+        <span style="color:#66d9ef">if</span> (a_len <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>) <span style="color:#f92672">||</span> (b_len <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> b[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>) {
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;0&#34;</span>.to_string();
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> arr <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>; a_len <span style="color:#f92672">+</span> b_len];
+        <span style="color:#75715e">// 对应相乘
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> ai <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>a_len).rev() {
+            <span style="color:#66d9ef">let</span> av <span style="color:#f92672">=</span> a[ai].to_digit(<span style="color:#ae81ff">10</span>).unwrap() <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+            <span style="color:#66d9ef">for</span> bi <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>b_len).rev() {
+                <span style="color:#66d9ef">let</span> bv <span style="color:#f92672">=</span> b[bi].to_digit(<span style="color:#ae81ff">10</span>).unwrap() <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+                arr[ai <span style="color:#f92672">+</span> bi <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> av <span style="color:#f92672">*</span> bv;
+            }
+        }
+        <span style="color:#75715e">// 逐步进位
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>(a_len <span style="color:#f92672">+</span> b_len)).rev() {
+            arr[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> arr[i] <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>;
+            arr[i] <span style="color:#f92672">=</span> arr[i] <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>;
+        }
+        <span style="color:#75715e">// 进位判断
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> begin <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> arr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#ae81ff">1</span>
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#ae81ff">0</span>
+        };
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> String::new();
+        <span style="color:#75715e">// 数据收集
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> begin<span style="color:#f92672">..</span>a_len<span style="color:#f92672">+</span>b_len {
+            res.push_str(arr[i].to_string().as_str());
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+}
+</code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">
+    <a class="prev" href="https://just-worker.github.io/blog/%E6%94%B6%E5%81%87%E6%88%92%E7%83%9F/">
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
-      <span>字符串相乘</span></a>
+      <span>收假戒烟</span></a>
     
     
-    <a class="next" href="https://just-worker.github.io/blog/%E6%8E%A5%E9%9B%A8%E6%B0%B4/"><span>接雨水</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/"><span>实施戒烟</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
