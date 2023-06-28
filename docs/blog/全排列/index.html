@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>全排列</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="全排列" />
+<meta property="og:description" content="全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-28T22:29:25+08:00" />
+<meta property="article:modified_time" content="2023-06-28T22:29:25+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="全排列"/>
+<meta name="twitter:description" content="全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "全排列",
+      "item": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "全排列",
+  "name": "全排列",
+  "description": "全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。\n  输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]   题目解析 就是挨个试数据，然后进行组合。这里肯定用回溯，但唯一的问题是，怎么区分已用过和未用过的数据。\n这里可以直接使用一个数组，用idx进行标记，这里有双重含义\n idx表示需要尝试进行随机替换的数 idx之前的数字就是已经用过的数字  // time： O(N x N!) // space: O(N) impl Solution { pub fn permute(mut nums: Veci32) - VecVeci32 { let mut res = vec![]; Self::generate(\u0026mut res, \u0026mut nums, 0); return res; } fn generate(res: \u0026mut VecVeci32, nums: \u0026mut Veci32, idx: usize) { // 生成完毕，添加  if idx == nums.len() { res.push(nums.iter().map(|\u0026v|v).collect()); return; } // 分别使用后续的数字替换当前位置的数据  for i in idx..nums.len() { nums.swap(idx, i); Self::generate(res, nums, idx + 1); nums.swap(idx, i); } } } 回溯感想 使用递推、回溯进行解题，一定要有想象力，甚至是幼稚、废话的因果提取。\n虽然似乎天马行空，但是因果的层层累积，就能够抵达彼岸。\n不用追究细节，只要能够在因果内闭环即可。\n",
+  "wordCount" : "400",
+  "inLanguage": "zh",
+  "datePublished": "2023-06-28T22:29:25+08:00",
+  "dateModified": "2023-06-28T22:29:25+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,14 +156,12 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%85%A8%E6%8E%92%E5%88%97/">全排列</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>全排列</h1>
+  </header>
+
+  <p>
   <small>
     2023年6月28日&nbsp;· 400 字&nbsp;· 1 分钟</small>
 
@@ -138,213 +177,74 @@
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8Fii/">跳跃游戏II</a></h3>
-              <p>
-  <small>
-    2023年6月27日&nbsp;· 654 字&nbsp;· 2 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E9%80%9A%E9%85%8D%E7%AC%A6%E5%8C%B9%E9%85%8D/">通配符匹配</a></h3>
-              <p>
-  <small>
-    2023年6月26日&nbsp;· 395 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="全排列httpsleetcodecnproblemspermutations"><a href="https://leetcode.cn/problems/permutations/">全排列</a></h2>
+<p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p>
+<blockquote>
+<ul>
+<li>输入：nums = [1,2,3]</li>
+<li>输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>就是挨个试数据，然后进行组合。这里肯定用回溯，但唯一的问题是，怎么区分已用过和未用过的数据。</p>
+<p>这里可以直接使用一个数组，用<code>idx</code>进行标记，这里有双重含义</p>
+<ul>
+<li><code>idx</code>表示需要尝试进行随机替换的数</li>
+<li><code>idx</code>之前的数字就是已经用过的数字</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time： O(N x N!)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">permute</span>(<span style="color:#66d9ef">mut</span> nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> vec![];
+        Self::generate(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> nums, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">return</span> res;
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%94%B6%E5%81%87%E6%88%92%E7%83%9F/">收假戒烟</a></h3>
-              <p>
-  <small>
-    2023年6月25日&nbsp;· 347 字&nbsp;· 1 分钟</small>
+    }
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E6%88%92%E7%83%9F%E6%97%A5%E8%AE%B0/">戒烟日记</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">字符串相乘</a></h3>
-              <p>
-  <small>
-    2023年6月25日&nbsp;· 388 字&nbsp;· 1 分钟</small>
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">generate</span>(res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>, nums: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, idx: <span style="color:#66d9ef">usize</span>) {
+        <span style="color:#75715e">// 生成完毕，添加
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">==</span> nums.len() {
+            res.push(nums.iter().map(<span style="color:#f92672">|&amp;</span>v<span style="color:#f92672">|</span>v).collect());
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#75715e">// 分别使用后续的数字替换当前位置的数据
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> idx<span style="color:#f92672">..</span>nums.len() {
+            nums.swap(idx, i);
+            Self::generate(res, nums, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+            nums.swap(idx, i);
+        }
+    }
+}
+</code></pre></div><h2 id="回溯感想">回溯感想</h2>
+<p>使用递推、回溯进行解题，一定要有想象力，甚至是幼稚、废话的因果提取。</p>
+<p>虽然似乎天马行空，但是因果的层层累积，就能够抵达彼岸。</p>
+<p>不用追究细节，只要能够在因果内闭环即可。</p>
+</section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AE%9E%E6%96%BD%E6%88%92%E7%83%9F/">实施戒烟</a></h3>
-              <p>
-  <small>
-    2023年6月21日&nbsp;· 373 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E6%88%92%E7%83%9F%E6%97%A5%E8%AE%B0/">戒烟日记</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%8E%A5%E9%9B%A8%E6%B0%B4/">接雨水</a></h3>
-              <p>
-  <small>
-    2023年6月21日&nbsp;· 657 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">缺失的第一个正数</a></h3>
-              <p>
-  <small>
-    2023年6月21日&nbsp;· 367 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8Cii/">组合总和II</a></h3>
-              <p>
-  <small>
-    2023年6月21日&nbsp;· 425 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%86%B3%E5%AE%9A%E6%88%92%E7%83%9F/">决定戒烟</a></h3>
-              <p>
-  <small>
-    2023年6月20日&nbsp;· 782 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E6%88%92%E7%83%9F%E6%97%A5%E8%AE%B0/">戒烟日记</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      
-      <a class="next" href="/blog/page/2/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8Fii/"><span>跳跃游戏II</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
