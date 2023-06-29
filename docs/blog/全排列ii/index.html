@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全排列</title>
+    <title>全排列II</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2">
+    <meta name="description" content="Ladder@全排列II 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。 输入：nums = [1,1,2] 输出： [[1,1,2], [1,2,1], [2,1,1]] 题目分析 和上一题类似，但是要求不重">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97ii/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="全排列" />
-<meta property="og:description" content="全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2" />
+    <meta property="og:title" content="全排列II" />
+<meta property="og:description" content="全排列II 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。 输入：nums = [1,1,2] 输出： [[1,1,2], [1,2,1], [2,1,1]] 题目分析 和上一题类似，但是要求不重" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-06-28T22:29:25+08:00" />
-<meta property="article:modified_time" content="2023-06-28T22:29:25+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97ii/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-29T22:54:00+08:00" />
+<meta property="article:modified_time" content="2023-06-29T22:54:00+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="全排列"/>
-<meta name="twitter:description" content="全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2"/>
+<meta name="twitter:title" content="全排列II"/>
+<meta name="twitter:description" content="全排列II 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。 输入：nums = [1,1,2] 输出： [[1,1,2], [1,2,1], [2,1,1]] 题目分析 和上一题类似，但是要求不重"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "全排列",
-      "item": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/"
+      "name": "全排列II",
+      "item": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97ii/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "全排列",
-  "name": "全排列",
-  "description": "全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。 输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2",
+  "headline": "全排列II",
+  "name": "全排列II",
+  "description": "全排列II 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。 输入：nums = [1,1,2] 输出： [[1,1,2], [1,2,1], [2,1,1]] 题目分析 和上一题类似，但是要求不重",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。\n  输入：nums = [1,2,3] 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]   题目解析 就是挨个试数据，然后进行组合。这里肯定用回溯，但唯一的问题是，怎么区分已用过和未用过的数据。\n这里可以直接使用一个数组，用idx进行标记，这里有双重含义\n idx表示需要尝试进行随机替换的数 idx之前的数字就是已经用过的数字  // time： O(N x N!) // space: O(N) impl Solution { pub fn permute(mut nums: Veci32) - VecVeci32 { let mut res = vec![]; Self::generate(\u0026mut res, \u0026mut nums, 0); return res; } fn generate(res: \u0026mut VecVeci32, nums: \u0026mut Veci32, idx: usize) { // 生成完毕，添加  if idx == nums.len() { res.push(nums.iter().map(|\u0026v|v).collect()); return; } // 分别使用后续的数字替换当前位置的数据  for i in idx..nums.len() { nums.swap(idx, i); Self::generate(res, nums, idx + 1); nums.swap(idx, i); } } } 回溯感想 使用递推、回溯进行解题，一定要有想象力，甚至是幼稚、废话的因果提取。\n虽然似乎天马行空，但是因果的层层累积，就能够抵达彼岸。\n不用追究细节，只要能够在因果内闭环即可。\n",
-  "wordCount" : "400",
+  "articleBody": "全排列II 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。\n  输入：nums = [1,1,2] 输出： [[1,1,2], [1,2,1], [2,1,1]]   题目分析 和上一题类似，但是要求不重复。\n目前已经遇到过很多类似的要求，固然可以通过set进行去重，但是凭空增加了无谓的消耗，这点需要时刻注意。\n之所以会产生重复的序列，主要在于其中的重复数字。我们应该如何去控制这些重复的数呢。\n前面的这道题给了我们一些灵感，可以统计频次，控制使用数量。\n不过这还是不对，重复的序列固然是因为数值的重复，但还有重复数值之间的顺序，如果只是保证了数量，并不能够完全的做到不重复。\n使用数值的时候，我们应该立下如下两个规矩，才能达成目的\n 不能重复使用数据 必须依次使用数据，不能跳过  // time: O(N x N!) // space: O(N) impl Solution { pub fn permute_unique(mut nums: Veci32) - VecVeci32 { let len = nums.len(); nums.sort(); let mut res = vec![]; Self::generate(\u0026mut vec![], \u0026nums, \u0026mut res, \u0026mut vec![false; len], 0); return res; } fn generate(collect: \u0026mut Veci32, nums: \u0026Veci32, res: \u0026mut VecVeci32, used: \u0026mut Vecbool, n: usize) { if n == nums.len() { res.push(collect.iter().map(|\u0026v|v).collect()); return; } for i in 0..nums.len() { // 使用过的不能再使用  // 只能依次使用  if used[i] || (i  0 \u0026\u0026 nums[i] == nums[i - 1] \u0026\u0026 !used[i - 1]) { continue; } used[i] = true; collect.push(nums[i]); Self::generate(collect, nums, res, used, n + 1); used[i] = false; collect.pop(); } } } ",
+  "wordCount" : "424",
   "inLanguage": "zh",
-  "datePublished": "2023-06-28T22:29:25+08:00",
-  "dateModified": "2023-06-28T22:29:25+08:00",
+  "datePublished": "2023-06-29T22:54:00+08:00",
+  "dateModified": "2023-06-29T22:54:00+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/"
+    "@id": "https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97ii/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>全排列</h1>
+    <h1>全排列II</h1>
   </header>
 
   <p>
   <small>
-    2023年6月28日&nbsp;· 400 字&nbsp;· 1 分钟</small>
+    2023年6月29日&nbsp;· 424 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,64 +178,67 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="全排列httpsleetcodecnproblemspermutations"><a href="https://leetcode.cn/problems/permutations/">全排列</a></h2>
-<p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p>
+  <section class="blog-content"><h2 id="全排列iihttpsleetcodecnproblemspermutations-ii"><a href="https://leetcode.cn/problems/permutations-ii/">全排列II</a></h2>
+<p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
 <blockquote>
 <ul>
-<li>输入：nums = [1,2,3]</li>
-<li>输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</li>
+<li>输入：nums = [1,1,2]</li>
+<li>输出：
+[[1,1,2],
+[1,2,1],
+[2,1,1]]</li>
 </ul>
 </blockquote>
-<h2 id="题目解析">题目解析</h2>
-<p>就是挨个试数据，然后进行组合。这里肯定用回溯，但唯一的问题是，怎么区分已用过和未用过的数据。</p>
-<p>这里可以直接使用一个数组，用<code>idx</code>进行标记，这里有双重含义</p>
+<h2 id="题目分析">题目分析</h2>
+<p>和<a href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/">上一题</a>类似，但是要求不重复。</p>
+<p>目前已经遇到过很多类似的要求，固然可以通过<code>set</code>进行去重，但是凭空增加了无谓的消耗，这点需要时刻注意。</p>
+<p>之所以会产生重复的序列，主要在于其中的重复数字。我们应该如何去控制这些重复的数呢。</p>
+<p>前面的<a href="https://just-worker.github.io/blog/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8Cii/">这道题</a>给了我们一些灵感，可以统计频次，控制使用数量。</p>
+<p>不过这还是不对，重复的序列固然是因为数值的重复，但还有重复数值之间的顺序，如果只是保证了数量，并不能够完全的做到不重复。</p>
+<p>使用数值的时候，我们应该立下如下两个规矩，才能达成目的</p>
 <ul>
-<li><code>idx</code>表示需要尝试进行随机替换的数</li>
-<li><code>idx</code>之前的数字就是已经用过的数字</li>
+<li>不能重复使用数据</li>
+<li>必须依次使用数据，不能跳过</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
-<span style="color:#75715e">// time： O(N x N!)
+<span style="color:#75715e">// time: O(N x N!)
 </span><span style="color:#75715e">// space: O(N)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">permute</span>(<span style="color:#66d9ef">mut</span> nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span> {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">permute_unique</span>(<span style="color:#66d9ef">mut</span> nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> nums.len();
+        nums.sort();
         <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> vec![];
-        Self::generate(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> nums, <span style="color:#ae81ff">0</span>);
+        Self::generate(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> vec![], <span style="color:#f92672">&amp;</span>nums, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> vec![<span style="color:#66d9ef">false</span>; len], <span style="color:#ae81ff">0</span>);
         <span style="color:#66d9ef">return</span> res;
-
     }
 
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">generate</span>(res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>, nums: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, idx: <span style="color:#66d9ef">usize</span>) {
-        <span style="color:#75715e">// 生成完毕，添加
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">==</span> nums.len() {
-            res.push(nums.iter().map(<span style="color:#f92672">|&amp;</span>v<span style="color:#f92672">|</span>v).collect());
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">generate</span>(collect: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, nums: <span style="color:#66d9ef">&amp;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>, res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>, used: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>, n: <span style="color:#66d9ef">usize</span>) {
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> nums.len() {
+            res.push(collect.iter().map(<span style="color:#f92672">|&amp;</span>v<span style="color:#f92672">|</span>v).collect());
             <span style="color:#66d9ef">return</span>;
         }
-        <span style="color:#75715e">// 分别使用后续的数字替换当前位置的数据
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> idx<span style="color:#f92672">..</span>nums.len() {
-            nums.swap(idx, i);
-            Self::generate(res, nums, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-            nums.swap(idx, i);
+        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>nums.len() {
+            <span style="color:#75715e">// 使用过的不能再使用
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 只能依次使用
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> used[i] <span style="color:#f92672">||</span> (i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> nums[i] <span style="color:#f92672">==</span> nums[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>used[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]) {
+                <span style="color:#66d9ef">continue</span>;
+            }
+            used[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+            collect.push(nums[i]);
+            Self::generate(collect, nums, res, used, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+            used[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+            collect.pop();
         }
     }
 }
-</code></pre></div><h2 id="回溯感想">回溯感想</h2>
-<p>使用递推、回溯进行解题，一定要有想象力，甚至是幼稚、废话的因果提取。</p>
-<p>虽然似乎天马行空，但是因果的层层累积，就能够抵达彼岸。</p>
-<p>不用追究细节，只要能够在因果内闭环即可。</p>
-</section>
+</code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97ii/">
-      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
-      </svg>
-      <span>全排列II</span></a>
     
-    
-    <a class="next" href="https://just-worker.github.io/blog/%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8Fii/"><span>跳跃游戏II</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E5%85%A8%E6%8E%92%E5%88%97/"><span>全排列</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
