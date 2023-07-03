@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leetcode</title>
+    <title>最大子数组和</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@最大子数组和 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 子数组 是数组中的一个连续部分 输入">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/leetcode/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="leetcode" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/leetcode/" />
+    <meta property="og:title" content="最大子数组和" />
+<meta property="og:description" content="最大子数组和 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 子数组 是数组中的一个连续部分 输入" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-03T23:03:52+08:00" />
+<meta property="article:modified_time" content="2023-07-03T23:03:52+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="leetcode"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="最大子数组和"/>
+<meta name="twitter:description" content="最大子数组和 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 子数组 是数组中的一个连续部分 输入"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "最大子数组和",
+      "item": "https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "最大子数组和",
+  "name": "最大子数组和",
+  "description": "最大子数组和 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 子数组 是数组中的一个连续部分 输入",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "最大子数组和 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。\n子数组 是数组中的一个连续部分\n  输入：nums = [-2,1,-3,4,-1,2,1,-5,4] 输出：6 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。   题目解析 核心问题在哪呢，除了初始值的设置外，和累加的过程中需要注意两种情况\n 不能跳过，每个数据都必须进行操作 如果累加有收益，就进行累加，否则从当前数值重新进行累加  最后进行最大值判断即可\n// time: O(N) // space: O(1) impl Solution { pub fn max_sub_array(nums: Veci32) - i32 { let len = nums.len(); if len == 0 { return 0; } let (mut res, mut sum) = (nums[0], nums[0]); for i in 1..len { // 选取收益最大的值  sum = std::cmp::max(sum + nums[i], nums[i]); // 记录最大值  res = std::cmp::max(sum, res); } return res; } } ",
+  "wordCount" : "260",
+  "inLanguage": "zh",
+  "datePublished": "2023-07-03T23:03:52+08:00",
+  "dateModified": "2023-07-03T23:03:52+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">最长回文子串</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>最大子数组和</h1>
+  </header>
+
+  <p>
   <small>
-    2023年6月4日&nbsp;· 965 字&nbsp;· 2 分钟</small>
+    2023年7月3日&nbsp;· 260 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -123,137 +177,65 @@
     </small>
   
 <p>
-          最长回文子串 给你一个字符串 s，找到 s 中最长的回文子串。 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。 输入：s = &ldquo;babad&rdquo; 输出：&ldq
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/">寻找两个正序数组的中位数2</a></h3>
-          <p>
-  <small>
-    2023年6月2日&nbsp;· 1110 字&nbsp;· 3 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          紧跟上文 紧跟上文寻找两个正序数组的中位数，在二分之后，继续深入。 原理分析 中位数: 将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">寻找两个正序数组的中位数</a></h3>
-          <p>
-  <small>
-    2023年6月1日&nbsp;· 1612 字&nbsp;· 4 分钟</small>
+  <section class="blog-content"><h2 id="最大子数组和httpsleetcodecnproblemsmaximum-subarray"><a href="https://leetcode.cn/problems/maximum-subarray/">最大子数组和</a></h2>
+<p>给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>子数组 是数组中的一个连续部分</p>
+<blockquote>
+<ul>
+<li>输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</li>
+<li>输出：6</li>
+<li>解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>核心问题在哪呢，除了初始值的设置外，和累加的过程中需要注意两种情况</p>
+<ol>
+<li>不能跳过，每个数据都必须进行操作</li>
+<li>如果累加有收益，就进行累加，否则从当前数值重新进行累加</li>
+</ol>
+<p>最后进行最大值判断即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">max_sub_array</span>(nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> nums.len();
+        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> res, <span style="color:#66d9ef">mut</span> sum) <span style="color:#f92672">=</span> (nums[<span style="color:#ae81ff">0</span>], nums[<span style="color:#ae81ff">0</span>]);
+        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>len {
+            <span style="color:#75715e">// 选取收益最大的值
+</span><span style="color:#75715e"></span>            sum <span style="color:#f92672">=</span> std::cmp::max(sum <span style="color:#f92672">+</span> nums[i], nums[i]);
+            <span style="color:#75715e">// 记录最大值
+</span><span style="color:#75715e"></span>            res <span style="color:#f92672">=</span> std::cmp::max(sum, res);
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          寻找两个正序数组的中位数 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。 算法的时间复杂度
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">无重复字符的最长子串</a></h3>
-          <p>
-  <small>
-    2023年5月31日&nbsp;· 1150 字&nbsp;· 3 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
   
-<p>
-          无重复字符的最长子串 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。 输入: s = &ldquo;abcabcbb&rdquo; 输出: 3 解释: 因为无重复字符的最长子串是 &ld
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a></h3>
-          <p>
-  <small>
-    2023年5月30日&nbsp;· 1095 字&nbsp;· 3 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          两数相加 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。 请你将两个数相加，并以相
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">两数之和</a></h3>
-          <p>
-  <small>
-    2023年5月29日&nbsp;· 779 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那两个整数，并返回它们的数组下标。 你可以假设每种输入
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/tags/leetcode/page/5/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/n%E7%9A%87%E5%90%8Eii/"><span>N皇后II</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
