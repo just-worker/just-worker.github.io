@@ -48,13 +48,6 @@
 &lt;p&gt;代码就不写了，时间复杂度&lt;code&gt;O(MN)&lt;/code&gt;，空间复杂度&lt;code&gt;O(MN)&lt;/code&gt;。&lt;/p&gt;
 &lt;h3 id=&#34;边界限制&#34;&gt;边界限制&lt;/h3&gt;
 &lt;p&gt;不使用访问标记，直接限定边界进行访问，可以看做剥洋葱一样，层层解套。&lt;/p&gt;
-&lt;p&gt;再次深入分析结束的时机&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;right&lt;/code&gt;: 最后只剩下单行&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;down&lt;/code&gt;: 最后剩下单列&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;up&lt;/code&gt;: 无中心，刚好闭环&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;但是因为&lt;code&gt;right&lt;/code&gt;和&lt;code&gt;down&lt;/code&gt;有边界的限制，边界不符合的情况无法进行遍历，因此我们可以结束时机统一的挂在&lt;code&gt;down&lt;/code&gt;遍历之后。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
