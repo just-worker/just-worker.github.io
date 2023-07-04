@@ -6,7 +6,109 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Mon, 03 Jul 2023 23:03:52 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jul 2023 23:26:01 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>螺旋矩阵</title>
+      <link>https://just-worker.github.io/blog/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/</link>
+      <pubDate>Tue, 04 Jul 2023 23:26:01 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/</guid>
+      <description>&lt;h2 id=&#34;螺旋矩阵httpsleetcodecnproblemsspiral-matrix&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/spiral-matrix/&#34;&gt;螺旋矩阵&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/11/13/spiral1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]&lt;/li&gt;
+&lt;li&gt;输出：[1,2,3,6,9,8,7,4,5]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/11/13/spiral.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]&lt;/li&gt;
+&lt;li&gt;输出：[1,2,3,4,8,12,11,10,9,5,6,7]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;整体无非就是按照&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;down&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;left&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;up&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;顺序进行访问，当无法沿着单一方向进行访问的时候，就顺序切换方向，没有访问过的元素。&lt;/p&gt;
+&lt;h3 id=&#34;是否访问&#34;&gt;是否访问&lt;/h3&gt;
+&lt;p&gt;根据上述想法，我们可以构造一个二维布尔数组&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果下一个数值没有访问过，我们就沿着单一方向进行访问&lt;/li&gt;
+&lt;li&gt;如果下一个数值已经访问过，切换方向判断下一个数据&lt;/li&gt;
+&lt;li&gt;如果切换方向后还是已经访问，结束；否则，沿着下一个方向继续访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码就不写了，时间复杂度&lt;code&gt;O(MN)&lt;/code&gt;，空间复杂度&lt;code&gt;O(MN)&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;边界限制&#34;&gt;边界限制&lt;/h3&gt;
+&lt;p&gt;不使用访问标记，直接限定边界进行访问，可以看做剥洋葱一样，层层解套。&lt;/p&gt;
+&lt;p&gt;再次深入分析结束的时机&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt;: 最后只剩下单行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;down&lt;/code&gt;: 最后剩下单列&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;up&lt;/code&gt;: 无中心，刚好闭环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是因为&lt;code&gt;right&lt;/code&gt;和&lt;code&gt;down&lt;/code&gt;有边界的限制，边界不符合的情况无法进行遍历，因此我们可以结束时机统一的挂在&lt;code&gt;down&lt;/code&gt;遍历之后。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;spiral_order&lt;/span&gt;(matrix: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; matrix.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].clone();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;r).into_iter().map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;matrix[i][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]).collect();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; x_1, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; x_2, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; y_1, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; y_2) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, r &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, c &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; x_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; x_2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; y_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; y_2 {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// right
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; y &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; y_1&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;y_2 {
+                res.push(matrix[x_1][y]);
+            }
+            x_1 &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// down
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; x_1&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;x_2 {
+                res.push(matrix[x][y_2]);
+            }
+            y_2 &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 边界超出，遍历终止
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; x_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x_2 &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; y_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; y_2 {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// left
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; y &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (y_1&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;y_2).rev() {
+                res.push(matrix[x_2][y]);
+            }
+            x_2 &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// up
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (x_1&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;x_2).rev() {
+                res.push(matrix[x][y_1]);
+            }
+            y_1 &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>最大子数组和</title>
       <link>https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/</link>
