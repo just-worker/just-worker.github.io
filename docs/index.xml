@@ -6,7 +6,102 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 06 Jul 2023 00:16:50 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Jul 2023 22:29:32 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>排列序列</title>
+      <link>https://just-worker.github.io/blog/%E6%8E%92%E5%88%97%E5%BA%8F%E5%88%97/</link>
+      <pubDate>Thu, 06 Jul 2023 22:29:32 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%8E%92%E5%88%97%E5%BA%8F%E5%88%97/</guid>
+      <description>&lt;h2 id=&#34;排列序列httpsleetcodecnproblemspermutation-sequence&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/permutation-sequence/&#34;&gt;排列序列&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给出集合 [1,2,3,&amp;hellip;,n]，其所有元素共有 n! 种排列。&lt;/p&gt;
+&lt;p&gt;按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;123&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;132&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;213&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;231&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;312&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;321&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;给定 n 和 k，返回第 k 个排列。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 3, k = 3&lt;/li&gt;
+&lt;li&gt;输出：&amp;ldquo;213&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;h3 id=&#34;模拟&#34;&gt;模拟&lt;/h3&gt;
+&lt;p&gt;结合之前的下一个序列的题目，我们是可以手动生成指定的序列的，但是时间复杂度肯定不低。这里就不实现了。&lt;/p&gt;
+&lt;h3 id=&#34;直接生成&#34;&gt;直接生成&lt;/h3&gt;
+&lt;p&gt;先弄明白&lt;code&gt;n!&lt;/code&gt;是怎么来的：第一个数&lt;code&gt;n&lt;/code&gt;种选择，第二个数&lt;code&gt;n-1&lt;/code&gt;种选择。。。。&lt;/p&gt;
+&lt;p&gt;假设&lt;code&gt;m &amp;lt; n&lt;/code&gt;且&lt;code&gt;m! &amp;gt; k&lt;/code&gt;，前&lt;code&gt;n - m&lt;/code&gt;个数值其实已经定了，我们不用关系它的生成。&lt;/p&gt;
+&lt;p&gt;其次，对于&lt;code&gt;m! = m x (m - 1)!&lt;/code&gt;，第&lt;code&gt;m&lt;/code&gt;个数值，其实每更换一个数值，它的变化区间是&lt;code&gt;(m-1)!&lt;/code&gt;。
+我们只需要按照剩下的数据，从小到大进行筛选，每进位更换一个，相当于进位了&lt;code&gt;(m-1)!&lt;/code&gt;个数值。&lt;/p&gt;
+&lt;p&gt;因此，我们要生成第&lt;code&gt;k&lt;/code&gt;个序列，按照这种办法，逐渐的去填充数据，会逐渐把&lt;code&gt;k&lt;/code&gt;降低，同时按照这种模式，最后把全部数据遍历完成就达成了目的。&lt;/p&gt;
+&lt;p&gt;这里有两个点需要注意&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不可以重复使用数据&lt;/li&gt;
+&lt;li&gt;必须从小到大使用数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; CHARS: [&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;4&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;5&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;6&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;7&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;8&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9&amp;#39;&lt;/span&gt;];
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_permutation&lt;/span&gt;(n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, k: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; String {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 如果是第一个序列，直接顺序生成即可
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;).map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;CHARS[i]).collect();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (n, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; k) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (n &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, k &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; factorial &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; n];
+        &lt;span style=&#34;color:#75715e&#34;&gt;// n! 组合空间
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n {
+            factorial[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; factorial[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; i;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; values: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n).collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; String::new();
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 组合空间反向遍历
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; pos &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n).rev() {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 计算针对当前 k 需要取第几个数
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;// +1 妙用：标识数字使用，顺序使用数值，顺序传递数值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; factorial[pos] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; vi &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 使用下一个数值，如果数值已经使用，自动顺延下一个数值
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                offset &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; values[vi];
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 如果是当前数值，直接使用
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; offset &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                    &lt;span style=&#34;color:#75715e&#34;&gt;// 标记数值已使用
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                    values[vi] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                    &lt;span style=&#34;color:#75715e&#34;&gt;// 添加结果
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                    res.push(CHARS[vi]);
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+                }
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 计算剩余结果
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; factorial[pos];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;心得体会&#34;&gt;心得体会&lt;/h2&gt;
+&lt;p&gt;这种使用办法，目前应该已经使用过很多了，不管是计算倍数，还是苹果提篮子。&lt;/p&gt;
+&lt;p&gt;使用大数值的组合替换，不断逼近一个数值，简单的技巧蕴含无限的可能，主要是在于思路的穿插。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;下一个序列的计算&lt;/li&gt;
+&lt;li&gt;序列空间的可能&lt;/li&gt;
+&lt;li&gt;左侧无关序列空间&lt;/li&gt;
+&lt;li&gt;序列空间的降解&lt;/li&gt;
+&lt;li&gt;序列的逼近方式&lt;/li&gt;
+&lt;li&gt;数值逼近的直接计算&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如此美妙&lt;/p&gt;
+</description>
+    </item>
+    
     <item>
       <title>螺旋矩阵II</title>
       <link>https://just-worker.github.io/blog/%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5ii/</link>
