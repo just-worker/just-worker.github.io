@@ -6,7 +6,292 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 07 Jul 2023 21:58:50 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jul 2023 23:11:20 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>编辑距离</title>
+      <link>https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</link>
+      <pubDate>Sun, 09 Jul 2023 23:11:20 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</guid>
+      <description>&lt;h2 id=&#34;编辑距离httpsleetcodecnproblemsedit-distance&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/edit-distance/&#34;&gt;编辑距离&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数  。&lt;/p&gt;
+&lt;p&gt;你可以对一个单词进行如下三种操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插入一个字符&lt;/li&gt;
+&lt;li&gt;删除一个字符&lt;/li&gt;
+&lt;li&gt;替换一个字符&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：word1 = &amp;ldquo;horse&amp;rdquo;, word2 = &amp;ldquo;ros&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：3&lt;/li&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;horse -&amp;gt; rorse (将 &amp;lsquo;h&amp;rsquo; 替换为 &amp;lsquo;r&amp;rsquo;)&lt;/li&gt;
+&lt;li&gt;rorse -&amp;gt; rose (删除 &amp;lsquo;r&amp;rsquo;)&lt;/li&gt;
+&lt;li&gt;rose -&amp;gt; ros (删除 &amp;lsquo;e&amp;rsquo;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;字符串问题直接创建字符数组，考虑空字符，以一个字符为模板考虑另一个字符&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;min_distance&lt;/span&gt;(word1: String, word2: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a, b) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (word1.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;(), word2.chars().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (a_len, b_len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (a.len(), b.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a_len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; b_len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b_len) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; b_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]; a_len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ai &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;a_len {
+            dp[ai][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ai;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; bi &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;b_len {
+            dp[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][bi] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bi;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ai &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;a_len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; bi &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;b_len {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; insert &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[ai&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][bi] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; delete &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[ai][bi &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; modify &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[ai&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][bi&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a[ai &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b[bi &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] {
+                    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+                };
+                dp[ai][bi] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::min(insert, std::cmp::min(delete,modify));
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dp[a_len][b_len] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;套路分析&#34;&gt;套路分析&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;字符串的题目都新建&lt;code&gt;dp&lt;/code&gt;，长度&lt;code&gt;+1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;设置边界情况结果&lt;/li&gt;
+&lt;li&gt;基于子串结果，只考虑当前字符状况&lt;/li&gt;
+&lt;li&gt;返回&lt;code&gt;dp[r][c]&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>简化路径</title>
+      <link>https://just-worker.github.io/blog/%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Sun, 09 Jul 2023 23:03:14 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84/</guid>
+      <description>&lt;h2 id=&#34;简化路径httpsleetcodecnproblemssimplify-path&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/simplify-path/&#34;&gt;简化路径&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串 path ，表示指向某一文件或目录的 Unix 风格 绝对路径 （以 &amp;lsquo;/&amp;rsquo; 开头），请你将其转化为更加简洁的规范路径。&lt;/p&gt;
+&lt;p&gt;在 Unix 风格的文件系统中，一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，&#39;//&#39;）都被视为单个斜杠 &amp;lsquo;/&amp;rsquo; 。 对于此问题，任何其他格式的点（例如，&#39;&amp;hellip;&#39;）均被视为文件/目录名称。&lt;/p&gt;
+&lt;p&gt;请注意，返回的 规范路径 必须遵循下述格式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;始终以斜杠 &amp;lsquo;/&amp;rsquo; 开头。&lt;/li&gt;
+&lt;li&gt;两个目录名之间必须只有一个斜杠 &amp;lsquo;/&amp;rsquo; 。&lt;/li&gt;
+&lt;li&gt;最后一个目录名（如果存在）不能 以 &amp;lsquo;/&amp;rsquo; 结尾。&lt;/li&gt;
+&lt;li&gt;此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 &amp;lsquo;.&amp;rsquo; 或 &amp;lsquo;..&#39;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;返回简化后得到的 规范路径 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：path = &amp;ldquo;/home/&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：&amp;quot;/home&amp;quot;&lt;/li&gt;
+&lt;li&gt;解释：注意，最后一个目录名后面没有斜杠。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;压栈&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;simplify_path&lt;/span&gt;(path: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; collect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; path.split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;).collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; sub &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; path {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sub &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; sub &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sub &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;..&amp;#34;&lt;/span&gt; {
+                collect.pop();
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                collect.push(sub.clone());
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; collect.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;.to_string();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; String::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; sub &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; collect {
+            res.push(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;);
+            res.push_str(sub);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>爬楼梯</title>
+      <link>https://just-worker.github.io/blog/%E7%88%AC%E6%A5%BC%E6%A2%AF/</link>
+      <pubDate>Sun, 09 Jul 2023 22:58:27 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%88%AC%E6%A5%BC%E6%A2%AF/</guid>
+      <description>&lt;h2 id=&#34;爬楼梯httpsleetcodecnproblemsclimbing-stairs&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/climbing-stairs/&#34;&gt;爬楼梯&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;假设你正在爬楼梯。需要 n 阶你才能到达楼顶。&lt;/p&gt;
+&lt;p&gt;每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 2&lt;/li&gt;
+&lt;li&gt;输出：2&lt;/li&gt;
+&lt;li&gt;解释：有两种方法可以爬到楼顶。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;1 阶 + 1 阶&lt;/li&gt;
+&lt;li&gt;2 阶&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;假设我在第&lt;code&gt;n&lt;/code&gt;台阶，只是考虑最后一步，无非就是一步或者两步，也就是从&lt;code&gt;n-1&lt;/code&gt;或者&lt;code&gt;n-2&lt;/code&gt;到&lt;code&gt;n&lt;/code&gt;。几种方法取决于到&lt;code&gt;n-1&lt;/code&gt;和道&lt;code&gt;n-2&lt;/code&gt;的数量。&lt;/p&gt;
+&lt;p&gt;另类的菲波那切数列&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;climb_stairs&lt;/span&gt;(n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; b) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n {
+            a &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; b;
+            b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; b;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>X的平方根</title>
+      <link>https://just-worker.github.io/blog/x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9/</link>
+      <pubDate>Sun, 09 Jul 2023 22:51:07 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9/</guid>
+      <description>&lt;h2 id=&#34;x的平方根httpsleetcodecnproblemssqrtx&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/sqrtx/&#34;&gt;x的平方根&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个非负整数 x ，计算并返回 x 的 算术平方根 。&lt;/p&gt;
+&lt;p&gt;由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。&lt;/p&gt;
+&lt;p&gt;注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：x = 4&lt;/li&gt;
+&lt;li&gt;输出：2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;二分搜索即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(logN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;my_sqrt&lt;/span&gt;(x: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left , &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, std::cmp::min(x &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;46341&lt;/span&gt;));
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; right {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; left {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; square &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; mid;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; square &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; x {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; mid;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; square &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x {
+                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; left;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>文本左右对齐</title>
+      <link>https://just-worker.github.io/blog/%E6%96%87%E6%9C%AC%E5%B7%A6%E5%8F%B3%E5%AF%B9%E9%BD%90/</link>
+      <pubDate>Sun, 09 Jul 2023 22:33:24 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%96%87%E6%9C%AC%E5%B7%A6%E5%8F%B3%E5%AF%B9%E9%BD%90/</guid>
+      <description>&lt;h2 id=&#34;文本左右对齐httpsleetcodecnproblemstext-justification&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/text-justification/&#34;&gt;文本左右对齐&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个单词数组 words 和一个长度 maxWidth ，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。&lt;/p&gt;
+&lt;p&gt;你应该使用 “贪心算法” 来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 &#39; &#39; 填充，使得每行恰好有 maxWidth 个字符。&lt;/p&gt;
+&lt;p&gt;要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。&lt;/p&gt;
+&lt;p&gt;文本的最后一行应为左对齐，且单词之间不插入额外的空格。&lt;/p&gt;
+&lt;p&gt;注意:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单词是指由非空格字符组成的字符序列。&lt;/li&gt;
+&lt;li&gt;每个单词的长度大于 0，小于等于 maxWidth。&lt;/li&gt;
+&lt;li&gt;输入单词数组 words 至少包含一个单词。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: words = [&amp;ldquo;This&amp;rdquo;, &amp;ldquo;is&amp;rdquo;, &amp;ldquo;an&amp;rdquo;, &amp;ldquo;example&amp;rdquo;, &amp;ldquo;of&amp;rdquo;, &amp;ldquo;text&amp;rdquo;, &amp;ldquo;justification.&amp;quot;], maxWidth = 16&lt;/li&gt;
+&lt;li&gt;输出:
+[
+   &amp;ldquo;This    is    an&amp;rdquo;,
+   &amp;ldquo;example  of text&amp;rdquo;,
+   &amp;ldquo;justification.  &amp;quot;
+]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;按照&lt;code&gt;补空&lt;/code&gt;的概念，通过&lt;code&gt;format&lt;/code&gt;自动补空即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;full_justify&lt;/span&gt;(words: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, max_width: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (max_width, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; words_length, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; collect, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;
+            (max_width &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, vec![], vec![]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; word &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; words.iter() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; words_count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; collect.len();
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; current_word_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word.len();
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; words_length &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; words_count &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; current_word_length &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; max_width {
+                collect.push(word.clone());
+                words_length &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; current_word_length;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; words_count &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                    res.push(format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{:1$}&amp;#34;&lt;/span&gt;, collect[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], max_width));
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; total_space_count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; max_width &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; words_length;
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; avg_space_count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; total_space_count &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (words_count &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; extra_space_count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; total_space_count &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (words_count &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                    collect
+                        .iter_mut()
+                        .take(extra_space_count)
+                        .for_each(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;s&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; s.push(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;));
+                    res.push(collect.join(format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{:1$}&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;, avg_space_count).as_str()));
+                }
+                collect.clear();
+                collect.push(word.clone());
+                words_length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current_word_length;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;collect.is_empty() {
+            res.push(format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{:1$}&amp;#34;&lt;/span&gt;, collect.join(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;), max_width));
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>二进制求和</title>
       <link>https://just-worker.github.io/blog/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/</link>
