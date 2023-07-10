@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>编辑距离</title>
+    <title>搜索二维矩阵</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个">
+    <meta name="description" content="Ladder@搜索二维矩阵 给你一个满足下述两条属性的 m x n 整数矩阵： 每行中的整数从左到右按非递减顺序排列。 每行的第一个整数大于前一行的最后一个整数。 给你一">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="编辑距离" />
-<meta property="og:description" content="编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个" />
+    <meta property="og:title" content="搜索二维矩阵" />
+<meta property="og:description" content="搜索二维矩阵 给你一个满足下述两条属性的 m x n 整数矩阵： 每行中的整数从左到右按非递减顺序排列。 每行的第一个整数大于前一行的最后一个整数。 给你一" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-07-09T23:11:20+08:00" />
-<meta property="article:modified_time" content="2023-07-09T23:11:20+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-10T22:20:58+08:00" />
+<meta property="article:modified_time" content="2023-07-10T22:20:58+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="编辑距离"/>
-<meta name="twitter:description" content="编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个"/>
+<meta name="twitter:title" content="搜索二维矩阵"/>
+<meta name="twitter:description" content="搜索二维矩阵 给你一个满足下述两条属性的 m x n 整数矩阵： 每行中的整数从左到右按非递减顺序排列。 每行的第一个整数大于前一行的最后一个整数。 给你一"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "编辑距离",
-      "item": "https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"
+      "name": "搜索二维矩阵",
+      "item": "https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "编辑距离",
-  "name": "编辑距离",
-  "description": "编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个",
+  "headline": "搜索二维矩阵",
+  "name": "搜索二维矩阵",
+  "description": "搜索二维矩阵 给你一个满足下述两条属性的 m x n 整数矩阵： 每行中的整数从左到右按非递减顺序排列。 每行的第一个整数大于前一行的最后一个整数。 给你一",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。\n你可以对一个单词进行如下三种操作：\n 插入一个字符 删除一个字符 替换一个字符    输入：word1 = “horse”, word2 = “ros” 输出：3 解释： horse - rorse (将 ‘h’ 替换为 ‘r’) rorse - rose (删除 ‘r’) rose - ros (删除 ‘e’)   题目解析 字符串问题直接创建字符数组，考虑空字符，以一个字符为模板考虑另一个字符\n// time: O(MN) // space: O(MN) impl Solution { pub fn min_distance(word1: String, word2: String) - i32 { let (a, b) = (word1.chars().collect::Vecchar(), word2.chars().collect::Vecchar()); let (a_len, b_len) = (a.len(), b.len()); if a_len == 0 || b_len == 0 { return (a_len + b_len) as i32; } let mut dp = vec![vec![0; b_len + 1]; a_len + 1]; for ai in 0..=a_len { dp[ai][0] = ai; } for bi in 0..=b_len { dp[0][bi] = bi; } for ai in 1..=a_len { for bi in 1..=b_len { let insert = dp[ai-1][bi] + 1; let delete = dp[ai][bi - 1] + 1; let modify = dp[ai-1][bi-1] + if a[ai - 1] == b[bi - 1] { 0 } else { 1 }; dp[ai][bi] = std::cmp::min(insert, std::cmp::min(delete,modify)); } } return dp[a_len][b_len] as i32; } } 套路分析  字符串的题目都新建dp，长度+1 设置边界情况结果 基于子串结果，只考虑当前字符状况 返回dp[r][c]  ",
-  "wordCount" : "340",
+  "articleBody": "搜索二维矩阵 给你一个满足下述两条属性的 m x n 整数矩阵：\n每行中的整数从左到右按非递减顺序排列。 每行的第一个整数大于前一行的最后一个整数。 给你一个整数 target ，如果 target 在矩阵中，返回 true ；否则，返回 false 。\n  输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3 输出：true   题目解析 二分查找\n// time: O(MIN(logN, logM)) // space: O(1) impl Solution { pub fn search_matrix(matrix: VecVeci32, target: i32) - bool { let (row, column) = (matrix.len(), matrix[0].len()); let (mut left_r, mut right_r, mut left_c, mut right_c) = (0, row - 1, 0, column - 1); while left_r  right_r { let mid_r = (left_r + right_r) / 2; if matrix[mid_r][right_c] == target { return true; } if matrix[mid_r][right_c]  target { right_r = mid_r; } else { left_r = mid_r + 1; } } if target  matrix[left_r][left_c] || target  matrix[left_r][right_c] { return false; } while left_c  right_c { let mid_c = (left_c + right_c) / 2; if matrix[left_r][mid_c] == target { return true; } if matrix[left_r][mid_c]  target { right_c = mid_c; } else { left_c = mid_c + 1; } } return matrix[left_r][left_c] == target; } } ",
+  "wordCount" : "262",
   "inLanguage": "zh",
-  "datePublished": "2023-07-09T23:11:20+08:00",
-  "dateModified": "2023-07-09T23:11:20+08:00",
+  "datePublished": "2023-07-10T22:20:58+08:00",
+  "dateModified": "2023-07-10T22:20:58+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"
+    "@id": "https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>编辑距离</h1>
+    <h1>搜索二维矩阵</h1>
   </header>
 
   <p>
   <small>
-    2023年7月9日&nbsp;· 340 字&nbsp;· 1 分钟</small>
+    2023年7月10日&nbsp;· 262 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,80 +178,63 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="编辑距离httpsleetcodecnproblemsedit-distance"><a href="https://leetcode.cn/problems/edit-distance/">编辑距离</a></h2>
-<p>给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数  。</p>
-<p>你可以对一个单词进行如下三种操作：</p>
-<ul>
-<li>插入一个字符</li>
-<li>删除一个字符</li>
-<li>替换一个字符</li>
-</ul>
+  <section class="blog-content"><h2 id="搜索二维矩阵httpsleetcodecnproblemssearch-a-2d-matrix"><a href="https://leetcode.cn/problems/search-a-2d-matrix/">搜索二维矩阵</a></h2>
+<p>给你一个满足下述两条属性的 m x n 整数矩阵：</p>
+<p>每行中的整数从左到右按非递减顺序排列。
+每行的第一个整数大于前一行的最后一个整数。
+给你一个整数 target ，如果 target 在矩阵中，返回 true ；否则，返回 false 。</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/05/mat.jpg" alt=""></p>
 <blockquote>
 <ul>
-<li>输入：word1 = &ldquo;horse&rdquo;, word2 = &ldquo;ros&rdquo;</li>
-<li>输出：3</li>
-<li>解释：</li>
-<li>horse -&gt; rorse (将 &lsquo;h&rsquo; 替换为 &lsquo;r&rsquo;)</li>
-<li>rorse -&gt; rose (删除 &lsquo;r&rsquo;)</li>
-<li>rose -&gt; ros (删除 &lsquo;e&rsquo;)</li>
+<li>输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3</li>
+<li>输出：true</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>字符串问题直接创建字符数组，考虑空字符，以一个字符为模板考虑另一个字符</p>
+<p>二分查找</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
-<span style="color:#75715e">// time: O(MN)
-</span><span style="color:#75715e">// space: O(MN)
+<span style="color:#75715e">// time: O(MIN(logN, logM))
+</span><span style="color:#75715e">// space: O(1)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">min_distance</span>(word1: String, word2: String) -&gt; <span style="color:#66d9ef">i32</span> {
-        <span style="color:#66d9ef">let</span> (a, b) <span style="color:#f92672">=</span> (word1.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>(), word2.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>());
-        <span style="color:#66d9ef">let</span> (a_len, b_len) <span style="color:#f92672">=</span> (a.len(), b.len());
-        <span style="color:#66d9ef">if</span> a_len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> b_len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-            <span style="color:#66d9ef">return</span> (a_len <span style="color:#f92672">+</span> b_len) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
-        }
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dp <span style="color:#f92672">=</span> vec![vec![<span style="color:#ae81ff">0</span>; b_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; a_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
-
-        <span style="color:#66d9ef">for</span> ai <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..=</span>a_len {
-            dp[ai][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ai;
-        }
-        <span style="color:#66d9ef">for</span> bi <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..=</span>b_len {
-            dp[<span style="color:#ae81ff">0</span>][bi] <span style="color:#f92672">=</span> bi;
-        }
-        <span style="color:#66d9ef">for</span> ai <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..=</span>a_len {
-            <span style="color:#66d9ef">for</span> bi <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..=</span>b_len {
-                <span style="color:#66d9ef">let</span> insert <span style="color:#f92672">=</span> dp[ai<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][bi] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-                <span style="color:#66d9ef">let</span> delete <span style="color:#f92672">=</span> dp[ai][bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-                <span style="color:#66d9ef">let</span> modify <span style="color:#f92672">=</span> dp[ai<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][bi<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#66d9ef">if</span> a[ai <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> b[bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] {
-                    <span style="color:#ae81ff">0</span>
-                } <span style="color:#66d9ef">else</span> {
-                    <span style="color:#ae81ff">1</span>
-                };
-                dp[ai][bi] <span style="color:#f92672">=</span> std::cmp::min(insert, std::cmp::min(delete,modify));
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">search_matrix</span>(matrix: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>, target: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">bool</span> {
+        <span style="color:#66d9ef">let</span> (row, column) <span style="color:#f92672">=</span> (matrix.len(), matrix[<span style="color:#ae81ff">0</span>].len());
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> left_r, <span style="color:#66d9ef">mut</span> right_r, <span style="color:#66d9ef">mut</span> left_c, <span style="color:#66d9ef">mut</span> right_c) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, row <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, column <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+        <span style="color:#66d9ef">while</span> left_r <span style="color:#f92672">&lt;</span> right_r {
+            <span style="color:#66d9ef">let</span> mid_r <span style="color:#f92672">=</span> (left_r <span style="color:#f92672">+</span> right_r) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+            <span style="color:#66d9ef">if</span> matrix[mid_r][right_c] <span style="color:#f92672">==</span> target {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+            }
+            <span style="color:#66d9ef">if</span> matrix[mid_r][right_c] <span style="color:#f92672">&gt;</span> target {
+                right_r <span style="color:#f92672">=</span> mid_r;
+            } <span style="color:#66d9ef">else</span> {
+                left_r <span style="color:#f92672">=</span> mid_r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
             }
         }
-        <span style="color:#66d9ef">return</span> dp[a_len][b_len] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+        <span style="color:#66d9ef">if</span> target <span style="color:#f92672">&lt;</span> matrix[left_r][left_c] <span style="color:#f92672">||</span> target <span style="color:#f92672">&gt;</span> matrix[left_r][right_c] {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+        }
+        <span style="color:#66d9ef">while</span> left_c <span style="color:#f92672">&lt;</span> right_c {
+            <span style="color:#66d9ef">let</span> mid_c <span style="color:#f92672">=</span> (left_c <span style="color:#f92672">+</span> right_c) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+            <span style="color:#66d9ef">if</span> matrix[left_r][mid_c] <span style="color:#f92672">==</span> target {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+            }
+            <span style="color:#66d9ef">if</span> matrix[left_r][mid_c] <span style="color:#f92672">&gt;</span> target {
+                right_c <span style="color:#f92672">=</span> mid_c;
+            } <span style="color:#66d9ef">else</span> {
+                left_c <span style="color:#f92672">=</span> mid_c <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+            }
+        }
+        <span style="color:#66d9ef">return</span> matrix[left_r][left_c] <span style="color:#f92672">==</span> target;
     }
 }
-</code></pre></div><h2 id="套路分析">套路分析</h2>
-<ol>
-<li>字符串的题目都新建<code>dp</code>，长度<code>+1</code></li>
-<li>设置边界情况结果</li>
-<li>基于子串结果，只考虑当前字符状况</li>
-<li>返回<code>dp[r][c]</code></li>
-</ol>
-</section>
+</code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/">
-      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
-      </svg>
-      <span>矩阵置零</span></a>
     
-    
-    <a class="next" href="https://just-worker.github.io/blog/%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84/"><span>简化路径</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/"><span>矩阵置零</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>

@@ -6,7 +6,108 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 09 Jul 2023 23:11:20 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jul 2023 22:20:58 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>搜索二维矩阵</title>
+      <link>https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/</link>
+      <pubDate>Mon, 10 Jul 2023 22:20:58 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/</guid>
+      <description>&lt;h2 id=&#34;搜索二维矩阵httpsleetcodecnproblemssearch-a-2d-matrix&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/search-a-2d-matrix/&#34;&gt;搜索二维矩阵&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个满足下述两条属性的 m x n 整数矩阵：&lt;/p&gt;
+&lt;p&gt;每行中的整数从左到右按非递减顺序排列。
+每行的第一个整数大于前一行的最后一个整数。
+给你一个整数 target ，如果 target 在矩阵中，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/10/05/mat.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;二分查找&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MIN(logN, logM))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;search_matrix&lt;/span&gt;(matrix: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (row, column) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (matrix.len(), matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left_r, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right_r, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left_c, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right_c) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, row &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, column &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left_r &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; right_r {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; mid_r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (left_r &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right_r) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix[mid_r][right_c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix[mid_r][right_c] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; target {
+                right_r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid_r;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                left_r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid_r &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; matrix[left_r][left_c] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; matrix[left_r][right_c] {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left_c &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; right_c {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; mid_c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (left_c &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; right_c) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix[left_r][mid_c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix[left_r][mid_c] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; target {
+                right_c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid_c;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                left_c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid_c &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; matrix[left_r][left_c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>矩阵置零</title>
+      <link>https://just-worker.github.io/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/</link>
+      <pubDate>Mon, 10 Jul 2023 22:13:29 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/</guid>
+      <description>&lt;h2 id=&#34;矩阵置零httpsleetcodecnproblemsset-matrix-zeroes&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/set-matrix-zeroes/&#34;&gt;矩阵置零&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：matrix = [[1,1,1],[1,0,1],[1,1,1]]&lt;/li&gt;
+&lt;li&gt;输出：[[1,0,1],[0,0,0],[1,0,1]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;set_zeroes&lt;/span&gt;(matrix: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (row, column) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (matrix.len(), matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; zero &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; r &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;row {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;column {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                    zero.push((r, c));
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(r, c) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; zero.iter() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; rr &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;row {
+                matrix[rr][c] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; cc &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;column {
+                matrix[r][cc] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>编辑距离</title>
       <link>https://just-worker.github.io/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</link>
