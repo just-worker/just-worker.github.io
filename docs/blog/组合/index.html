@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>组合</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ] 题目解析 回溯">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E7%BB%84%E5%90%88/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="组合" />
+<meta property="og:description" content="组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ] 题目解析 回溯" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E7%BB%84%E5%90%88/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-14T22:55:40+08:00" />
+<meta property="article:modified_time" content="2023-07-14T22:55:40+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="组合"/>
+<meta name="twitter:description" content="组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ] 题目解析 回溯"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "组合",
+      "item": "https://just-worker.github.io/blog/%E7%BB%84%E5%90%88/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "组合",
+  "name": "组合",
+  "description": "组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ] 题目解析 回溯",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。\n你可以按 任何顺序 返回答案。\n  输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ]   题目解析 回溯法生成即可\n// time: O(N) // space: O(N) impl Solution { pub fn combine(n: i32, k: i32) - VecVeci32 { let mut res = vec![]; Self::generate(\u0026mut res, \u0026mut vec![], 1, n, k); return res; } fn generate(res: \u0026mut VecVeci32, collect: \u0026mut Veci32 , current: i32, n:i32, k:i32) { if current  n { return; } if collect.len() == k as usize { res.push(collect.clone()); return; } // 不添加当前数据  Self::generate(res, collect, current + 1, n, k); // 添加当前数据  collect.push(current); Self::generate(res, collect, current + 1, n, k); collect.pop(); } } ",
+  "wordCount" : "171",
+  "inLanguage": "zh",
+  "datePublished": "2023-07-14T22:55:40+08:00",
+  "dateModified": "2023-07-14T22:55:40+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E7%BB%84%E5%90%88/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,102 +156,12 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/">搜索旋转排序数组II</a></h3>
-              <p>
-  <small>
-    2023年7月14日&nbsp;· 488 字&nbsp;· 1 分钟</small>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>组合</h1>
+  </header>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9ii/">删除有序数组中的重复项II</a></h3>
-              <p>
-  <small>
-    2023年7月14日&nbsp;· 275 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/">单词搜索</a></h3>
-              <p>
-  <small>
-    2023年7月14日&nbsp;· 364 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AD%90%E9%9B%86/">子集</a></h3>
-              <p>
-  <small>
-    2023年7月14日&nbsp;· 214 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%BB%84%E5%90%88/">组合</a></h3>
-              <p>
+  <p>
   <small>
     2023年7月14日&nbsp;· 171 字&nbsp;· 1 分钟</small>
 
@@ -226,129 +177,81 @@
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/">最小覆盖子串</a></h3>
-              <p>
-  <small>
-    2023年7月14日&nbsp;· 409 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB/">颜色分类</a></h3>
-              <p>
-  <small>
-    2023年7月11日&nbsp;· 231 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="组合httpsleetcodecnproblemscombinations"><a href="https://leetcode.cn/problems/combinations/">组合</a></h2>
+<p>给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。</p>
+<p>你可以按 任何顺序 返回答案。</p>
+<blockquote>
+<ul>
+<li>输入：n = 4, k = 2</li>
+<li>输出：
+[
+[2,4],
+[3,4],
+[2,3],
+[1,2],
+[1,3],
+[1,4],
+]</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>回溯法生成即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">combine</span>(n: <span style="color:#66d9ef">i32</span>, k: <span style="color:#66d9ef">i32</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> vec![];
+        Self::generate(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> vec![], <span style="color:#ae81ff">1</span>, n, k);
+        <span style="color:#66d9ef">return</span> res;
+    }
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/">搜索二维矩阵</a></h3>
-              <p>
-  <small>
-    2023年7月10日&nbsp;· 262 字&nbsp;· 1 分钟</small>
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">generate</span>(res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>, collect: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span> , current: <span style="color:#66d9ef">i32</span>, n:<span style="color:#66d9ef">i32</span>, k:<span style="color:#66d9ef">i32</span>) {
+        <span style="color:#66d9ef">if</span> current <span style="color:#f92672">&gt;</span> n {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">if</span> collect.len() <span style="color:#f92672">==</span> k <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span> {
+            res.push(collect.clone());
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#75715e">// 不添加当前数据
+</span><span style="color:#75715e"></span>        Self::generate(res, collect, current <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, n, k);
+        <span style="color:#75715e">// 添加当前数据
+</span><span style="color:#75715e"></span>        collect.push(current);
+        Self::generate(res, collect, current <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, n, k);
+        collect.pop();
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/">矩阵置零</a></h3>
-              <p>
-  <small>
-    2023年7月10日&nbsp;· 166 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">编辑距离</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 340 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      
-      <a class="next" href="/blog/page/2/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    <a class="prev" href="https://just-worker.github.io/blog/%E5%AD%90%E9%9B%86/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>子集</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/"><span>最小覆盖子串</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
