@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柱状图中最大的矩形</title>
+    <title>分隔链表</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面">
+    <meta name="description" content="Ladder@分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。 你应当 保留 两个分区中每">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="柱状图中最大的矩形" />
-<meta property="og:description" content="柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面" />
+    <meta property="og:title" content="分隔链表" />
+<meta property="og:description" content="分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。 你应当 保留 两个分区中每" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-07-16T23:00:35+08:00" />
-<meta property="article:modified_time" content="2023-07-16T23:00:35+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-17T22:46:28+08:00" />
+<meta property="article:modified_time" content="2023-07-17T22:46:28+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="柱状图中最大的矩形"/>
-<meta name="twitter:description" content="柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面"/>
+<meta name="twitter:title" content="分隔链表"/>
+<meta name="twitter:description" content="分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。 你应当 保留 两个分区中每"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "柱状图中最大的矩形",
-      "item": "https://just-worker.github.io/blog/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/"
+      "name": "分隔链表",
+      "item": "https://just-worker.github.io/blog/%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "柱状图中最大的矩形",
-  "name": "柱状图中最大的矩形",
-  "description": "柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面",
+  "headline": "分隔链表",
+  "name": "分隔链表",
+  "description": "分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。 你应当 保留 两个分区中每",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。\n求在该柱状图中，能够勾勒出来的矩形的最大面积。\n  输入：heights = [2,1,5,6,2,3] 输出：10 解释：最大的矩形为图中红色区域，面积为 10   题目解析 核心只有一点，如果把一个柱子高度作为高，可延伸的边界是多少。\n// time: O(N) // space: O(N) impl Solution { pub fn largest_rectangle_area(heights: Veci32) - i32 { let len = heights.len(); if len == 0 { return 0; } if len == 1 { return heights[0]; } let mut stack = vec![]; let mut left = vec![0i32; len]; for i in 0..len { while let Some(v) = stack.pop() { if heights[v as usize]  heights[i] { stack.push(v); break; } } left[i] = stack.last().unwrap_or(\u0026-1).to_owned(); stack.push(i as i32); } let mut right = vec![0i32; len]; stack.clear(); for i in (0..len).rev() { while let Some(v) = stack.pop() { if heights[v as usize]  heights[i] { stack.push(v); break; } } right[i] = stack.last().unwrap_or(\u0026(len as i32)).to_owned(); stack.push(i as i32); } let mut res = 0; for i in 0..len { res = std::cmp::max(res, (right[i] - left[i] - 1) as i32 * heights[i]); } return res; } } ",
-  "wordCount" : "284",
+  "articleBody": "分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。\n你应当 保留 两个分区中每个节点的初始相对位置。\n  输入：head = [1,4,3,2,5,2], x = 3 输出：[1,2,2,4,3,5]   题目解析 拆分再拼接\n// tie: O(N) // space: O(1)  impl Solution { pub fn partition(head: OptionBoxListNode, x: i32) - OptionBoxListNode { if head.is_none() || head.as_ref().unwrap().next.is_none() { return head; } let (mut less, mut great) = (Some(Box::new(ListNode::new(1))), Some(Box::new(ListNode::new(1)))); let (mut less_cursor, mut great_cursor) = (\u0026mut less, \u0026mut great); let mut head = head; while head.is_some() { let next = head.as_mut().unwrap().next.take(); let val = head.as_ref().unwrap().val; if val  x { less_cursor.as_mut().unwrap().next = head; less_cursor = \u0026mut less_cursor.as_mut().unwrap().next; } else { great_cursor.as_mut().unwrap().next = head; great_cursor = \u0026mut great_cursor.as_mut().unwrap().next; } head = next; } less_cursor.as_mut().unwrap().next = great.unwrap().next; return less.unwrap().next; } } ",
+  "wordCount" : "212",
   "inLanguage": "zh",
-  "datePublished": "2023-07-16T23:00:35+08:00",
-  "dateModified": "2023-07-16T23:00:35+08:00",
+  "datePublished": "2023-07-17T22:46:28+08:00",
+  "dateModified": "2023-07-17T22:46:28+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/"
+    "@id": "https://just-worker.github.io/blog/%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>柱状图中最大的矩形</h1>
+    <h1>分隔链表</h1>
   </header>
 
   <p>
   <small>
-    2023年7月16日&nbsp;· 284 字&nbsp;· 1 分钟</small>
+    2023年7月17日&nbsp;· 212 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,76 +178,59 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="柱状图中最大的矩形httpsleetcodecnproblemslargest-rectangle-in-histogram"><a href="https://leetcode.cn/problems/largest-rectangle-in-histogram/">柱状图中最大的矩形</a></h2>
-<p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg" alt=""></p>
+  <section class="blog-content"><h2 id="分隔链表httpsleetcodecnproblemspartition-list"><a href="https://leetcode.cn/problems/partition-list/">分隔链表</a></h2>
+<p>给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。</p>
+<p>你应当 保留 两个分区中每个节点的初始相对位置。</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/04/partition.jpg" alt=""></p>
 <blockquote>
 <ul>
-<li>输入：heights = [2,1,5,6,2,3]</li>
-<li>输出：10</li>
-<li>解释：最大的矩形为图中红色区域，面积为 10</li>
+<li>输入：head = [1,4,3,2,5,2], x = 3</li>
+<li>输出：[1,2,2,4,3,5]</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>核心只有一点，如果把一个柱子高度作为高，可延伸的边界是多少。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
-</span><span style="color:#75715e">// space: O(N)
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">largest_rectangle_area</span>(heights: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
-        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> heights.len();
-        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+<p>拆分再拼接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// tie: O(N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">partition</span>(head: Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span>, x: <span style="color:#66d9ef">i32</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">if</span> head.is_none() <span style="color:#f92672">||</span> head.as_ref().unwrap().next.is_none() {
+            <span style="color:#66d9ef">return</span> head;
         }
-        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
-            <span style="color:#66d9ef">return</span> heights[<span style="color:#ae81ff">0</span>];
-        }
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> stack <span style="color:#f92672">=</span> vec![];
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> left <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span><span style="color:#66d9ef">i32</span>; len];
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>len {
-            <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">let</span> Some(v) <span style="color:#f92672">=</span> stack.pop() {
-                <span style="color:#66d9ef">if</span> heights[v <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] <span style="color:#f92672">&lt;</span> heights[i] {
-                    stack.push(v);
-                    <span style="color:#66d9ef">break</span>;
-                }
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> less, <span style="color:#66d9ef">mut</span> great) <span style="color:#f92672">=</span> (Some(Box::new(ListNode::new(<span style="color:#ae81ff">1</span>))), Some(Box::new(ListNode::new(<span style="color:#ae81ff">1</span>))));
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> less_cursor, <span style="color:#66d9ef">mut</span> great_cursor) <span style="color:#f92672">=</span> (<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> less, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> great);
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head <span style="color:#f92672">=</span> head;
+        <span style="color:#66d9ef">while</span> head.is_some() {
+            <span style="color:#66d9ef">let</span> next <span style="color:#f92672">=</span> head.as_mut().unwrap().next.take();
+            <span style="color:#66d9ef">let</span> val <span style="color:#f92672">=</span> head.as_ref().unwrap().val;
+            <span style="color:#66d9ef">if</span> val <span style="color:#f92672">&lt;</span> x {
+                less_cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> head;
+                less_cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> less_cursor.as_mut().unwrap().next;
+            } <span style="color:#66d9ef">else</span> {
+                great_cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> head;
+                great_cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> great_cursor.as_mut().unwrap().next;
             }
-            left[i] <span style="color:#f92672">=</span> stack.last().unwrap_or(<span style="color:#f92672">&amp;-</span><span style="color:#ae81ff">1</span>).to_owned();
-            stack.push(i <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>);
+            head <span style="color:#f92672">=</span> next;
         }
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> right <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span><span style="color:#66d9ef">i32</span>; len];
-        stack.clear();
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>len).rev() {
-            <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">let</span> Some(v) <span style="color:#f92672">=</span> stack.pop() {
-                <span style="color:#66d9ef">if</span> heights[v <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] <span style="color:#f92672">&lt;</span> heights[i] {
-                    stack.push(v);
-                    <span style="color:#66d9ef">break</span>;
-                }
-            }
-            right[i] <span style="color:#f92672">=</span> stack.last().unwrap_or(<span style="color:#f92672">&amp;</span>(len <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>)).to_owned();
-            stack.push(i <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>);
-        }
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>len {
-            res <span style="color:#f92672">=</span> std::cmp::max(res, (right[i] <span style="color:#f92672">-</span> left[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span> <span style="color:#f92672">*</span> heights[i]);
-        }
-        <span style="color:#66d9ef">return</span> res;
+        less_cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> great.unwrap().next;
+        <span style="color:#66d9ef">return</span> less.unwrap().next;
     }
 }
-
 </code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/">
+    <a class="prev" href="https://just-worker.github.io/blog/%E6%89%B0%E4%B9%B1%E5%AD%97%E7%AC%A6%E4%B8%B2/">
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
-      <span>最大矩形</span></a>
+      <span>扰乱字符串</span></a>
     
     
-    <a class="next" href="https://just-worker.github.io/blog/%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/"><span>删除排序链表中的重复元素</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/"><span>最大矩形</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
