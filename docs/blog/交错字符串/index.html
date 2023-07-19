@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>反转链表II</title>
+    <title>交错字符串</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@反转链表 II 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left &lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 输入：head = [1,2,3,4,5], left = 2, right =">
+    <meta name="description" content="Ladder@交错字符串 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。 两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8ii/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="反转链表II" />
-<meta property="og:description" content="反转链表 II 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left &lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 输入：head = [1,2,3,4,5], left = 2, right =" />
+    <meta property="og:title" content="交错字符串" />
+<meta property="og:description" content="交错字符串 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。 两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8ii/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-07-18T23:32:30+08:00" />
-<meta property="article:modified_time" content="2023-07-18T23:32:30+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-19T23:32:55+08:00" />
+<meta property="article:modified_time" content="2023-07-19T23:32:55+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="反转链表II"/>
-<meta name="twitter:description" content="反转链表 II 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left &lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 输入：head = [1,2,3,4,5], left = 2, right ="/>
+<meta name="twitter:title" content="交错字符串"/>
+<meta name="twitter:description" content="交错字符串 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。 两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "反转链表II",
-      "item": "https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8ii/"
+      "name": "交错字符串",
+      "item": "https://just-worker.github.io/blog/%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "反转链表II",
-  "name": "反转链表II",
-  "description": "反转链表 II 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left \u0026lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 输入：head = [1,2,3,4,5], left = 2, right =",
+  "headline": "交错字符串",
+  "name": "交错字符串",
+  "description": "交错字符串 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。 两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "反转链表 II 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left   输入：head = [1,2,3,4,5], left = 2, right = 4 输出：[1,4,3,2,5]   题目解析 暴力计算即可\n// time: O(N) // space: O(1) impl Solution { pub fn reverse_between(head: OptionBoxListNode, left: i32, right: i32) - OptionBoxListNode { if head.is_none() || left == right || head.as_ref().unwrap().next.is_none() { return head; } let mut head = Some(Box::new(ListNode{ val: 501, next: head })); let mut head_cursor = \u0026mut head; // 从1开始计算的  for _ in 1..left { head_cursor = \u0026mut head_cursor.as_mut().unwrap().next; } // 逆转中部  let mut remain = head_cursor.as_mut().unwrap().next.take(); for _ in left..=right { let head_next = head_cursor.as_mut().unwrap().next.take(); let remain_next = remain.as_mut().unwrap().next.take(); remain.as_mut().unwrap().next = head_next; head_cursor.as_mut().unwrap().next = remain; remain = remain_next; } // 滑动到尾部  while head_cursor.as_ref().unwrap().next.is_some() { head_cursor = \u0026mut head_cursor.as_mut().unwrap().next; } // 接续  head_cursor.as_mut().unwrap().next = remain; return head.unwrap().next; } } ",
-  "wordCount" : "218",
+  "articleBody": "交错字符串 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。\n两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：\n s = s1 + s2 + … + sn t = t1 + t2 + … + tm |n - m| 交错 是 s1 + t1 + s2 + t2 + s3 + t3 + … 或者 t1 + s1 + t2 + s2 + t3 + s3 + …  注意：a + b 意味着字符串 a 和 b 连接。\n  输入：s1 = “aabcc”, s2 = “dbbca”, s3 = “aadbbcbcac” 输出：true   题目解析 字符串，一律采用dp\n// time: O(MN) // space: O(MN) impl Solution { pub fn is_interleave(s1: String, s2: String, s3: String) - bool { let (a, b, c) = ( s1.chars().collect::Vecchar(), s2.chars().collect::Vecchar(), s3.chars().collect::Vecchar(), ); let (a_len, b_len, c_len) = (a.len(), b.len(), c.len()); if a_len + b_len != c_len { return false; } let mut dp = vec![vec![false; b_len + 1]; a_len + 1]; dp[0][0] = true; for ai in 0..=a_len { for bi in 0..=b_len { if dp[ai][bi] { continue; } if ai  0 \u0026\u0026 dp[ai - 1][bi] \u0026\u0026 a[ai - 1] == c[ai + bi - 1] { dp[ai][bi] = true; } if bi  0 \u0026\u0026 dp[ai][bi - 1] \u0026\u0026 b[bi - 1] == c[ai + bi - 1] { dp[ai][bi] = true; } } } return dp[a_len][b_len]; } } ",
+  "wordCount" : "317",
   "inLanguage": "zh",
-  "datePublished": "2023-07-18T23:32:30+08:00",
-  "dateModified": "2023-07-18T23:32:30+08:00",
+  "datePublished": "2023-07-19T23:32:55+08:00",
+  "dateModified": "2023-07-19T23:32:55+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8ii/"
+    "@id": "https://just-worker.github.io/blog/%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>反转链表II</h1>
+    <h1>交错字符串</h1>
   </header>
 
   <p>
   <small>
-    2023年7月18日&nbsp;· 218 字&nbsp;· 1 分钟</small>
+    2023年7月19日&nbsp;· 317 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,49 +178,56 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="反转链表-iihttpsleetcodecnproblemsreverse-linked-list-ii"><a href="https://leetcode.cn/problems/reverse-linked-list-ii/">反转链表 II</a></h2>
-<p>给你单链表的头指针 head 和两个整数 left 和 right ，其中 left &lt;= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/02/19/rev2ex2.jpg" alt=""></p>
+  <section class="blog-content"><h2 id="交错字符串httpsleetcodecnproblemsinterleaving-string"><a href="https://leetcode.cn/problems/interleaving-string/">交错字符串</a></h2>
+<p>给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。</p>
+<p>两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：</p>
+<ul>
+<li>s = s1 + s2 + &hellip; + sn</li>
+<li>t = t1 + t2 + &hellip; + tm</li>
+<li>|n - m| &lt;= 1</li>
+<li>交错 是 s1 + t1 + s2 + t2 + s3 + t3 + &hellip; 或者 t1 + s1 + t2 + s2 + t3 + s3 + &hellip;</li>
+</ul>
+<p>注意：a + b 意味着字符串 a 和 b 连接。</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/02/interleave.jpg" alt=""></p>
 <blockquote>
 <ul>
-<li>输入：head = [1,2,3,4,5], left = 2, right = 4</li>
-<li>输出：[1,4,3,2,5]</li>
+<li>输入：s1 = &ldquo;aabcc&rdquo;, s2 = &ldquo;dbbca&rdquo;, s3 = &ldquo;aadbbcbcac&rdquo;</li>
+<li>输出：true</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>暴力计算即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
-</span><span style="color:#75715e">// space: O(1)
+<p>字符串，一律采用<code>dp</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(MN)
+</span><span style="color:#75715e">// space: O(MN)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">reverse_between</span>(head: Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span>, left: <span style="color:#66d9ef">i32</span>, right: <span style="color:#66d9ef">i32</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span> {
-        <span style="color:#66d9ef">if</span> head.is_none() <span style="color:#f92672">||</span> left <span style="color:#f92672">==</span> right <span style="color:#f92672">||</span> head.as_ref().unwrap().next.is_none() {
-            <span style="color:#66d9ef">return</span> head;
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">is_interleave</span>(s1: String, s2: String, s3: String) -&gt; <span style="color:#66d9ef">bool</span> {
+        <span style="color:#66d9ef">let</span> (a, b, c) <span style="color:#f92672">=</span> (
+            s1.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>(),
+            s2.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>(),
+            s3.chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>(),
+        );
+        <span style="color:#66d9ef">let</span> (a_len, b_len, c_len) <span style="color:#f92672">=</span> (a.len(), b.len(), c.len());
+        <span style="color:#66d9ef">if</span> a_len <span style="color:#f92672">+</span> b_len <span style="color:#f92672">!=</span> c_len {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
         }
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head <span style="color:#f92672">=</span> Some(Box::new(ListNode{
-            val: <span style="color:#ae81ff">501</span>,
-            next: <span style="color:#a6e22e">head</span>
-        }));
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head_cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> head;
-        <span style="color:#75715e">// 从1开始计算的
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>left {
-            head_cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> head_cursor.as_mut().unwrap().next;
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dp <span style="color:#f92672">=</span> vec![vec![<span style="color:#66d9ef">false</span>; b_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; a_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+        dp[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+        <span style="color:#66d9ef">for</span> ai <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..=</span>a_len {
+            <span style="color:#66d9ef">for</span> bi <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..=</span>b_len {
+                <span style="color:#66d9ef">if</span> dp[ai][bi] {
+                    <span style="color:#66d9ef">continue</span>;
+                }
+                <span style="color:#66d9ef">if</span> ai <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> dp[ai <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][bi] <span style="color:#f92672">&amp;&amp;</span> a[ai <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> c[ai <span style="color:#f92672">+</span> bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] {
+                    dp[ai][bi] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+                }
+                <span style="color:#66d9ef">if</span> bi <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> dp[ai][bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&amp;&amp;</span> b[bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> c[ai <span style="color:#f92672">+</span> bi <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] {
+                    dp[ai][bi] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+                }
+            }
         }
-        <span style="color:#75715e">// 逆转中部
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> remain <span style="color:#f92672">=</span> head_cursor.as_mut().unwrap().next.take();
-        <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> left<span style="color:#f92672">..=</span>right {
-            <span style="color:#66d9ef">let</span> head_next <span style="color:#f92672">=</span> head_cursor.as_mut().unwrap().next.take();
-            <span style="color:#66d9ef">let</span> remain_next <span style="color:#f92672">=</span> remain.as_mut().unwrap().next.take();
-            remain.as_mut().unwrap().next <span style="color:#f92672">=</span> head_next;
-            head_cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> remain;
-            remain <span style="color:#f92672">=</span> remain_next;
-        }
-        <span style="color:#75715e">// 滑动到尾部
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> head_cursor.as_ref().unwrap().next.is_some() {
-            head_cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> head_cursor.as_mut().unwrap().next;
-        }
-        <span style="color:#75715e">// 接续 
-</span><span style="color:#75715e"></span>        head_cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> remain;
-        <span style="color:#66d9ef">return</span> head.unwrap().next;
+
+        <span style="color:#66d9ef">return</span> dp[a_len][b_len];
     }
 }
 </code></pre></div></section>
@@ -229,14 +236,14 @@
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E5%A4%8D%E5%8E%9Fip%E5%9C%B0%E5%9D%80/">
+    <a class="prev" href="https://just-worker.github.io/blog/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
-      <span>复原IP地址</span></a>
+      <span>验证二叉搜索树</span></a>
     
     
-    <a class="next" href="https://just-worker.github.io/blog/%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/"><span>解码方法</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"><span>不同的二叉搜索树</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
