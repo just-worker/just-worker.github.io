@@ -6,7 +6,524 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 19 Jul 2023 23:54:30 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Jul 2023 21:43:03 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>将有序数组转换为二叉搜索树</title>
+      <link>https://just-worker.github.io/blog/%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 21:43:03 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;将有序数组转换为二叉搜索树httpsleetcodecnproblemsconvert-sorted-array-to-binary-search-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/&#34;&gt;将有序数组转换为二叉搜索树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 高度平衡 二叉搜索树。&lt;/p&gt;
+&lt;p&gt;高度平衡 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/18/btree1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [-10,-3,0,5,9]&lt;/li&gt;
+&lt;li&gt;输出：[0,-3,9,-10,null,5]&lt;/li&gt;
+&lt;li&gt;解释：[0,-10,5,null,-3,null,9] 也将被视为正确答案：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;递归生成&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sorted_array_to_bst&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums);
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;(nums: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;]) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; root &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Rc::new(RefCell::new(TreeNode::new(nums[index]))));
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; root;
+        }
+        root.as_ref().unwrap().as_ref().borrow_mut().left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Self::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;index]);
+        root.as_ref().unwrap().as_ref().borrow_mut().right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Self::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums[index&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; root;
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉树的层序遍历II</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86ii/</link>
+      <pubDate>Fri, 21 Jul 2023 21:38:36 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86ii/</guid>
+      <description>&lt;h2 id=&#34;二叉树的层序遍历-iihttpsleetcodecnproblemsbinary-tree-level-order-traversal-ii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/binary-tree-level-order-traversal-ii/&#34;&gt;二叉树的层序遍历 II&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你二叉树的根节点 root ，返回其节点值 自底向上的层序遍历 。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [3,9,20,null,null,15,7]&lt;/li&gt;
+&lt;li&gt;输出：[[15,7],[9,20],[3]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;反转即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;level_order_bottom&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![root];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;line.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; collect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; line {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(node) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node {
+                    collect.push(node.borrow().val);
+                    next.push(node.borrow().left.clone());
+                    next.push(node.borrow().right.clone());
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;collect.is_empty() {
+                res.push(collect);
+            }
+            line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next;
+        }
+        res.reverse();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>从中序与后序遍历序列构造二叉树</title>
+      <link>https://just-worker.github.io/blog/%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 21:31:58 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;从中序与后序遍历序列构造二叉树httpsleetcodecnproblemsconstruct-binary-tree-from-inorder-and-postorder-traversal&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/&#34;&gt;从中序与后序遍历序列构造二叉树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历， postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/tree.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]&lt;/li&gt;
+&lt;li&gt;输出：[3,9,20,null,null,15,7]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;build_tree&lt;/span&gt;(inorder: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, postorder: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;postorder);
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;(inorder: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;], postorder: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;]) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; postorder.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; postorder.len() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; inorder[index] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; postorder[last] {
+            index &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Some(Rc::new(RefCell::new(TreeNode {
+            val: &lt;span style=&#34;color:#a6e22e&#34;&gt;postorder&lt;/span&gt;[last],
+            left: &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt;::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;index], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;postorder[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;index]),
+            right: &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt;::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder[index&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;postorder[index&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;last]),
+        })));
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>从前序与中序遍历序列构造二叉树</title>
+      <link>https://just-worker.github.io/blog/%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 21:24:20 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;从前序与中序遍历序列构造二叉树httpsleetcodecnproblemsconstruct-binary-tree-from-preorder-and-inorder-traversal&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/&#34;&gt;从前序与中序遍历序列构造二叉树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个整数数组 preorder 和 inorder ，其中 preorder 是二叉树的先序遍历， inorder 是同一棵树的中序遍历，请构造二叉树并返回其根节点。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/tree.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]&lt;/li&gt;
+&lt;li&gt;输出: [3,9,20,null,null,15,7]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;build_tree&lt;/span&gt;(preorder: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, inorder: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;preorder, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder);
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;(preorder: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;], inorder: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;[&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;]) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; preorder.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; inorder[index] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; preorder[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] {
+            index &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Some(Rc::new(RefCell::new(TreeNode {
+            val: &lt;span style=&#34;color:#a6e22e&#34;&gt;preorder&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],
+            left: &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt;::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;preorder[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;index &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;index]),
+            right: &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt;::build(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;preorder[index &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;inorder[index&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;])
+        })))
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉树的最大深度</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/</link>
+      <pubDate>Fri, 21 Jul 2023 21:20:55 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/</guid>
+      <description>&lt;h2 id=&#34;二叉树的最大深度httpsleetcodecnproblemsmaximum-depth-of-binary-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-depth-of-binary-tree/&#34;&gt;二叉树的最大深度&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个二叉树，找出其最大深度。&lt;/p&gt;
+&lt;p&gt;二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。&lt;/p&gt;
+&lt;p&gt;说明: 叶子节点是指没有子节点的节点。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;给定二叉树 [3,9,20,null,null,15,7]，&lt;/li&gt;
+&lt;li&gt;3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;有数值深度+1&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_depth&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; std::cmp::max(
+            Self::max_depth(root.as_ref().unwrap().borrow().left.clone()),
+            Self::max_depth(root.as_ref().unwrap().borrow().right.clone()),
+        ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉树的锯齿形层序遍历</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</link>
+      <pubDate>Fri, 21 Jul 2023 21:14:30 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</guid>
+      <description>&lt;h2 id=&#34;二叉树的锯齿形层序遍历httpsleetcodecnproblemsbinary-tree-zigzag-level-order-traversal&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/&#34;&gt;二叉树的锯齿形层序遍历&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [3,9,20,null,null,15,7]&lt;/li&gt;
+&lt;li&gt;输出：[[3],[20,9],[15,7]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;递归&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time : O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;zigzag_level_order&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![root];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; reverse &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;line.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; collect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; line {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(node) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node {
+                    collect.push(node.borrow().val);
+                    next.push(node.borrow().left.clone());
+                    next.push(node.borrow().right.clone());
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;collect.is_empty() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; reverse {
+                    collect.reverse();
+                }
+                res.push(collect);
+                reverse &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;reverse;
+            }
+            line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next;
+        }
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉树的层序遍历</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</link>
+      <pubDate>Fri, 21 Jul 2023 21:06:11 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</guid>
+      <description>&lt;h2 id=&#34;二叉树的层序遍历httpsleetcodecnproblemsbinary-tree-level-order-traversal&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/binary-tree-level-order-traversal/&#34;&gt;二叉树的层序遍历&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [3,9,20,null,null,15,7]&lt;/li&gt;
+&lt;li&gt;输出：[[3],[9,20],[15,7]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;level_order&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![root];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;line.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; collect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; node &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; line {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(node) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; node {
+                    collect.push(node.borrow().val);
+                    next.push(node.borrow().left.clone());
+                    next.push(node.borrow().right.clone());
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;collect.is_empty() {
+                res.push(collect);
+            }
+            line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>对称二叉树</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 21:00:42 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;对称二叉树httpsleetcodecnproblemssymmetric-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/symmetric-tree/&#34;&gt;对称二叉树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个二叉树的根节点 root ， 检查它是否轴对称。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [1,2,2,3,4,4,3]&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;递归&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_symmetric&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::mirror(
+            root.as_ref().unwrap().borrow().left.clone(),
+            root.as_ref().unwrap().borrow().right.clone(),
+        );
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mirror&lt;/span&gt;(a: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;, b: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a.is_none() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; b.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a.is_none() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; b.is_none();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a.as_ref().unwrap().borrow().val &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; b.as_ref().unwrap().borrow().val {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::mirror(
+            a.as_ref().unwrap().borrow().left.clone(),
+            b.as_ref().unwrap().borrow().right.clone(),
+        ) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; Self::mirror(
+            a.as_ref().unwrap().borrow().right.clone(),
+            b.as_ref().unwrap().borrow().left.clone(),
+        );
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>相同的树</title>
+      <link>https://just-worker.github.io/blog/%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 20:56:01 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;相同的树httpsleetcodecnproblemssame-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/same-tree/&#34;&gt;相同的树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。&lt;/p&gt;
+&lt;p&gt;如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/12/20/ex1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：p = [1,2,3], q = [1,2,3]&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;递归的事情&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_same_tree&lt;/span&gt;(
+        p: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;,
+        q: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;,
+    ) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; p.is_none() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; q.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; p.is_none() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; q.is_none();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; p.as_ref().unwrap().borrow().val &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; q.as_ref().unwrap().borrow().val {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::is_same_tree(
+            p.as_ref().unwrap().borrow().left.clone(),
+            q.as_ref().unwrap().borrow().left.clone(),
+        ) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; Self::is_same_tree(
+            p.as_ref().unwrap().borrow().right.clone(),
+            q.as_ref().unwrap().borrow().right.clone(),
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>恢复二叉搜索树</title>
+      <link>https://just-worker.github.io/blog/%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</link>
+      <pubDate>Fri, 21 Jul 2023 20:36:58 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</guid>
+      <description>&lt;h2 id=&#34;恢复二叉搜索树httpsleetcodecnproblemsrecover-binary-search-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/recover-binary-search-tree/&#34;&gt;恢复二叉搜索树&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你二叉搜索树的根节点 root ，该树中的 恰好 两个节点的值被错误地交换。请在不改变其结构的情况下，恢复这棵树 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/10/28/recover1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [1,3,null,null,2]&lt;/li&gt;
+&lt;li&gt;输出：[3,1,null,null,2]&lt;/li&gt;
+&lt;li&gt;解释：3 不能是 1 的左孩子，因为 3 &amp;gt; 1 。交换 1 和 3 使二叉搜索树有效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;中序遍历就能检查出来&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::borrow::BorrowMut;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Node&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;recover_tree&lt;/span&gt;(root: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; detect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;target: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; (Node, Node), prev: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Node, current: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Node&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; prev.is_some()
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; prev.as_ref().unwrap().borrow().val &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; current.as_ref().unwrap().borrow().val
+            {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; target.&lt;span style=&#34;color:#ae81ff&#34;&gt;0.&lt;/span&gt;is_none() {
+                    target.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; prev.clone();
+                }
+                target.&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.clone();
+            }
+        };
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (None, None);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; prev, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; current) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (None, root.clone());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; current.is_some() {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 无左子节点
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; current.as_ref().unwrap().borrow().left.is_none() {
+                detect(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; target, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; prev, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; current);
+                prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.clone();
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.as_ref().unwrap().borrow().right.clone();
+                current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 找到左子节点的最右节点
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.as_ref().unwrap().borrow().left.clone();
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left.as_ref().unwrap().borrow().right.is_some()
+                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; left.as_ref().unwrap().borrow().right &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; current
+                {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left.as_ref().unwrap().borrow().right.clone();
+                    left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t;
+                }
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 未关联上，先关联
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left.as_ref().unwrap().borrow().right.is_none() {
+                    left.as_ref().unwrap().as_ref().borrow_mut().right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.clone();
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.as_ref().unwrap().borrow().left.clone();
+                    current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    &lt;span style=&#34;color:#75715e&#34;&gt;// 遍历完换分支
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                    detect(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; target, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; prev, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; current);
+                    left.as_ref().unwrap().as_ref().borrow_mut().right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None;
+                    prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.clone();
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current.as_ref().unwrap().borrow().right.clone();
+                    current &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; t;
+                }
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 交换两个节点  
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        std::mem::swap(
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; target.&lt;span style=&#34;color:#ae81ff&#34;&gt;0.&lt;/span&gt;as_ref().unwrap().as_ref().borrow_mut().val,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; target.&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt;as_ref().unwrap().as_ref().borrow_mut().val,
+        );
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>验证二叉搜索树</title>
       <link>https://just-worker.github.io/blog/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</link>
