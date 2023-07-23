@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>路径总和</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@路径总和 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="路径总和" />
+<meta property="og:description" content="路径总和 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-23T23:16:09+08:00" />
+<meta property="article:modified_time" content="2023-07-23T23:16:09+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="路径总和"/>
+<meta name="twitter:description" content="路径总和 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "路径总和",
+      "item": "https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "路径总和",
+  "name": "路径总和",
+  "description": "路径总和 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "路径总和 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存在，返回 true ；否则，返回 false 。\n叶子节点 是指没有子节点的节点\n  输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22 输出：true 解释：等于目标和的根节点到叶节点路径如上图所示。   题目解析 // time: O(N) // space: O(N)  use std::cell::RefCell; use std::rc::Rc; impl Solution { pub fn has_path_sum(root: OptionRcRefCellTreeNode, target_sum: i32) - bool { if root.is_none() { return false; } let left = root.as_ref().unwrap().borrow().left.clone(); let right = root.as_ref().unwrap().borrow().right.clone(); let val = root.as_ref().unwrap().borrow().val; if left.is_none() \u0026\u0026 right.is_none() { return val == target_sum; } return Self::has_path_sum(left, target_sum - val) || Self::has_path_sum(right, target_sum - val); } } ",
+  "wordCount" : "206",
+  "inLanguage": "zh",
+  "datePublished": "2023-07-23T23:16:09+08:00",
+  "dateModified": "2023-07-23T23:16:09+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5/">搜索二维矩阵</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>路径总和</h1>
+  </header>
+
+  <p>
   <small>
-    2023年7月10日&nbsp;· 262 字&nbsp;· 1 分钟</small>
+    2023年7月23日&nbsp;· 206 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -138,219 +177,68 @@
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6/">矩阵置零</a></h3>
-              <p>
-  <small>
-    2023年7月10日&nbsp;· 166 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">编辑距离</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 340 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="路径总和httpsleetcodecnproblemspath-sum"><a href="https://leetcode.cn/problems/path-sum/">路径总和</a></h2>
+<p>给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存在，返回 true ；否则，返回 false 。</p>
+<p>叶子节点 是指没有子节点的节点</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22</li>
+<li>输出：true</li>
+<li>解释：等于目标和的根节点到叶节点路径如上图所示。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">use</span> std::cell::RefCell;
+<span style="color:#66d9ef">use</span> std::rc::Rc;
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">has_path_sum</span>(root: Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span>, target_sum: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">bool</span> {
+        <span style="color:#66d9ef">if</span> root.is_none() {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+        }
+        <span style="color:#66d9ef">let</span> left <span style="color:#f92672">=</span> root.as_ref().unwrap().borrow().left.clone();
+        <span style="color:#66d9ef">let</span> right <span style="color:#f92672">=</span> root.as_ref().unwrap().borrow().right.clone();
+        <span style="color:#66d9ef">let</span> val <span style="color:#f92672">=</span> root.as_ref().unwrap().borrow().val;
+        <span style="color:#66d9ef">if</span> left.is_none() <span style="color:#f92672">&amp;&amp;</span> right.is_none() {
+            <span style="color:#66d9ef">return</span> val <span style="color:#f92672">==</span> target_sum;
+        }
+        <span style="color:#66d9ef">return</span> Self::has_path_sum(left, target_sum <span style="color:#f92672">-</span> val)
+            <span style="color:#f92672">||</span> Self::has_path_sum(right, target_sum <span style="color:#f92672">-</span> val);
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84/">简化路径</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 453 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%88%AC%E6%A5%BC%E6%A2%AF/">爬楼梯</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 206 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9/">X的平方根</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 201 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%96%87%E6%9C%AC%E5%B7%A6%E5%8F%B3%E5%AF%B9%E9%BD%90/">文本左右对齐</a></h3>
-              <p>
-  <small>
-    2023年7月9日&nbsp;· 439 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/">二进制求和</a></h3>
-              <p>
-  <small>
-    2023年7月7日&nbsp;· 257 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8A%A0%E4%B8%80/">加一</a></h3>
-              <p>
-  <small>
-    2023年7月7日&nbsp;· 201 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97/">有效数字</a></h3>
-              <p>
-  <small>
-    2023年7月7日&nbsp;· 494 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/blog/page/4/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/blog/page/6/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    <a class="prev" href="https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8Cii/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>路径总和II</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/"><span>二叉树的最小深度</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
