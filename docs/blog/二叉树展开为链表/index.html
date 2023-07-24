@@ -55,8 +55,8 @@
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "二叉树展开为链表 给你二叉树的根结点 root ，请你将它展开为一个单链表：\n展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。 展开后的单链表应该与二叉树 先序遍历 顺序相同。\n  输入：root = [1,2,5,3,4,null,6] 输出：[1,null,2,null,3,null,4,null,5,null,6]   题目解析 ",
-  "wordCount" : "150",
+  "articleBody": "二叉树展开为链表 给你二叉树的根结点 root ，请你将它展开为一个单链表：\n展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。 展开后的单链表应该与二叉树 先序遍历 顺序相同。\n  输入：root = [1,2,5,3,4,null,6] 输出：[1,null,2,null,3,null,4,null,5,null,6]   题目解析 // time: O(N) // space: O(N)  use std::borrow::BorrowMut; use std::rc::Rc; use std::cell::RefCell; impl Solution { pub fn flatten(root: \u0026mut OptionRcRefCellTreeNode) { if root.is_none() { return; } let mut left = root.as_ref().unwrap().as_ref().borrow_mut().left.take(); let mut right = root.as_ref().unwrap().as_ref().borrow_mut().right.take(); Self::flatten(\u0026mut left); Self::flatten(\u0026mut right); root.as_ref().unwrap().as_ref().borrow_mut().right = left; let mut cursor = root.as_ref().unwrap().clone(); while cursor.borrow().right.is_some() { let t = cursor.as_ref().borrow_mut().right.clone().unwrap(); cursor = t; } cursor.as_ref().borrow_mut().right = right; } } ",
+  "wordCount" : "214",
   "inLanguage": "zh",
   "datePublished": "2023-07-23T23:39:54+08:00",
   "dateModified": "2023-07-23T23:39:54+08:00",
@@ -163,7 +163,7 @@
 
   <p>
   <small>
-    2023年7月23日&nbsp;· 150 字&nbsp;· 1 分钟</small>
+    2023年7月23日&nbsp;· 214 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -190,7 +190,31 @@
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-</section>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">use</span> std::borrow::BorrowMut;
+<span style="color:#66d9ef">use</span> std::rc::Rc;
+<span style="color:#66d9ef">use</span> std::cell::RefCell;
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">flatten</span>(root: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span>) {
+        <span style="color:#66d9ef">if</span> root.is_none() {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> left <span style="color:#f92672">=</span> root.as_ref().unwrap().as_ref().borrow_mut().left.take();
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> right <span style="color:#f92672">=</span> root.as_ref().unwrap().as_ref().borrow_mut().right.take();
+        Self::flatten(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> left);
+        Self::flatten(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> right);
+        root.as_ref().unwrap().as_ref().borrow_mut().right <span style="color:#f92672">=</span> left;
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cursor <span style="color:#f92672">=</span> root.as_ref().unwrap().clone();
+        <span style="color:#66d9ef">while</span> cursor.borrow().right.is_some() {
+            <span style="color:#66d9ef">let</span> t <span style="color:#f92672">=</span> cursor.as_ref().borrow_mut().right.clone().unwrap();
+            cursor <span style="color:#f92672">=</span> t;
+        }
+        cursor.as_ref().borrow_mut().right <span style="color:#f92672">=</span> right;
+    }
+}
+</code></pre></div></section>
 
   
   
