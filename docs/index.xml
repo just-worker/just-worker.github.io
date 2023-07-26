@@ -6,7 +6,157 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 25 Jul 2023 23:26:57 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jul 2023 23:30:51 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>买卖股票的最佳时机III</title>
+      <link>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/</link>
+      <pubDate>Wed, 26 Jul 2023 23:30:51 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/</guid>
+      <description>&lt;h2 id=&#34;买卖股票的最佳时机-iiihttpsleetcodecnproblemsbest-time-to-buy-and-sell-stock-iii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/&#34;&gt;买卖股票的最佳时机 III&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。&lt;/p&gt;
+&lt;p&gt;设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。&lt;/p&gt;
+&lt;p&gt;注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：prices = [3,3,5,0,0,3,1,4]&lt;/li&gt;
+&lt;li&gt;输出：6&lt;/li&gt;
+&lt;li&gt;解释：在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。
+     随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;这道题和之前的股票买卖不太一样&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;买卖次数限定为2&lt;/li&gt;
+&lt;li&gt;两次收益挂钩&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此不能直接计算单次收益，必须同时计算两次收益。&lt;/p&gt;
+&lt;p&gt;我们关注一下我们分别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一次买入&lt;/li&gt;
+&lt;li&gt;第一次卖出&lt;/li&gt;
+&lt;li&gt;第二次买入&lt;/li&gt;
+&lt;li&gt;第二次卖出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们的账户余额&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_profit&lt;/span&gt;(prices: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; buy1_balance, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sell1_balance, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; buy2_balance, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sell2_balance) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;prices[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;prices[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; price &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; prices {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 买入一手后保持高账户余额
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            buy1_balance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(buy1_balance, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;price);
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 卖出一手后保持高账户余额
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            sell1_balance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(sell1_balance, buy1_balance &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; price);
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 买入二手后保持高账户余额
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            buy2_balance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(buy2_balance, sell1_balance &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; price);
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 卖出二手后保持高账户余额
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            sell2_balance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(sell2_balance, buy2_balance &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; price);
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 卖出二手后的账户余额
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sell2_balance;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>买卖股票的最佳时机II</title>
+      <link>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAii/</link>
+      <pubDate>Wed, 26 Jul 2023 23:17:50 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAii/</guid>
+      <description>&lt;h2 id=&#34;买卖股票的最佳时机-iihttpsleetcodecnproblemsbest-time-to-buy-and-sell-stock-ii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/&#34;&gt;买卖股票的最佳时机 II&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。&lt;/p&gt;
+&lt;p&gt;在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。&lt;/p&gt;
+&lt;p&gt;返回 你能获得的 最大 利润 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：prices = [7,1,5,3,6,4]&lt;/li&gt;
+&lt;li&gt;输出：7&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;一直上涨持有就行，问题是遇见下跌怎么卖。&lt;/p&gt;
+&lt;p&gt;我们假设有&lt;code&gt;A&lt;/code&gt;、&lt;code&gt;B&lt;/code&gt;、&lt;code&gt;C&lt;/code&gt;、&lt;code&gt;D&lt;/code&gt;四个点，其中&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;A&lt;/code&gt; &amp;gt; &lt;code&gt;B&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;B&lt;/code&gt; &amp;gt; &lt;code&gt;C&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;D&lt;/code&gt; &amp;gt; &lt;code&gt;B&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;考虑两个收益&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;D&lt;/code&gt; - &lt;code&gt;B&lt;/code&gt; + &lt;code&gt;B&lt;/code&gt; - &lt;code&gt;A&lt;/code&gt; = &lt;code&gt;D&lt;/code&gt; - &lt;code&gt;A&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;D&lt;/code&gt; - &lt;code&gt;C&lt;/code&gt; + &lt;code&gt;B&lt;/code&gt; - &lt;code&gt;A&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到，如果中途下跌，直接卖出肯定是赚的，答案就很简单了，只要遇见下跌卖出就行了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意边界：最后一天记得卖出&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_profit&lt;/span&gt;(prices: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; min, len) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prices[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], prices.len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 持续上涨
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; prices[i] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; prices[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 最后一天卖出
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                    res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; prices[i] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; min;
+                }
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 卖出昨天的
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; prices[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; min;
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 买入今天的；反正卖出也不影响
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; prices[i];
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>买卖股票的最佳时机</title>
+      <link>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/</link>
+      <pubDate>Wed, 26 Jul 2023 23:14:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/</guid>
+      <description>&lt;h2 id=&#34;买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/&#34;&gt;买卖股票的最佳时机&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。&lt;/p&gt;
+&lt;p&gt;你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。&lt;/p&gt;
+&lt;p&gt;返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：[7,1,5,3,6,4]&lt;/li&gt;
+&lt;li&gt;输出：5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;热身题，不解释&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_profit&lt;/span&gt;(prices: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; min) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, prices[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; price &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; prices {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::max(res, price &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; min);
+            min &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::min(min, price);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>三角形最小路径和</title>
       <link>https://just-worker.github.io/blog/%E4%B8%89%E8%A7%92%E5%BD%A2%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/</link>
