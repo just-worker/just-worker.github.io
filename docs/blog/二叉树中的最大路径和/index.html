@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>买卖股票的最佳时机III</title>
+    <title>二叉树中的最大路径和</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交">
+    <meta name="description" content="Ladder@二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="买卖股票的最佳时机III" />
-<meta property="og:description" content="买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交" />
+    <meta property="og:title" content="二叉树中的最大路径和" />
+<meta property="og:description" content="二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-07-26T23:30:51+08:00" />
-<meta property="article:modified_time" content="2023-07-26T23:30:51+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-07-27T22:48:34+08:00" />
+<meta property="article:modified_time" content="2023-07-27T22:48:34+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="买卖股票的最佳时机III"/>
-<meta name="twitter:description" content="买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交"/>
+<meta name="twitter:title" content="二叉树中的最大路径和"/>
+<meta name="twitter:description" content="二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "买卖股票的最佳时机III",
-      "item": "https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/"
+      "name": "二叉树中的最大路径和",
+      "item": "https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "买卖股票的最佳时机III",
-  "name": "买卖股票的最佳时机III",
-  "description": "买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交",
+  "headline": "二叉树中的最大路径和",
+  "name": "二叉树中的最大路径和",
+  "description": "二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。\n设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。\n注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。\n  输入：prices = [3,3,5,0,0,3,1,4] 输出：6 解释：在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。 随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。   题目解析 这道题和之前的股票买卖不太一样\n 买卖次数限定为2 两次收益挂钩  因此不能直接计算单次收益，必须同时计算两次收益。\n我们关注一下我们分别\n 第一次买入 第一次卖出 第二次买入 第二次卖出  我们的账户余额\n// time: O(N) // space: O(1) impl Solution { pub fn max_profit(prices: Veci32) - i32 { let (mut buy1_balance, mut sell1_balance, mut buy2_balance, mut sell2_balance) = (-prices[0], 0, -prices[0], 0); for price in prices { // 买入一手后保持高账户余额  buy1_balance = std::cmp::max(buy1_balance, -price); // 卖出一手后保持高账户余额  sell1_balance = std::cmp::max(sell1_balance, buy1_balance + price); // 买入二手后保持高账户余额  buy2_balance = std::cmp::max(buy2_balance, sell1_balance - price); // 卖出二手后保持高账户余额  sell2_balance = std::cmp::max(sell2_balance, buy2_balance + price); } // 卖出二手后的账户余额  return sell2_balance; } } ",
-  "wordCount" : "448",
+  "articleBody": "二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。\n路径和 是路径中各节点值的总和。\n给你一个二叉树的根节点 root ，返回其 最大路径和 。\n  输入：root = [-10,9,20,null,null,15,7] 输出：42 解释：最优路径是 15 - 20 - 7 ，路径和为 15 + 20 + 7 = 42   题目解析 如果光看样例，我们会想可能会从根节点查找、mirrors遍历等操作。但是现在请观念转变一下\n 我们可以截断，停止向下遍历 我们可以选择单边遍历，每个节点可以单边向左或者向右 值的形式就是左单边和 + 右单边和 + 节点值  换句话说，递归形式是单边递归，但是最终的值是基于递归，顺带做的判断求值。\n这种借助递归去计算，而非使用递归直接求值的形式我们之前使用过，但针对的是边界情况计算值。\n经过这道题，我们应该了解这么一种操作：构造递归，并在递归中进行求值，依赖递归而非使用递归直接求值。\n// time: O(N) // space: O(N) use std::rc::Rc; use std::cell::RefCell; impl Solution { pub fn max_path_sum(root: OptionRcRefCellTreeNode) - i32 { if root.is_none() { return 0; } let mut res = root.as_ref().unwrap().borrow().val; Self::max_side_sum(\u0026mut res, root); return res; } fn max_side_sum(res: \u0026mut i32, root: OptionRcRefCellTreeNode) - i32 { if let Some(node) = root { let val = node.borrow().val; let left = node.borrow().left.clone(); let right = node.borrow().right.clone(); let left_res = std::cmp::max(Self::max_side_sum(res, left), 0); let right_res = std::cmp::max(Self::max_side_sum(res, right), 0); let sum = val + left_res + right_res; if sum  *res { *res = sum; } return val + std::cmp::max(left_res, right_res); } return 0; } } ",
+  "wordCount" : "502",
   "inLanguage": "zh",
-  "datePublished": "2023-07-26T23:30:51+08:00",
-  "dateModified": "2023-07-26T23:30:51+08:00",
+  "datePublished": "2023-07-27T22:48:34+08:00",
+  "dateModified": "2023-07-27T22:48:34+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/"
+    "@id": "https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>买卖股票的最佳时机III</h1>
+    <h1>二叉树中的最大路径和</h1>
   </header>
 
   <p>
   <small>
-    2023年7月26日&nbsp;· 448 字&nbsp;· 1 分钟</small>
+    2023年7月27日&nbsp;· 502 字&nbsp;· 2 分钟</small>
 
   <small>
       
@@ -178,51 +178,58 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="买卖股票的最佳时机-iiihttpsleetcodecnproblemsbest-time-to-buy-and-sell-stock-iii"><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/">买卖股票的最佳时机 III</a></h2>
-<p>给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。</p>
-<p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。</p>
-<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+  <section class="blog-content"><h2 id="二叉树中的最大路径和httpsleetcodecnproblemsbinary-tree-maximum-path-sum"><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/">二叉树中的最大路径和</a></h2>
+<p>二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。</p>
+<p>路径和 是路径中各节点值的总和。</p>
+<p>给你一个二叉树的根节点 root ，返回其 最大路径和 。</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" alt=""></p>
 <blockquote>
 <ul>
-<li>输入：prices = [3,3,5,0,0,3,1,4]</li>
-<li>输出：6</li>
-<li>解释：在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。
-     随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。</li>
+<li>输入：root = [-10,9,20,null,null,15,7]</li>
+<li>输出：42</li>
+<li>解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>这道题和之前的股票买卖不太一样</p>
-<ul>
-<li>买卖次数限定为2</li>
-<li>两次收益挂钩</li>
-</ul>
-<p>因此不能直接计算单次收益，必须同时计算两次收益。</p>
-<p>我们关注一下我们分别</p>
-<ul>
-<li>第一次买入</li>
-<li>第一次卖出</li>
-<li>第二次买入</li>
-<li>第二次卖出</li>
-</ul>
-<p>我们的账户余额</p>
+<p>如果光看样例，我们会想可能会从根节点查找、<code>mirrors</code>遍历等操作。但是现在请观念转变一下</p>
+<ol>
+<li>我们可以截断，停止向下遍历</li>
+<li>我们可以选择单边遍历，每个节点可以单边向左或者向右</li>
+<li>值的形式就是左单边和 + 右单边和 + 节点值</li>
+</ol>
+<p>换句话说，递归形式是单边递归，但是最终的值是基于递归，顺带做的判断求值。</p>
+<p>这种借助递归去计算，而非使用递归直接求值的形式我们之前使用过，但针对的是边界情况计算值。</p>
+<p>经过这道题，我们应该了解这么一种操作：构造递归，并在递归中进行求值，依赖递归而非使用递归直接求值。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+
 <span style="color:#75715e">// time: O(N)
-</span><span style="color:#75715e">// space: O(1)
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">max_profit</span>(prices: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
-        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> buy1_balance, <span style="color:#66d9ef">mut</span> sell1_balance, <span style="color:#66d9ef">mut</span> buy2_balance, <span style="color:#66d9ef">mut</span> sell2_balance) <span style="color:#f92672">=</span> (<span style="color:#f92672">-</span>prices[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span>prices[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">0</span>);
-        <span style="color:#66d9ef">for</span> price <span style="color:#66d9ef">in</span> prices {
-            <span style="color:#75715e">// 买入一手后保持高账户余额
-</span><span style="color:#75715e"></span>            buy1_balance <span style="color:#f92672">=</span> std::cmp::max(buy1_balance, <span style="color:#f92672">-</span>price);
-            <span style="color:#75715e">// 卖出一手后保持高账户余额
-</span><span style="color:#75715e"></span>            sell1_balance <span style="color:#f92672">=</span> std::cmp::max(sell1_balance, buy1_balance <span style="color:#f92672">+</span> price);
-            <span style="color:#75715e">// 买入二手后保持高账户余额
-</span><span style="color:#75715e"></span>            buy2_balance <span style="color:#f92672">=</span> std::cmp::max(buy2_balance, sell1_balance <span style="color:#f92672">-</span> price);
-            <span style="color:#75715e">// 卖出二手后保持高账户余额
-</span><span style="color:#75715e"></span>            sell2_balance <span style="color:#f92672">=</span> std::cmp::max(sell2_balance, buy2_balance <span style="color:#f92672">+</span> price);
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::rc::Rc;
+<span style="color:#66d9ef">use</span> std::cell::RefCell;
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">max_path_sum</span>(root: Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">if</span> root.is_none() {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
         }
-        <span style="color:#75715e">// 卖出二手后的账户余额
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> sell2_balance;
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> root.as_ref().unwrap().borrow().val;
+        Self::max_side_sum(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, root);
+        <span style="color:#66d9ef">return</span> res;
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">max_side_sum</span>(res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> <span style="color:#66d9ef">i32</span>, root: Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Some(node) <span style="color:#f92672">=</span> root {
+            <span style="color:#66d9ef">let</span> val <span style="color:#f92672">=</span> node.borrow().val;
+            <span style="color:#66d9ef">let</span> left <span style="color:#f92672">=</span> node.borrow().left.clone();
+            <span style="color:#66d9ef">let</span> right <span style="color:#f92672">=</span> node.borrow().right.clone();
+            <span style="color:#66d9ef">let</span> left_res <span style="color:#f92672">=</span> std::cmp::max(Self::max_side_sum(res, left), <span style="color:#ae81ff">0</span>);
+            <span style="color:#66d9ef">let</span> right_res <span style="color:#f92672">=</span> std::cmp::max(Self::max_side_sum(res, right), <span style="color:#ae81ff">0</span>);
+            <span style="color:#66d9ef">let</span> sum <span style="color:#f92672">=</span> val <span style="color:#f92672">+</span> left_res <span style="color:#f92672">+</span> right_res;
+            <span style="color:#66d9ef">if</span> sum <span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span>res {
+                <span style="color:#f92672">*</span>res <span style="color:#f92672">=</span> sum;
+            }
+            <span style="color:#66d9ef">return</span> val <span style="color:#f92672">+</span> std::cmp::max(left_res, right_res);
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
     }
 }
 </code></pre></div></section>
@@ -231,14 +238,14 @@
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">
+    <a class="prev" href="https://just-worker.github.io/blog/%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/">
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
-      <span>二叉树中的最大路径和</span></a>
+      <span>验证回文串</span></a>
     
     
-    <a class="next" href="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAii/"><span>买卖股票的最佳时机II</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/"><span>买卖股票的最佳时机III</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
