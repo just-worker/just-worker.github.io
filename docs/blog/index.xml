@@ -6,7 +6,85 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 28 Jul 2023 22:09:27 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Jul 2023 22:33:28 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>单词接龙</title>
+      <link>https://just-worker.github.io/blog/%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/</link>
+      <pubDate>Mon, 31 Jul 2023 22:33:28 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/</guid>
+      <description>&lt;h2 id=&#34;单词接龙httpsleetcodecnproblemsword-ladder&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/word-ladder/&#34;&gt;单词接龙&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;字典 wordList 中从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列 beginWord -&amp;gt; s1 -&amp;gt; s2 -&amp;gt; &amp;hellip; -&amp;gt; sk：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每一对相邻的单词只差一个字母。&lt;/li&gt;
+&lt;li&gt;对于 1 &amp;lt;= i &amp;lt;= k 时，每个 si 都在 wordList 中。注意， beginWord 不需要在 wordList 中。&lt;/li&gt;
+&lt;li&gt;sk == endWord&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;给你两个单词 beginWord 和 endWord 和一个字典 wordList ，返回 从 beginWord 到 endWord 的 最短转换序列 中的 单词数目 。如果不存在这样的转换序列，返回 0 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：beginWord = &amp;ldquo;hit&amp;rdquo;, endWord = &amp;ldquo;cog&amp;rdquo;, wordList = [&amp;ldquo;hot&amp;rdquo;,&amp;ldquo;dot&amp;rdquo;,&amp;ldquo;dog&amp;rdquo;,&amp;ldquo;lot&amp;rdquo;,&amp;ldquo;log&amp;rdquo;,&amp;ldquo;cog&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;输出：5&lt;/li&gt;
+&lt;li&gt;解释：一个最短转换序列是 &amp;ldquo;hit&amp;rdquo; -&amp;gt; &amp;ldquo;hot&amp;rdquo; -&amp;gt; &amp;ldquo;dot&amp;rdquo; -&amp;gt; &amp;ldquo;dog&amp;rdquo; -&amp;gt; &amp;ldquo;cog&amp;rdquo;, 返回它的长度 5。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;上一题就做过了，不过这里只用构建图就行了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ladder_length&lt;/span&gt;(begin_word: String, end_word: String, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; word_list: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; begin_word_idx, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; end_word_idx) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (None, None);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (idx, word) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; word_list.iter().enumerate() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; word &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;begin_word {
+                begin_word_idx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(idx);
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; word &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;end_word {
+                end_word_idx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(idx);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; end_word_idx.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; end_word_idx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; end_word_idx.unwrap();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; begin_word_idx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; begin_word_idx {
+            Some(idx) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; idx, 
+            None &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                word_list.push(begin_word);
+                word_list.len() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+            }
+        };
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; link: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, vec![]); word_list.len()];
+        link[begin_word_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; distance &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; find_next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (from_idx, from) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; word_list.iter().enumerate() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; link[from_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; distance {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (to_idx, to) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; word_list.iter().enumerate() {
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (link[to_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; link[to_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; distance &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; Self::near(from, to) {
+                            link[to_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; distance &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                            link[to_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;1.&lt;/span&gt;push(from_idx);
+                            find_next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                        }
+                    }
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;find_next &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; link[end_word_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+        }
+        std::cmp::max(link[end_word_idx].&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;near&lt;/span&gt;(a: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;, b: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        a.bytes().zip(b.bytes())
+        .fold(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;counter, (c1, c2)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; {
+            counter &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; c1 &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; c2 {&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;} &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}
+        }) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>单词接龙II</title>
       <link>https://just-worker.github.io/blog/%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99ii/</link>
