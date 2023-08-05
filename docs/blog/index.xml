@@ -6,7 +6,134 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 02 Aug 2023 00:01:35 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Aug 2023 19:32:15 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分割回文串II</title>
+      <link>https://just-worker.github.io/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2ii/</link>
+      <pubDate>Sat, 05 Aug 2023 19:32:15 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2ii/</guid>
+      <description>&lt;h2 id=&#34;-分割回文串-iihttpsleetcodecnproblemspalindrome-partitioning-iidescription&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/palindrome-partitioning-ii/description/&#34;&gt; 分割回文串 II&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。&lt;/p&gt;
+&lt;p&gt;返回符合要求的 最少分割次数 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;aab&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：1&lt;/li&gt;
+&lt;li&gt;解释：只需一次分割就可将 s 分割成 [&amp;ldquo;aa&amp;rdquo;,&amp;ldquo;b&amp;rdquo;] 这样两个回文子串。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;和前一题一样，先做出回文DP，后续再利用一个DP得到最小跳跃。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;min_cut&lt;/span&gt;(s: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 回文DP
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;; len]; len];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; begin &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len).rev() {
+            dp[begin][begin] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; end &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+                dp[begin][end] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[begin&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;begin] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[end&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;end] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; (begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; end &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; dp[begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 跳跃DP
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![len; len];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; end &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 一步跳
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dp[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][end] {
+                dp2[end] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; begin &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;end {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dp[begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][end] {
+                        &lt;span style=&#34;color:#75715e&#34;&gt;// 如果前面不都是一步跳，肯定不会中
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                        dp2[end] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::cmp::min(dp2[end], dp2[begin] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                    }
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dp2[len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>分割回文串</title>
+      <link>https://just-worker.github.io/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2/</link>
+      <pubDate>Sat, 05 Aug 2023 18:10:41 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;分割回文串httpsleetcodecnproblemspalindrome-partitioningdescription&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/palindrome-partitioning/description/&#34;&gt;分割回文串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。&lt;/p&gt;
+&lt;p&gt;回文串 是正着读和反着读都一样的字符串。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;aab&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：[[&amp;ldquo;a&amp;rdquo;,&amp;ldquo;a&amp;rdquo;,&amp;ldquo;b&amp;rdquo;],[&amp;ldquo;aa&amp;rdquo;,&amp;ldquo;b&amp;rdquo;]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;本题中题目分为两个部分&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;回文判断&lt;/li&gt;
+&lt;li&gt;答案分隔&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果我们已经知道一个字符是回文了，分隔无非就是遇见回文子串需要递归分隔。&lt;/p&gt;
+&lt;p&gt;回到第一步，如何判断回文呢。不至于马拉车，不过核心问题还是：我们只能够从中心进行扩展，无法从两端进行收缩。&lt;/p&gt;
+&lt;p&gt;这里诞生两种办法&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;中心扩展：按照&lt;code&gt;位置 + 臂长&lt;/code&gt;的办法进行遍历，这样就保证中心结果复用&lt;/li&gt;
+&lt;li&gt;反向遍历：外层反向遍历，内层正向遍历，这样保证开头时候就已经判断过后续的字符，可以直接收缩&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N + N ^ 2) 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;partition&lt;/span&gt;(s: String) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![vec![s]];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.len();
+        &lt;span style=&#34;color:#75715e&#34;&gt;// dp
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;; len]; len];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; begin &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len).rev() {
+            dp[begin][begin] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; end &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 1. 两端必须相等
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;// 2. 如果总长低于三，肯定是回文；否负责需要依赖内层结果
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                dp[begin][end] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[begin&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;begin] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[end&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;end] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; (begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; end &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; dp[begin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// dfs
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        Self::collect(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, len, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; vec![], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;dp, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;(begin: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, end: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, collect: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, res: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, dp: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, s: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; String) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; begin &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; end {
+            res.push(collect.iter().map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v.to_string()).collect());
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; pos &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; begin&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;end {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dp[begin][pos] {
+                collect.push(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;s[begin&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;pos]);
+                Self::collect(pos &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, end, collect, res, dp, s);
+                collect.pop();
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>被围绕的区域</title>
       <link>https://just-worker.github.io/blog/%E8%A2%AB%E5%9B%B4%E7%BB%95%E7%9A%84%E5%8C%BA%E5%9F%9F/</link>
