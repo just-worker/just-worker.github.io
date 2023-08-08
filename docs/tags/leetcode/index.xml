@@ -6,7 +6,107 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Mon, 07 Aug 2023 23:49:14 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Aug 2023 23:12:02 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>只出现一次的数字</title>
+      <link>https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</link>
+      <pubDate>Tue, 08 Aug 2023 23:12:02 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</guid>
+      <description>&lt;h2 id=&#34;只出现一次的数字httpsleetcodecnproblemssingle-number&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/single-number/&#34;&gt;只出现一次的数字&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。&lt;/p&gt;
+&lt;p&gt;你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [2,2,1]&lt;/li&gt;
+&lt;li&gt;输出：1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;两个数字异或之后为零&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;single_number&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; v &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; nums {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt;  v;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>分发糖果</title>
+      <link>https://just-worker.github.io/blog/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/</link>
+      <pubDate>Tue, 08 Aug 2023 22:47:01 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/</guid>
+      <description>&lt;h2 id=&#34;分发糖果httpsleetcodecnproblemscandy&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/candy/&#34;&gt;分发糖果&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。&lt;/p&gt;
+&lt;p&gt;你需要按照以下要求，给这些孩子分发糖果：&lt;/p&gt;
+&lt;p&gt;每个孩子至少分配到 1 个糖果。
+相邻两个孩子评分更高的孩子会获得更多的糖果。
+请你给每个孩子分发糖果，计算并返回需要准备的 最少糖果数目 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：ratings = [1,0,2]&lt;/li&gt;
+&lt;li&gt;输出：5&lt;/li&gt;
+&lt;li&gt;解释：你可以分别给第一个、第二个、第三个孩子分发 2、1、2 颗糖果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;这道题目有好几个坑&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;题目中只说保证分数高的需要得到更多的糖果，但是相等的数值没有任何要求&lt;/li&gt;
+&lt;li&gt;递增没有问题，但是递减的次数更多的时候，可能需要调整高点的高度&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;整体步骤应该如下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果是递增情况，直接&lt;code&gt;+1&lt;/code&gt;即可&lt;/li&gt;
+&lt;li&gt;如果是递减，每次&lt;code&gt;+1&lt;/code&gt;即可，可以看做是反向的递增&lt;/li&gt;
+&lt;li&gt;如果递减的时候，高度超越了递增的高度，需要额外进行增高&lt;/li&gt;
+&lt;li&gt;因为递增时候只用&lt;code&gt;+1&lt;/code&gt;，但是递减的时候，特殊场景需要额外增高，因此对于相等的值，需要放在递增里面去做，但是高度需要下降到1&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;candy&lt;/span&gt;(ratings: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ratings.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; len &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; top, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; increase, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; decrease, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; prev) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; v &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ratings {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; prev {
+                decrease &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+                increase &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; prev {
+                    &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    increase &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+                };
+                top &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; increase;
+                prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; v;
+                res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; increase;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                increase &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                decrease &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; decrease &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; top {
+                    decrease &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                }
+                prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; v;
+                res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; decrease;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>加油站</title>
       <link>https://just-worker.github.io/blog/%E5%8A%A0%E6%B2%B9%E7%AB%99/</link>

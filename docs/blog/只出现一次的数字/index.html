@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算法</title>
+    <title>只出现一次的数字</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 你必须设计并实现线性">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="算法" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/" />
+    <meta property="og:title" content="只出现一次的数字" />
+<meta property="og:description" content="只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 你必须设计并实现线性" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-08-08T23:12:02+08:00" />
+<meta property="article:modified_time" content="2023-08-08T23:12:02+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="算法"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="只出现一次的数字"/>
+<meta name="twitter:description" content="只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 你必须设计并实现线性"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "只出现一次的数字",
+      "item": "https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "只出现一次的数字",
+  "name": "只出现一次的数字",
+  "description": "只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 你必须设计并实现线性",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。\n你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。\n  输入：nums = [2,2,1] 输出：1   题目解析 两个数字异或之后为零\n// time: O(N) // space: O(1) impl Solution { pub fn single_number(nums: Veci32) - i32 { let mut res = 0; for v in nums { res = res ^ v; } return res; } } ",
+  "wordCount" : "162",
+  "inLanguage": "zh",
+  "datePublished": "2023-08-08T23:12:02+08:00",
+  "dateModified": "2023-08-08T23:12:02+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/">分隔链表</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>只出现一次的数字</h1>
+  </header>
+
+  <p>
   <small>
-    2023年7月17日&nbsp;· 212 字&nbsp;· 1 分钟</small>
+    2023年8月8日&nbsp;· 162 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -123,229 +177,52 @@
     </small>
   
 <p>
-          分隔链表 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。 你应当 保留 两个分区中每
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/">最大矩形</a></h3>
-          <p>
-  <small>
-    2023年7月17日&nbsp;· 268 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          最大矩形 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。 输入：matrix = [[&ldquo;1&rdquo;,&ldquo;0&rdquo;,&ldquo;1&rdquo;,&ldquo;0&rdquo;,&ldquo;0&rdquo;],[&ldquo;1&rdquo;,&ldquo;0&rdquo;,&ldquo;1&rdquo;,&ldquo;1&rdquo;,&ldquo;1&rdquo;],[&ldquo;1&rdquo;,&ldquo;1&rdquo;,&ldquo;1&rdquo;,&ldquo;1&rdquo;,&ldquo;1&rdquo;],[&ldquo;1&rdquo;,&ldquo;0&rdquo;,&ldquo;0&rdquo;,&ldquo;1&rdquo;,&ldquo;0&rdquo;]] 输出：6 题目解析 计算
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/">柱状图中最大的矩形</a></h3>
-          <p>
-  <small>
-    2023年7月16日&nbsp;· 284 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="只出现一次的数字httpsleetcodecnproblemssingle-number"><a href="https://leetcode.cn/problems/single-number/">只出现一次的数字</a></h2>
+<p>给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
+<p>你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。</p>
+<blockquote>
+<ul>
+<li>输入：nums = [2,2,1]</li>
+<li>输出：1</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>两个数字异或之后为零</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">single_number</span>(nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> v <span style="color:#66d9ef">in</span> nums {
+            res <span style="color:#f92672">=</span> res <span style="color:#f92672">^</span>  v;
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          柱状图中最大的矩形 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/">删除排序链表中的重复元素</a></h3>
-          <p>
-  <small>
-    2023年7月16日&nbsp;· 157 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          删除排序链表中的重复元素 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。 输入：head = [1,1,2] 输出：[1
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/">删除排序链表中的重复元素II</a></h3>
-          <p>
-  <small>
-    2023年7月16日&nbsp;· 285 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          删除排序链表中的重复元素 II 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。 输入：head =
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84ii/">搜索旋转排序数组II</a></h3>
-          <p>
-  <small>
-    2023年7月14日&nbsp;· 488 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          搜索旋转排序数组II 已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。 在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt;
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9ii/">删除有序数组中的重复项II</a></h3>
-          <p>
-  <small>
-    2023年7月14日&nbsp;· 275 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          删除有序数组中的重复项II 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使得出现次数超过两次的元素只出现两次 ，返回删除后数组的新长度。 不要
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/">单词搜索</a></h3>
-          <p>
-  <small>
-    2023年7月14日&nbsp;· 364 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          单词搜索 给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。 单词必须按照字母顺序，通过相邻的单元格内的
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%AD%90%E9%9B%86/">子集</a></h3>
-          <p>
-  <small>
-    2023年7月14日&nbsp;· 214 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          子集 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。 输入：nu
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%BB%84%E5%90%88/">组合</a></h3>
-          <p>
-  <small>
-    2023年7月14日&nbsp;· 171 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          组合 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n = 4, k = 2 输出： [ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4], ] 题目解析 回溯
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/tags/%E7%AE%97%E6%B3%95/page/5/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/tags/%E7%AE%97%E6%B3%95/page/7/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/"><span>分发糖果</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
