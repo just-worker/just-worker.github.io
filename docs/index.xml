@@ -6,7 +6,224 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 12 Aug 2023 20:08:57 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Aug 2023 22:18:25 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>系统设置</title>
+      <link>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Sat, 12 Aug 2023 22:18:25 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</guid>
+      <description>&lt;h2 id=&#34;进入系统&#34;&gt;进入系统&lt;/h2&gt;
+&lt;p&gt;刚安装完系统之后，挂载在&lt;code&gt;/mnt&lt;/code&gt;中，使用如下命令即可进入刚安装的系统中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;arch-chroot /mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;安装包&#34;&gt;安装包&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;虽然安装系统的时候也安装了一些包，但基本上是操作系统本身以及少量的辅助工具。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;除基础系统之外我们还需要一些程序&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;程序&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;grub&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/492509251&#34;&gt;启动引导&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;efibootmgr&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.python100.com/html/0YE55LG6P62F.html&#34;&gt;EFI启动管理&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;efivar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;networkmanager&lt;/td&gt;
+&lt;td&gt;网络管理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 更新系统&lt;/span&gt;
+pacman -Syy
+
+&lt;span style=&#34;color:#75715e&#34;&gt;## 安装工具&lt;/span&gt;
+pacman -S grub efibootmgr efivar networdmanager 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>系统安装</title>
+      <link>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sat, 12 Aug 2023 21:57:23 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</guid>
+      <description>&lt;h2 id=&#34;系统安装&#34;&gt;系统安装&lt;/h2&gt;
+&lt;p&gt;安装使用&lt;a href=&#34;https://man.archlinux.org/man/pacstrap.8&#34;&gt;pacstrap&lt;/a&gt;，基础的安装包如下&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;程序&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;linux&lt;/td&gt;
+&lt;td&gt;操作系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;linux-firmware&lt;/td&gt;
+&lt;td&gt;系统固件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;linux-headers&lt;/td&gt;
+&lt;td&gt;系统调用头文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;base&lt;/td&gt;
+&lt;td&gt;基础包&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;base-devel&lt;/td&gt;
+&lt;td&gt;基础开发包&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;vim&lt;/td&gt;
+&lt;td&gt;文本编辑&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bash-completion&lt;/td&gt;
+&lt;td&gt;命令补全&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pacstrap /mnt linux linux-firmware linux-headers base base-devel vim bash-completion
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;
+&lt;p&gt;至此，系统其实已经安装完成了。&lt;/p&gt;
+&lt;p&gt;但是，我们还需要创建&lt;code&gt;fstab&lt;/code&gt;，操作系统启动时候会加载这个文件，并自动挂载到指定目录。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;## UEFI, 创建之后追加到新建的系统中的 /etc/fstab&lt;/span&gt;
+genfstab -U /mnt &amp;gt;&amp;gt; /mnt/etc/fstab 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>挂载</title>
+      <link>https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/</link>
+      <pubDate>Sat, 12 Aug 2023 21:49:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/</guid>
+      <description>&lt;p&gt;分区完成之后，需要进行挂载。&lt;/p&gt;
+&lt;h2 id=&#34;挂载&#34;&gt;挂载&lt;/h2&gt;
+&lt;p&gt;挂载的盘主要位置如下&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;分区&lt;/th&gt;
+&lt;th&gt;挂载点&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;filesystem&lt;/td&gt;
+&lt;td&gt;/mut&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;EFI&lt;/td&gt;
+&lt;td&gt;/mut/boot/efi&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;swap&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;swapon&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;可以看到，挂载点还有内嵌，这里需要注意一下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 挂载文件系统到 .mnt&lt;/span&gt;
+mount /dev/sda3 /mut
+&lt;span style=&#34;color:#75715e&#34;&gt;# 创建新的挂载点&lt;/span&gt;
+mkdir -p /mut/boot/efi
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 挂载EFI&lt;/span&gt;
+mount /dev/sda1 /mut/boot/efi
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 启动交换分区&lt;/span&gt;
+swapon /dev/sda2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;还可以检查一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;lsblk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>分区</title>
+      <link>https://just-worker.github.io/blog/%E5%88%86%E5%8C%BA/</link>
+      <pubDate>Sat, 12 Aug 2023 21:33:52 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%88%86%E5%8C%BA/</guid>
+      <description>&lt;h2 id=&#34;分区&#34;&gt;分区&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;检查分区&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 查看分区信息&lt;/span&gt;
+lsblk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;手动分区&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 使用cfdisk进行分区&lt;/span&gt;
+cfdisk /dev/sda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用&lt;code&gt;cfdisk&lt;/code&gt;进行分区，主要注意修改容量和分区类型，因为是图形化界面，不用过多介绍。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;分区类型&lt;/th&gt;
+&lt;th&gt;容量推荐&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;EFI&lt;/td&gt;
+&lt;td&gt;512M&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;swap&lt;/td&gt;
+&lt;td&gt;2G&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;filesystem&lt;/td&gt;
+&lt;td&gt;other&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;格式化&#34;&gt;格式化&lt;/h2&gt;
+&lt;p&gt;格式化需要专门的命令&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;swap&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkswap /dev/sda2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;efi&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkfs.vfat /dev/sda1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ext4&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkfs.ext4 /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xfs&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkfs.xfs /dev/sda3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;检查分区&#34;&gt;检查分区&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;lsblk -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>二叉树的后序遍历</title>
       <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</link>

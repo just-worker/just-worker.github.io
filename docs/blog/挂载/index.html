@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>挂载</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@分区完成之后，需要进行挂载。 挂载 挂载的盘主要位置如下 分区 挂载点 filesystem /mut EFI /mut/boot/efi swap swapon 可以看到，挂载点还有内嵌，这里需要注意一下。 # 挂载文件系统到 .mnt mount /dev/sda3">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="挂载" />
+<meta property="og:description" content="分区完成之后，需要进行挂载。 挂载 挂载的盘主要位置如下 分区 挂载点 filesystem /mut EFI /mut/boot/efi swap swapon 可以看到，挂载点还有内嵌，这里需要注意一下。 # 挂载文件系统到 .mnt mount /dev/sda3" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-08-12T21:49:18+08:00" />
+<meta property="article:modified_time" content="2023-08-12T21:49:18+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="挂载"/>
+<meta name="twitter:description" content="分区完成之后，需要进行挂载。 挂载 挂载的盘主要位置如下 分区 挂载点 filesystem /mut EFI /mut/boot/efi swap swapon 可以看到，挂载点还有内嵌，这里需要注意一下。 # 挂载文件系统到 .mnt mount /dev/sda3"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "挂载",
+      "item": "https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "挂载",
+  "name": "挂载",
+  "description": "分区完成之后，需要进行挂载。 挂载 挂载的盘主要位置如下 分区 挂载点 filesystem /mut EFI /mut/boot/efi swap swapon 可以看到，挂载点还有内嵌，这里需要注意一下。 # 挂载文件系统到 .mnt mount /dev/sda3",
+  "keywords": [
+    "archlinux"
+  ],
+  "articleBody": "分区完成之后，需要进行挂载。\n挂载 挂载的盘主要位置如下\n   分区 挂载点     filesystem /mut   EFI /mut/boot/efi   swap swapon    可以看到，挂载点还有内嵌，这里需要注意一下。\n# 挂载文件系统到 .mnt mount /dev/sda3 /mut # 创建新的挂载点 mkdir -p /mut/boot/efi # 挂载EFI mount /dev/sda1 /mut/boot/efi # 启动交换分区 swapon /dev/sda2 还可以检查一下\nlsblk ",
+  "wordCount" : "108",
+  "inLanguage": "zh",
+  "datePublished": "2023-08-12T21:49:18+08:00",
+  "dateModified": "2023-08-12T21:49:18+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E6%8C%82%E8%BD%BD/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,196 +156,93 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%84%9F%E6%83%85%E7%9A%84%E5%A4%B1%E7%9C%9F/">感情的失真</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>挂载</h1>
+  </header>
+
+  <p>
   <small>
-    2023年6月3日&nbsp;· 2441 字&nbsp;· 5 分钟</small>
+    2023年8月12日&nbsp;· 108 字&nbsp;· 1 分钟</small>
 
   <small>
       
       ·
       
       
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
+      <a href="https://just-worker.github.io/tags/archlinux/">archlinux</a>
       
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B02/">寻找两个正序数组的中位数2</a></h3>
-              <p>
-  <small>
-    2023年6月2日&nbsp;· 1110 字&nbsp;· 3 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">寻找两个正序数组的中位数</a></h3>
-              <p>
-  <small>
-    2023年6月1日&nbsp;· 1612 字&nbsp;· 4 分钟</small>
+  <section class="blog-content"><p>分区完成之后，需要进行挂载。</p>
+<h2 id="挂载">挂载</h2>
+<p>挂载的盘主要位置如下</p>
+<table>
+<thead>
+<tr>
+<th>分区</th>
+<th>挂载点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filesystem</td>
+<td>/mut</td>
+</tr>
+<tr>
+<td>EFI</td>
+<td>/mut/boot/efi</td>
+</tr>
+<tr>
+<td>swap</td>
+<td><code>swapon</code></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到，挂载点还有内嵌，这里需要注意一下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 挂载文件系统到 .mnt</span>
+mount /dev/sda3 /mut
+<span style="color:#75715e"># 创建新的挂载点</span>
+mkdir -p /mut/boot/efi
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">无重复字符的最长子串</a></h3>
-              <p>
-  <small>
-    2023年5月31日&nbsp;· 1150 字&nbsp;· 3 分钟</small>
+<span style="color:#75715e"># 挂载EFI</span>
+mount /dev/sda1 /mut/boot/efi
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a></h3>
-              <p>
-  <small>
-    2023年5月30日&nbsp;· 1095 字&nbsp;· 3 分钟</small>
+<span style="color:#75715e"># 启动交换分区</span>
+swapon /dev/sda2
+</code></pre></div><p>还可以检查一下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lsblk
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">两数之和</a></h3>
-              <p>
-  <small>
-    2023年5月29日&nbsp;· 779 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BF%85%E8%A6%81/">记录的必要</a></h3>
-              <p>
-  <small>
-    2023年5月28日&nbsp;· 1744 字&nbsp;· 4 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E6%80%9D%E8%80%83/">思考</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%86%8D%E4%B8%80%E6%AC%A1%E5%BC%80%E5%A7%8B/">再一次开始</a></h3>
-              <p>
-  <small>
-    2023年5月27日&nbsp;· 418 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/%E5%BC%80%E5%A7%8B/">开始</a>
-      
-      <a href="https://just-worker.github.io/tags/%E8%A7%89%E6%82%9F/">觉悟</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/blog/page/15/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-    </div>
+    <a class="prev" href="https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>系统安装</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E5%88%86%E5%8C%BA/"><span>分区</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
