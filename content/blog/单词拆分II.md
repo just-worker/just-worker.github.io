@@ -18,3 +18,32 @@ tags: ["leetcode", "算法"]
 ## 题目解析
 
 和跳跃一样，有些不一定能跳跃到终点，但是从终点肯定能够判断是否可以到达原点。
+
+```rust
+// time: O(N)
+// space: O(N)
+use std::collections::HashSet;
+impl Solution {
+    pub fn word_break(s: String, word_dict: Vec<String>) -> Vec<String> {
+        let word_set = word_dict.into_iter().collect();
+        let mut res = vec![];
+        Self::dfs(s.len(), &mut vec![], &mut res, &s, &word_set);
+        return res;
+    }
+
+    fn dfs(end: usize, collect: &mut Vec<String>, res: &mut Vec<String>, s: &str, word_set: &HashSet<String>) {
+        if end == 0 {
+            res.push(collect.join(" ").to_string());
+            return;
+        }
+        for begin in (0..end).rev() {
+            let sub = &s[begin..end];
+            if word_set.contains(sub) {
+                collect.insert(0, sub.to_string());
+                Self::dfs(begin, collect, res, s, word_set);
+                collect.remove(0);
+            }
+        }
+    }
+}
+```

@@ -55,8 +55,8 @@
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "单词拆分 II 给定一个字符串 s 和一个字符串字典 wordDict ，在字符串 s 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。以任意顺序 返回所有这些可能的句子。\n注意：词典中的同一个单词可能在分段中被重复使用多次。\n  输入:s = “catsanddog”, wordDict = [“cat”,“cats”,“and”,“sand”,“dog”] 输出:[“cats and dog”,“cat sand dog”]   题目解析 和跳跃一样，有些不一定能跳跃到终点，但是从终点肯定能够判断是否可以到达原点。\n",
-  "wordCount" : "170",
+  "articleBody": "单词拆分 II 给定一个字符串 s 和一个字符串字典 wordDict ，在字符串 s 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。以任意顺序 返回所有这些可能的句子。\n注意：词典中的同一个单词可能在分段中被重复使用多次。\n  输入:s = “catsanddog”, wordDict = [“cat”,“cats”,“and”,“sand”,“dog”] 输出:[“cats and dog”,“cat sand dog”]   题目解析 和跳跃一样，有些不一定能跳跃到终点，但是从终点肯定能够判断是否可以到达原点。\n// time: O(N) // space: O(N) use std::collections::HashSet; impl Solution { pub fn word_break(s: String, word_dict: VecString) - VecString { let word_set = word_dict.into_iter().collect(); let mut res = vec![]; Self::dfs(s.len(), \u0026mut vec![], \u0026mut res, \u0026s, \u0026word_set); return res; } fn dfs(end: usize, collect: \u0026mut VecString, res: \u0026mut VecString, s: \u0026str, word_set: \u0026HashSetString) { if end == 0 { res.push(collect.join(\" \").to_string()); return; } for begin in (0..end).rev() { let sub = \u0026s[begin..end]; if word_set.contains(sub) { collect.insert(0, sub.to_string()); Self::dfs(begin, collect, res, s, word_set); collect.remove(0); } } } } ",
+  "wordCount" : "256",
   "inLanguage": "zh",
   "datePublished": "2023-08-11T20:52:15+08:00",
   "dateModified": "2023-08-11T20:52:15+08:00",
@@ -163,7 +163,7 @@
 
   <p>
   <small>
-    2023年8月11日&nbsp;· 170 字&nbsp;· 1 分钟</small>
+    2023年8月11日&nbsp;· 256 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -189,7 +189,33 @@
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
 <p>和跳跃一样，有些不一定能跳跃到终点，但是从终点肯定能够判断是否可以到达原点。</p>
-</section>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::collections::HashSet;
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">word_break</span>(s: String, word_dict: Vec<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">let</span> word_set <span style="color:#f92672">=</span> word_dict.into_iter().collect();
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> vec![];
+        Self::dfs(s.len(), <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> vec![], <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#f92672">&amp;</span>s, <span style="color:#f92672">&amp;</span>word_set);
+        <span style="color:#66d9ef">return</span> res;
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">dfs</span>(end: <span style="color:#66d9ef">usize</span>, collect: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>, res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> Vec<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>, s: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>, word_set: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">HashSet</span><span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+        <span style="color:#66d9ef">if</span> end <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            res.push(collect.join(<span style="color:#e6db74">&#34; &#34;</span>).to_string());
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">for</span> begin <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>end).rev() {
+            <span style="color:#66d9ef">let</span> sub <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s[begin<span style="color:#f92672">..</span>end];
+            <span style="color:#66d9ef">if</span> word_set.contains(sub) {
+                collect.insert(<span style="color:#ae81ff">0</span>, sub.to_string());
+                Self::dfs(begin, collect, res, s, word_set);
+                collect.remove(<span style="color:#ae81ff">0</span>);
+            }
+        }
+    }
+}
+</code></pre></div></section>
 
   
   
