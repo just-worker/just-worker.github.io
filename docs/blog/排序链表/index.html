@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>系统设置</title>
+    <title>排序链表</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@进入系统 刚安装完系统之后，挂载在/mnt中，使用如下命令即可进入刚安装的系统中 arch-chroot /mnt 安装包 虽然安装系统的时候也安装了一些包，但基本上是操作系统">
+    <meta name="description" content="Ladder@排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 输入：head = [4,2,1,3] 输出：[1,2,3,4] 题目解析 插入排序 // time: O(N ^ 2) // space: O(1) impl">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="系统设置" />
-<meta property="og:description" content="进入系统 刚安装完系统之后，挂载在/mnt中，使用如下命令即可进入刚安装的系统中 arch-chroot /mnt 安装包 虽然安装系统的时候也安装了一些包，但基本上是操作系统" />
+    <meta property="og:title" content="排序链表" />
+<meta property="og:description" content="排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 输入：head = [4,2,1,3] 输出：[1,2,3,4] 题目解析 插入排序 // time: O(N ^ 2) // space: O(1) impl" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-08-12T22:18:25+08:00" />
-<meta property="article:modified_time" content="2023-08-12T22:18:25+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-08-13T23:12:08+08:00" />
+<meta property="article:modified_time" content="2023-08-13T23:12:08+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="系统设置"/>
-<meta name="twitter:description" content="进入系统 刚安装完系统之后，挂载在/mnt中，使用如下命令即可进入刚安装的系统中 arch-chroot /mnt 安装包 虽然安装系统的时候也安装了一些包，但基本上是操作系统"/>
+<meta name="twitter:title" content="排序链表"/>
+<meta name="twitter:description" content="排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 输入：head = [4,2,1,3] 输出：[1,2,3,4] 题目解析 插入排序 // time: O(N ^ 2) // space: O(1) impl"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "系统设置",
-      "item": "https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/"
+      "name": "排序链表",
+      "item": "https://just-worker.github.io/blog/%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "系统设置",
-  "name": "系统设置",
-  "description": "进入系统 刚安装完系统之后，挂载在/mnt中，使用如下命令即可进入刚安装的系统中 arch-chroot /mnt 安装包 虽然安装系统的时候也安装了一些包，但基本上是操作系统",
+  "headline": "排序链表",
+  "name": "排序链表",
+  "description": "排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 输入：head = [4,2,1,3] 输出：[1,2,3,4] 题目解析 插入排序 // time: O(N ^ 2) // space: O(1) impl",
   "keywords": [
-    "archlinux"
+    "leetcode", "算法"
   ],
-  "articleBody": "进入系统 刚安装完系统之后，挂载在/mnt中，使用如下命令即可进入刚安装的系统中\narch-chroot /mnt 安装包  虽然安装系统的时候也安装了一些包，但基本上是操作系统本身以及少量的辅助工具。\n 除基础系统之外我们还需要一些程序\n   程序 说明     grub 启动引导   efibootmgr EFI启动管理   efivar    networkmanager 网络管理        # 更新系统 pacman -Syy ## 安装工具 pacman -S grub efibootmgr efivar networdmanager ",
-  "wordCount" : "139",
+  "articleBody": "排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。\n  输入：head = [4,2,1,3] 输出：[1,2,3,4]   题目解析 插入排序 // time: O(N ^ 2) // space: O(1) impl Solution { pub fn sort_list(head: OptionBoxListNode) - OptionBoxListNode { let mut dummy = Some(Box::new(ListNode::new(1))); let mut head = head; while head.is_some() { let mut cursor = \u0026mut dummy; while cursor.as_ref().unwrap().next.is_some() \u0026\u0026 cursor.as_ref().unwrap().next.as_ref().unwrap().val  head.as_ref().unwrap().val { cursor = \u0026mut cursor.as_mut().unwrap().next; } let dummy_remain = cursor.as_mut().unwrap().next.take(); let head_remain = head.as_mut().unwrap().next.take(); head.as_mut().unwrap().next = dummy_remain; cursor.as_mut().unwrap().next = head; head = head_remain; } return dummy.unwrap().next; } } 数值排序 // time: O(NLogN) // space: O(N) impl Solution { pub fn sort_list(head: OptionBoxListNode) - OptionBoxListNode { let mut arr = vec![]; let mut head = head; while head.is_some() { let mut head_remain = head.as_mut().unwrap().next.take(); arr.push(head); head = head_remain; } arr.sort_by(|a, b| a.as_ref().unwrap().val.cmp(\u0026b.as_ref().unwrap().val)); let mut dummy = Some(Box::new(ListNode::new(1))); let mut cursor = \u0026mut dummy; for node in arr.into_iter() { cursor.as_mut().unwrap().next = node; cursor = \u0026mut cursor.as_mut().unwrap().next; } return dummy.unwrap().next; } } ",
+  "wordCount" : "206",
   "inLanguage": "zh",
-  "datePublished": "2023-08-12T22:18:25+08:00",
-  "dateModified": "2023-08-12T22:18:25+08:00",
+  "datePublished": "2023-08-13T23:12:08+08:00",
+  "dateModified": "2023-08-13T23:12:08+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/"
+    "@id": "https://just-worker.github.io/blog/%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,81 +158,93 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>系统设置</h1>
+    <h1>排序链表</h1>
   </header>
 
   <p>
   <small>
-    2023年8月12日&nbsp;· 139 字&nbsp;· 1 分钟</small>
+    2023年8月13日&nbsp;· 206 字&nbsp;· 1 分钟</small>
 
   <small>
       
       ·
       
       
-      <a href="https://just-worker.github.io/tags/archlinux/">archlinux</a>
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
       
     </small>
   
 <p>
 
-  <section class="blog-content"><h2 id="进入系统">进入系统</h2>
-<p>刚安装完系统之后，挂载在<code>/mnt</code>中，使用如下命令即可进入刚安装的系统中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">arch-chroot /mnt
-</code></pre></div><h2 id="安装包">安装包</h2>
+  <section class="blog-content"><h2 id="排序链表httpsleetcodecnproblemssort-list"><a href="https://leetcode.cn/problems/sort-list/">排序链表</a></h2>
+<p>给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg" alt=""></p>
 <blockquote>
-<p>虽然安装系统的时候也安装了一些包，但基本上是操作系统本身以及少量的辅助工具。</p>
+<ul>
+<li>输入：head = [4,2,1,3]</li>
+<li>输出：[1,2,3,4]</li>
+</ul>
 </blockquote>
-<p>除基础系统之外我们还需要一些程序</p>
-<table>
-<thead>
-<tr>
-<th>程序</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>grub</td>
-<td><a href="https://zhuanlan.zhihu.com/p/492509251">启动引导</a></td>
-</tr>
-<tr>
-<td>efibootmgr</td>
-<td><a href="https://www.python100.com/html/0YE55LG6P62F.html">EFI启动管理</a></td>
-</tr>
-<tr>
-<td>efivar</td>
-<td></td>
-</tr>
-<tr>
-<td>networkmanager</td>
-<td>网络管理</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 更新系统</span>
-pacman -Syy
+<h2 id="题目解析">题目解析</h2>
+<h3 id="插入排序">插入排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(N ^ 2)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">sort_list</span>(head: Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dummy <span style="color:#f92672">=</span> Some(Box::new(ListNode::new(<span style="color:#ae81ff">1</span>)));
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head <span style="color:#f92672">=</span> head;
+        <span style="color:#66d9ef">while</span> head.is_some() {
+            <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> dummy;
+            <span style="color:#66d9ef">while</span> cursor.as_ref().unwrap().next.is_some()
+                <span style="color:#f92672">&amp;&amp;</span> cursor.as_ref().unwrap().next.as_ref().unwrap().val <span style="color:#f92672">&lt;=</span> head.as_ref().unwrap().val
+            {
+                cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> cursor.as_mut().unwrap().next;
+            }
+            <span style="color:#66d9ef">let</span> dummy_remain <span style="color:#f92672">=</span> cursor.as_mut().unwrap().next.take();
+            <span style="color:#66d9ef">let</span> head_remain <span style="color:#f92672">=</span> head.as_mut().unwrap().next.take();
+            head.as_mut().unwrap().next <span style="color:#f92672">=</span> dummy_remain;
+            cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> head;
+            head <span style="color:#f92672">=</span> head_remain;
+        }
+        <span style="color:#66d9ef">return</span> dummy.unwrap().next;
+    }
+}
 
-<span style="color:#75715e">## 安装工具</span>
-pacman -S grub efibootmgr efivar networdmanager 
+</code></pre></div><h3 id="数值排序">数值排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(NLogN)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">sort_list</span>(head: Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> arr <span style="color:#f92672">=</span> vec![];
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head <span style="color:#f92672">=</span> head;
+        <span style="color:#66d9ef">while</span> head.is_some() {
+            <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> head_remain <span style="color:#f92672">=</span> head.as_mut().unwrap().next.take();
+            arr.push(head);
+            head <span style="color:#f92672">=</span> head_remain;
+        }
+        arr.sort_by(<span style="color:#f92672">|</span>a, b<span style="color:#f92672">|</span> a.as_ref().unwrap().val.cmp(<span style="color:#f92672">&amp;</span>b.as_ref().unwrap().val));
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dummy <span style="color:#f92672">=</span> Some(Box::new(ListNode::new(<span style="color:#ae81ff">1</span>)));
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> dummy;
+        <span style="color:#66d9ef">for</span> node <span style="color:#66d9ef">in</span> arr.into_iter() {
+            cursor.as_mut().unwrap().next <span style="color:#f92672">=</span> node;
+            cursor <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> cursor.as_mut().unwrap().next;
+        }
+        <span style="color:#66d9ef">return</span> dummy.unwrap().next;
+    }
+}
+
 </code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/lru%E7%BC%93%E5%AD%98/">
-      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
-      </svg>
-      <span>LRU缓存</span></a>
     
-    
-    <a class="next" href="https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"><span>系统安装</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"><span>对链表进行插入排序</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
