@@ -6,7 +6,173 @@
     <description>Recent content in 算法 on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 15 Aug 2023 00:07:29 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Aug 2023 22:53:03 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>寻找峰值</title>
+      <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC/</link>
+      <pubDate>Tue, 15 Aug 2023 22:53:03 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC/</guid>
+      <description>&lt;h2 id=&#34;寻找峰值httpsleetcodecnproblemsfind-peak-element&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/find-peak-element/&#34;&gt;寻找峰值&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;峰值元素是指其值严格大于左右相邻值的元素。&lt;/p&gt;
+&lt;p&gt;给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。&lt;/p&gt;
+&lt;p&gt;你可以假设 nums[-1] = nums[n] = -∞ 。&lt;/p&gt;
+&lt;p&gt;你必须实现时间复杂度为 O(log n) 的算法来解决此问题。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [1,2,1,3,5,6,4]&lt;/li&gt;
+&lt;li&gt;输出：1 或 5&lt;/li&gt;
+&lt;li&gt;解释：你的函数可以返回索引 1，其峰值元素为 2；或者返回索引 5， 其峰值元素为 6。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;看见复杂度，都不用想，二分。&lt;/p&gt;
+&lt;p&gt;其中的边界设定很有意思&lt;code&gt;nums[-1] = nums[n] = -∞&lt;/code&gt;，也就是说，只要是往边界单调递增的就行，边界最高也算答案。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_peak_element&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, len);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; right {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 往增长的一边走就行
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nums[mid &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; nums[mid] {
+                left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mid;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; left &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>相交链表</title>
+      <link>https://just-worker.github.io/blog/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Tue, 15 Aug 2023 22:46:02 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</guid>
+      <description>&lt;h2 id=&#34;相交链表httpsleetcodecnproblemsintersection-of-two-linked-lists&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/intersection-of-two-linked-lists/&#34;&gt;相交链表&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/03/05/160_example_1_1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;两个链表，我们假设他们公共部分为&lt;code&gt;c&lt;/code&gt;,则这两个链表可以表示为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;A: a + c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;B: b + c&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们在链表最后拼接上另一个链表，长度一定是相等的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;A + B: a + c + b + c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;B + A: b + c + a + c&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;拼接链表一定会相遇，如果没有公共节点，则一定会同时到达末尾的&lt;code&gt;null&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Solution&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; ListNode &lt;span style=&#34;color:#a6e22e&#34;&gt;getIntersectionNode&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ListNode headA&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; ListNode headB&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;headA &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; headB &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+        ListNode a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headA&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        ListNode b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headB&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; b&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+           a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; headB &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; a&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+           b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; headA &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; b&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>最小栈</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E6%A0%88/</link>
+      <pubDate>Tue, 15 Aug 2023 22:38:27 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E6%A0%88/</guid>
+      <description>&lt;h2 id=&#34;最小栈httpsleetcodecnproblemsmin-stack&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/min-stack/&#34;&gt;最小栈&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。&lt;/p&gt;
+&lt;p&gt;实现 MinStack 类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MinStack() 初始化堆栈对象。&lt;/li&gt;
+&lt;li&gt;void push(int val) 将元素val推入堆栈。&lt;/li&gt;
+&lt;li&gt;void pop() 删除堆栈顶部的元素。&lt;/li&gt;
+&lt;li&gt;int top() 获取堆栈顶部的元素。&lt;/li&gt;
+&lt;li&gt;int getMin() 获取堆栈中的最小元素。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;MinStack&amp;rdquo;,&amp;ldquo;push&amp;rdquo;,&amp;ldquo;push&amp;rdquo;,&amp;ldquo;push&amp;rdquo;,&amp;ldquo;getMin&amp;rdquo;,&amp;ldquo;pop&amp;rdquo;,&amp;ldquo;top&amp;rdquo;,&amp;ldquo;getMin&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;[[],[-2],[0],[-3],[],[],[],[]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输出：&lt;/li&gt;
+&lt;li&gt;[null,null,null,null,-3,null,0,-2]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;MinStack minStack = new MinStack();&lt;/li&gt;
+&lt;li&gt;minStack.push(-2);&lt;/li&gt;
+&lt;li&gt;minStack.push(0);&lt;/li&gt;
+&lt;li&gt;minStack.push(-3);&lt;/li&gt;
+&lt;li&gt;minStack.getMin();   &amp;ndash;&amp;gt; 返回 -3.&lt;/li&gt;
+&lt;li&gt;minStack.pop();&lt;/li&gt;
+&lt;li&gt;minStack.top();      &amp;ndash;&amp;gt; 返回 0.&lt;/li&gt;
+&lt;li&gt;minStack.getMin();   &amp;ndash;&amp;gt; 返回 -2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MinStack&lt;/span&gt; {
+    stack: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;,
+    min_stack: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;,
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; MinStack {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;() -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        Self {
+            stack: &lt;span style=&#34;color:#a6e22e&#34;&gt;vec&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;[],
+            min_stack: &lt;span style=&#34;color:#a6e22e&#34;&gt;vec&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;[]
+        }
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; self, val: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) {
+        self.stack.push(val);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.min_stack.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; val &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_stack.last().unwrap() {
+            self.min_stack.push(val);
+        }
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pop&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; self) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.stack.pop().unwrap() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_stack.last().unwrap() {
+            self.min_stack.pop();
+        }
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;top&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.stack.last().unwrap()
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_min&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_stack.last().unwrap()
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>寻找旋转排序数组中的最小值II</title>
       <link>https://just-worker.github.io/blog/%E5%AF%BB%E6%89%BE%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BCii/</link>
