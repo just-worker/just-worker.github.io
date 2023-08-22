@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地下城游戏</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@地下城游戏 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必">
+    <meta name="author" content="just-worker">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%9C%B0%E4%B8%8B%E5%9F%8E%E6%B8%B8%E6%88%8F/">
+
+    <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
+
+    
+
+
+    <meta property="og:title" content="地下城游戏" />
+<meta property="og:description" content="地下城游戏 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%9C%B0%E4%B8%8B%E5%9F%8E%E6%B8%B8%E6%88%8F/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-08-22T23:03:19+08:00" />
+<meta property="article:modified_time" content="2023-08-22T23:03:19+08:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="地下城游戏"/>
+<meta name="twitter:description" content="地下城游戏 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "地下城游戏",
+      "item": "https://just-worker.github.io/blog/%E5%9C%B0%E4%B8%8B%E5%9F%8E%E6%B8%B8%E6%88%8F/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "地下城游戏",
+  "name": "地下城游戏",
+  "description": "地下城游戏 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "地下城游戏 恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。\n骑士的初始健康点数为一个正整数。如果他的健康点数在某一时刻降至 0 或以下，他会立即死亡。\n有些房间由恶魔守卫，因此骑士在进入这些房间时会失去健康点数（若房间里的值为负整数，则表示骑士将损失健康点数）；其他房间要么是空的（房间里的值为 0），要么包含增加骑士健康点数的魔法球（若房间里的值为正整数，则表示骑士将增加健康点数）。\n为了尽快解救公主，骑士决定每次只 向右 或 向下 移动一步。\n返回确保骑士能够拯救到公主所需的最低初始健康点数。\n注意：任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间。\n  输入：dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]] 输出：7 解释：如果骑士遵循最佳路径：右 - 右 - 下 - 下 ，则骑士的初始健康点数至少为 7 。   题目解析 直接拆解  我们必然能够到达终点，只是路径不一样 需要的最小生命值有两层含义：   (1) 对于一个到达终点的路径，计算出整条路径中最小的生命值(负数) (2) 对于全部路径，结果是(1)中全部结果的最大值 + 1；如果存在正数，直接返回1  按照这种逻辑，可以完成如下题解\nimpl Solution { pub fn calculate_minimum_hp(dungeon: VecVeci32) - i32 { let mut res = i32::MIN; Self::dfs(\u0026mut res, 0, 0, 0, 0, \u0026dungeon); return 1 - res; } fn dfs(res: \u0026mut i32, min: i32, sum: i32, r: usize, c: usize, dungeon: \u0026VecVeci32) { let (row, column) = (dungeon.len(), dungeon[0].len()); if r = row || c = column { return; } let sum = sum + dungeon[r][c]; let min = min.min(sum); if r == row - 1 \u0026\u0026 c == column - 1 { if min  0 { // 最小的最大  *res = min.max(*res); } return; } if r  row { Self::dfs(res, min, sum, r + 1, c, dungeon) } if c  column { Self::dfs(res, min, sum, r, c + 1, dungeon); } } } 结果是正确的，但是一定会超时。\n状态流转 上述解题办法，有一个问题：无法复用计算结果。\n也就是说，如果一直是正向计算，我们永远无法复用已经计算的结果。\n从另一个角度，从终点开始分析。\n对于life[r][c]表示从(r, c)到达终点的最小生命值，那么loc[0][0]就可以逐步的经由结果复用得到。\n// time: O(MN) // space: O(MN) impl Solution { pub fn calculate_minimum_hp(dungeon: VecVeci32) - i32 { let (row, column) = (dungeon.len(), dungeon[0].len()); // 因为我们要得到到达终点的最小生命值，对于(row - 1, column - 1)而言，它的目的地其实是(row, column - 1) 或者 (row - 1, column)  let mut life = vec![vec![i32::MAX; column + 1]; row + 1]; // 到达最终目的地需要保持1血量  life[row][column - 1] = 1; life[row - 1][column] = 1; for r in (0..row).rev() { for c in (0..column).rev() { // 下或者右，选择需要最小生命值的那边  let target = life[r][c + 1].min(life[r + 1][c]); // 需要的生命值减去格子的生命值  // 如果当前格子是正数，只要保证最低1生命值即可  // 如果当前格子是负数，那就需要提升生命值  life[r][c] = 1.max(target - dungeon[r][c]); } } // 从起点到终点需要的最小生命值  return life[0][0]; } } ",
+  "wordCount" : "1045",
+  "inLanguage": "zh",
+  "datePublished": "2023-08-22T23:03:19+08:00",
+  "dateModified": "2023-08-22T23:03:19+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%9C%B0%E4%B8%8B%E5%9F%8E%E6%B8%B8%E6%88%8F/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.jpeg">
+
+<link rel="manifest" href="/images/avatar.jpeg">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.67948f7c66a9fbc41a44bdf373913a59c1ee97594879c9b41f62c08440af5291.css" integrity="sha256-Z5SPfGap&#43;8QaRL3zc5E6WcHul1lIecm0H2LAhECvUpE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.f6a23da83df7f66cbfe262036561fe5a3f8d59f21314b55aae8c09ea70eb5212.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var b=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,a=localStorage.getItem("theme");b&&a===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),b&&a==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),a==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            我的主页
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">全部文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类管理</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史记录</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>地下城游戏</h1>
+  </header>
+
+  <p>
+  <small>
+    2023年8月22日&nbsp;· 1045 字&nbsp;· 3 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+
+  <section class="blog-content"><h2 id="地下城游戏httpsleetcodecnproblemsdungeon-game"><a href="https://leetcode.cn/problems/dungeon-game/">地下城游戏</a></h2>
+<p>恶魔们抓住了公主并将她关在了地下城 dungeon 的 右下角 。地下城是由 m x n 个房间组成的二维网格。我们英勇的骑士最初被安置在 左上角 的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。</p>
+<p>骑士的初始健康点数为一个正整数。如果他的健康点数在某一时刻降至 0 或以下，他会立即死亡。</p>
+<p>有些房间由恶魔守卫，因此骑士在进入这些房间时会失去健康点数（若房间里的值为负整数，则表示骑士将损失健康点数）；其他房间要么是空的（房间里的值为 0），要么包含增加骑士健康点数的魔法球（若房间里的值为正整数，则表示骑士将增加健康点数）。</p>
+<p>为了尽快解救公主，骑士决定每次只 向右 或 向下 移动一步。</p>
+<p>返回确保骑士能够拯救到公主所需的最低初始健康点数。</p>
+<p>注意：任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间。</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/03/13/dungeon-grid-1.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]</li>
+<li>输出：7</li>
+<li>解释：如果骑士遵循最佳路径：右 -&gt; 右 -&gt; 下 -&gt; 下 ，则骑士的初始健康点数至少为 7 。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<h3 id="直接拆解">直接拆解</h3>
+<ol>
+<li>我们必然能够到达终点，只是路径不一样</li>
+<li>需要的最小生命值有两层含义：</li>
+</ol>
+<ul>
+<li>(1) 对于一个到达终点的路径，计算出整条路径中最小的生命值(负数)</li>
+<li>(2) 对于全部路径，结果是(1)中全部结果的最大值 + 1；如果存在正数，直接返回1</li>
+</ul>
+<p>按照这种逻辑，可以完成如下题解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calculate_minimum_hp</span>(dungeon: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">i32</span>::MIN;
+        Self::dfs(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> res, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span>dungeon);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> res;
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">dfs</span>(res: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> <span style="color:#66d9ef">i32</span>, min: <span style="color:#66d9ef">i32</span>, sum: <span style="color:#66d9ef">i32</span>, r: <span style="color:#66d9ef">usize</span>, c: <span style="color:#66d9ef">usize</span>, dungeon: <span style="color:#66d9ef">&amp;</span>Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) {
+        <span style="color:#66d9ef">let</span> (row, column) <span style="color:#f92672">=</span> (dungeon.len(), dungeon[<span style="color:#ae81ff">0</span>].len());
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;=</span> row <span style="color:#f92672">||</span> c <span style="color:#f92672">&gt;=</span> column {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">let</span> sum <span style="color:#f92672">=</span> sum <span style="color:#f92672">+</span> dungeon[r][c];
+        <span style="color:#66d9ef">let</span> min <span style="color:#f92672">=</span> min.min(sum);
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">==</span> row <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> c <span style="color:#f92672">==</span> column <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">if</span> min <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> {
+                <span style="color:#75715e">// 最小的最大
+</span><span style="color:#75715e"></span>                <span style="color:#f92672">*</span>res <span style="color:#f92672">=</span> min.max(<span style="color:#f92672">*</span>res);
+            }
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row {
+            Self::dfs(res, min, sum, r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, c, dungeon)
+        }
+        <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&lt;</span> column {
+            Self::dfs(res, min, sum, r, c <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, dungeon);
+        }
+    }
+}
+</code></pre></div><p>结果是正确的，但是一定会超时。</p>
+<h3 id="状态流转">状态流转</h3>
+<p>上述解题办法，有一个问题：无法复用计算结果。</p>
+<p>也就是说，如果一直是正向计算，我们永远无法复用已经计算的结果。</p>
+<p>从另一个角度，从终点开始分析。</p>
+<p>对于<code>life[r][c]</code>表示从<code>(r, c)</code>到达终点的最小生命值，那么<code>loc[0][0]</code>就可以逐步的经由结果复用得到。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// time: O(MN)
+</span><span style="color:#75715e">// space: O(MN)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calculate_minimum_hp</span>(dungeon: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> (row, column) <span style="color:#f92672">=</span> (dungeon.len(), dungeon[<span style="color:#ae81ff">0</span>].len());
+        <span style="color:#75715e">// 因为我们要得到到达终点的最小生命值，对于(row - 1, column - 1)而言，它的目的地其实是(row, column - 1) 或者 (row - 1, column)
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> life <span style="color:#f92672">=</span> vec![vec![<span style="color:#66d9ef">i32</span>::MAX; column <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; row <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+        <span style="color:#75715e">// 到达最终目的地需要保持1血量
+</span><span style="color:#75715e"></span>        life[row][column <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        life[row <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][column] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">for</span> r <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>row).rev() {
+            <span style="color:#66d9ef">for</span> c <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>column).rev() {
+                <span style="color:#75715e">// 下或者右，选择需要最小生命值的那边
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">let</span> target <span style="color:#f92672">=</span> life[r][c <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>].min(life[r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>][c]);
+                <span style="color:#75715e">// 需要的生命值减去格子的生命值
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// 如果当前格子是正数，只要保证最低1生命值即可
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// 如果当前格子是负数，那就需要提升生命值
+</span><span style="color:#75715e"></span>                life[r][c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span>max(target <span style="color:#f92672">-</span> dungeon[r][c]);
+            }
+        }
+        <span style="color:#75715e">// 从起点到终点需要的最小生命值
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> life[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>];
+    }
+}
+</code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/"><span>阶乘后的零</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.e02624bc38670c46ea2d95b7a5526a080a0d890af856155bbae501d0e248f2a49b4c1cfe5c3a7902d1edc9dff4333eec594df8a39d9510cdee06ce12f2dd9009.js" integrity="sha512-4CYkvDhnDEbqLZW3pVJqCAoNiQr4VhVbuuUB0OJI8qSbTBz&#43;XDp5AtHtyd/0Mz7sWU34o52VEM3uBs4S8t2QCQ==" crossorigin="anonymous" defer></script></html>
