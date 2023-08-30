@@ -6,7 +6,165 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 29 Aug 2023 23:09:02 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Aug 2023 22:55:28 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二叉树的右视图</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/</link>
+      <pubDate>Wed, 30 Aug 2023 22:55:28 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/</guid>
+      <description>&lt;h2 id=&#34;二叉树的右视图httpsleetcodecnproblemsbinary-tree-right-side-view&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/binary-tree-right-side-view/&#34;&gt;二叉树的右视图&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/14/tree.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;输入: [1,2,3,null,5,null,4]
+输出: [1,3,4]&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::VecDeque;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;right_side_view&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; root.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; container &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; VecDeque::new();
+        container.push_front(root);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;container.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; added &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;container.len() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(Some(node)) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; container.pop_back() {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;added {
+                        res.push(node.as_ref().borrow().val);
+                        added &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                    }
+                    container.push_front(node.as_ref().borrow_mut().right.take());
+                    container.push_front(node.as_ref().borrow_mut().left.take());
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>打家劫舍</title>
+      <link>https://just-worker.github.io/blog/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/</link>
+      <pubDate>Wed, 30 Aug 2023 22:50:13 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/</guid>
+      <description>&lt;h2 id=&#34;打家劫舍httpsleetcodecnproblemshouse-robber&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/house-robber/&#34;&gt;打家劫舍&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。&lt;/p&gt;
+&lt;p&gt;给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：[1,2,3,1]&lt;/li&gt;
+&lt;li&gt;输出：4&lt;/li&gt;
+&lt;li&gt;解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。&lt;/li&gt;
+&lt;li&gt;
+&lt;pre&gt;&lt;code&gt;偷窃到的最高金额 = 1 + 3 = 4 。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;定义&lt;code&gt;dp[i]&lt;/code&gt;为第&lt;code&gt;i&lt;/code&gt;个的金额，很明显&lt;code&gt;dp[i] = dp[i -  1].max(dp[i - 2] + nums[i])&lt;/code&gt;;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rob&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].max(nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; len];
+        dp[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+        dp[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].max(nums[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            dp[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;].max(dp[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; nums[i]);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dp[len &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>位1的个数</title>
+      <link>https://just-worker.github.io/blog/%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0/</link>
+      <pubDate>Wed, 30 Aug 2023 22:47:34 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;位1的个数httpsleetcodecnproblemsnumber-of-1-bits&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/number-of-1-bits/&#34;&gt;位1的个数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 &amp;lsquo;1&amp;rsquo; 的个数（也被称为汉明重量）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 00000000000000000000000000001011&lt;/li&gt;
+&lt;li&gt;输出：3&lt;/li&gt;
+&lt;li&gt;解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 &amp;lsquo;1&amp;rsquo;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hammingWeight&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; n: &lt;span style=&#34;color:#66d9ef&#34;&gt;u32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt; {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; (n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x01&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+            n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>颠倒二进制位</title>
+      <link>https://just-worker.github.io/blog/%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/</link>
+      <pubDate>Wed, 30 Aug 2023 22:44:06 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/</guid>
+      <description>&lt;h2 id=&#34;颠倒二进制位httpsleetcodecnproblemsreverse-bits&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/reverse-bits/&#34;&gt;颠倒二进制位&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;颠倒给定的 32 位无符号整数的二进制位。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reverse_bits&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; x: &lt;span style=&#34;color:#66d9ef&#34;&gt;u32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;u32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt; {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (x &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x01&lt;/span&gt;);
+            x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>轮转数组</title>
       <link>https://just-worker.github.io/blog/%E8%BD%AE%E8%BD%AC%E6%95%B0%E7%BB%84/</link>
