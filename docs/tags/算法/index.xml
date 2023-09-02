@@ -6,7 +6,420 @@
     <description>Recent content in 算法 on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 30 Aug 2023 22:55:28 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Sep 2023 18:55:00 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>反转链表</title>
+      <link>https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 02 Sep 2023 18:55:00 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</guid>
+      <description>&lt;h2 id=&#34;反转链表httpsleetcodecnproblemsreverse-linked-list&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/reverse-linked-list/&#34;&gt;反转链表&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：head = [1,2,3,4,5]&lt;/li&gt;
+&lt;li&gt;输出：[5,4,3,2,1]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reverse_list&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; head: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; head.is_none() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; head.as_ref().unwrap().next.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; head;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; remain) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (None, None);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; head.is_some() {
+            remain &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; head.as_mut().unwrap().next.take();
+            head.as_mut().unwrap().next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res;
+            res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; head;
+            head &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remain;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>同构字符串</title>
+      <link>https://just-worker.github.io/blog/%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sat, 02 Sep 2023 18:44:19 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>&lt;h2 id=&#34;同构字符串httpsleetcodecnproblemsisomorphic-strings&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/isomorphic-strings/&#34;&gt;同构字符串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定两个字符串 s 和 t ，判断它们是否是同构的。&lt;/p&gt;
+&lt;p&gt;如果 s 中的字符可以按某种映射关系替换得到 t ，那么这两个字符串是同构的。&lt;/p&gt;
+&lt;p&gt;每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;egg&amp;rdquo;, t = &amp;ldquo;add&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;双向奔赴&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(M + N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(M + N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_isomorphic&lt;/span&gt;(s: String, t: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.len() &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; t.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.eq(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;t) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sm, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; tm) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (HashMap::new(), HashMap::new());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s
+            .as_bytes()
+            .iter()
+            .zip(t.as_bytes())
+            .fold(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;res, (&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;os, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ot)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; (sm.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;os), tm.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ot)) {
+                    (None, None) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
+                        sm.insert(os, ot);
+                        tm.insert(ot, os);
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+                    }
+                    (Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;mt), Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ms)) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; os &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; ms &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mt &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; ot,
+                    _ &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
+                }
+            });
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>计数质数</title>
+      <link>https://just-worker.github.io/blog/%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/</link>
+      <pubDate>Sat, 02 Sep 2023 18:38:06 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;计数质数httpsleetcodecnproblemscount-primes&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/count-primes/&#34;&gt;计数质数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定整数 n ，返回 所有小于非负整数 n 的质数的数量 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 10&lt;/li&gt;
+&lt;li&gt;输出：4&lt;/li&gt;
+&lt;li&gt;解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;反正成倍数的都不是质数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;count_primes&lt;/span&gt;(n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;; n];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dp[i] {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; j &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; (i&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;n).step_by(i) {
+                    dp[j] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>移除链表元素</title>
+      <link>https://just-worker.github.io/blog/%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/</link>
+      <pubDate>Sat, 02 Sep 2023 18:01:22 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/</guid>
+      <description>&lt;h2 id=&#34;移除链表元素httpsleetcodecnproblemsremove-linked-list-elements&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/remove-linked-list-elements/&#34;&gt;移除链表元素&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/03/06/removelinked-list.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：head = [1,2,6,3,4,5,6], val = 6&lt;/li&gt;
+&lt;li&gt;输出：[1,2,3,4,5]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove_elements&lt;/span&gt;(head: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, val: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;ListNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; head.is_none() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; head;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dummy &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Some(Box::new(ListNode {
+            val: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+            next: &lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;
+        }));
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; cursor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dummy;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; cursor.is_some() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cursor.as_ref().unwrap().next.is_some() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; cursor.as_ref().unwrap().next.as_ref().unwrap().val &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; val {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; remain &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cursor.as_mut().unwrap().next.take();
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; remain.is_some() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; remain.as_ref().unwrap().val &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; val {
+                    remain &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remain.unwrap().next;
+                };
+                cursor.as_mut().unwrap().next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remain;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                cursor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; cursor.as_mut().unwrap().next;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dummy.unwrap().next;
+        
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>快乐数</title>
+      <link>https://just-worker.github.io/blog/%E5%BF%AB%E4%B9%90%E6%95%B0/</link>
+      <pubDate>Sat, 02 Sep 2023 17:53:17 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%BF%AB%E4%B9%90%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;快乐数httpsleetcodecnproblemshappy-number&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/happy-number/&#34;&gt;快乐数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;编写一个算法来判断一个数 n 是不是快乐数。&lt;/p&gt;
+&lt;p&gt;「快乐数」 定义为：&lt;/p&gt;
+&lt;p&gt;对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。
+然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。
+如果这个过程 结果为 1，那么这个数就是快乐数。
+如果 n 是 快乐数 就返回 true ；不是，则返回 false 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 19&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;12 + 92 = 82&lt;/li&gt;
+&lt;li&gt;82 + 22 = 68&lt;/li&gt;
+&lt;li&gt;62 + 82 = 100&lt;/li&gt;
+&lt;li&gt;12 + 02 + 02 = 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;直接计算，记得使用缓存标记以防重复。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_happy&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashSet;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; cache &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashSet::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;cache.contains(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;n) {
+            cache.insert(n);
+            next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                next &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; (n &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;).pow(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+                n &lt;span style=&#34;color:#f92672&#34;&gt;/=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>数字范围按位与</title>
+      <link>https://just-worker.github.io/blog/%E6%95%B0%E5%AD%97%E8%8C%83%E5%9B%B4%E6%8C%89%E4%BD%8D%E4%B8%8E/</link>
+      <pubDate>Sat, 02 Sep 2023 16:40:17 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%95%B0%E5%AD%97%E8%8C%83%E5%9B%B4%E6%8C%89%E4%BD%8D%E4%B8%8E/</guid>
+      <description>&lt;h2 id=&#34;数字范围按位与httpsleetcodecnproblemsbitwise-and-of-numbers-range&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/bitwise-and-of-numbers-range/&#34;&gt;数字范围按位与&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：left = 5, right = 7&lt;/li&gt;
+&lt;li&gt;输出：4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;h3 id=&#34;基础移位&#34;&gt;基础移位&lt;/h3&gt;
+&lt;p&gt;因为是同位与，只要其中有一个发生了进位，必然就会导致该位为&lt;code&gt;0&lt;/code&gt;，因此，我最开始的想法是计算进位。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用给出的两个数值&lt;code&gt;与&lt;/code&gt;，得出基础的结果&lt;/li&gt;
+&lt;li&gt;算出差值，计算进位的位，分别置为&lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中还能得出一个结论：如果两个数值之间的差值大于了最小的数值，得出的结论一定是&lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;也就是说，这两个数值的差值，不能大于最小数值的最高位二进制，否则一定是&lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;那么，核心问题究竟是什么，什么数值能够保留下来呢：最长公共前缀。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进位的会被截断&lt;/li&gt;
+&lt;li&gt;不一致的位会被置零&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;只有一样的位置才会得到保留，而且必须区间内数值都保持一样的前缀。&lt;/p&gt;
+&lt;p&gt;总体而言，截断的可能性如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发生&lt;code&gt;left&lt;/code&gt;的最高进位，结果必然为&lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;不发生&lt;code&gt;left&lt;/code&gt;最高进位，后续某部分发生最高进位，截断最高进位之后的位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;结果已经很清晰了，我们需要查找&lt;code&gt;left -&amp;gt; right&lt;/code&gt;中发生的最高进位，然后截断最高进位之后的数值进行返回。&lt;/p&gt;
+&lt;p&gt;当然，如果超过了&lt;code&gt;left&lt;/code&gt;，直接返回&lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;range_bitwise_and&lt;/span&gt;(left: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 左侧为0， 一定为0
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 两个数值相等
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; right {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; left;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 必定进位，0
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; delta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; delta &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; left {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 计算偏移
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; bit &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; delta {
+                bit &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i;
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 最高进位，0
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; bit &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; left {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 截断之后的数据
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ((left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; right) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; bit) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; bit;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;去掉尾0&#34;&gt;去掉尾0&lt;/h3&gt;
+&lt;p&gt;上面的解法很丑，有没有比较漂亮的写法呢。&lt;/p&gt;
+&lt;p&gt;回顾一下我们的目的的变化&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;全部与操作之后的数值&lt;/li&gt;
+&lt;li&gt;公共前缀&lt;/li&gt;
+&lt;li&gt;最高进位，把进位之后的数据置为&lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;针对&lt;code&gt;right&lt;/code&gt;，我们不断去掉右侧的&lt;code&gt;1&lt;/code&gt;，有如下几种情况&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;right &amp;gt; left&lt;/code&gt;: 肯定还没到公共前缀&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right = left&lt;/code&gt;: 剔除了除公共前缀之后的数值，此时刚好公共前缀&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right &amp;lt; left&lt;/code&gt;: 此时&lt;code&gt;right=0&lt;/code&gt;，因为剔除了高位&lt;code&gt;1&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(C)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;range_bitwise_and&lt;/span&gt;(left: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; right: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; right {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; left;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; left {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; left {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            }
+            right &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;=&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; right;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>岛屿数量</title>
+      <link>https://just-worker.github.io/blog/%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/</link>
+      <pubDate>Sat, 02 Sep 2023 16:26:26 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/</guid>
+      <description>&lt;h2 id=&#34;岛屿数量httpsleetcodecnproblemsnumber-of-islands&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/number-of-islands/&#34;&gt;岛屿数量&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个由 &amp;lsquo;1&amp;rsquo;（陆地）和 &amp;lsquo;0&amp;rsquo;（水）组成的的二维网格，请你计算网格中岛屿的数量。&lt;/p&gt;
+&lt;p&gt;岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。&lt;/p&gt;
+&lt;p&gt;此外，你可以假设该网格的四条边均被水包围。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：grid = [&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;],&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;],&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;],&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;]&lt;/li&gt;
+&lt;li&gt;输出：1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;很标准的搜索遍历，主要问题是，怎么区分同一团的岛屿。&lt;/p&gt;
+&lt;p&gt;当然，可以分别标识&lt;code&gt;1,2,3&lt;/code&gt;，这样也能够进行识别。&lt;/p&gt;
+&lt;p&gt;我们从整体的角度总结一下流程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;非岛屿，遍历下一个&lt;/li&gt;
+&lt;li&gt;发现旧岛屿，跳过&lt;/li&gt;
+&lt;li&gt;发现新岛屿，标记&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以看到，总会有识别和标记这两个过程，我们对已经识别过的直接标记为海洋即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(MN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;num_islands&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; grid: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (row, column, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (grid.len(), grid[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len(), &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; r &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;row {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;column {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; grid[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt; {
+                    Self::dfs(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; grid, r, c, row, column);
+                    res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dfs&lt;/span&gt;(grid: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, r: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, c: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, row: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, column: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; row &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; column {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; grid[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        grid[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            Self::dfs(grid, r &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, c, row, column)
+        }
+        Self::dfs(grid, r &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, c, row, column);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            Self::dfs(grid, r, c &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, row, column);
+        }
+        Self::dfs(grid, r, c &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, row, column);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>二叉树的右视图</title>
       <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/</link>
