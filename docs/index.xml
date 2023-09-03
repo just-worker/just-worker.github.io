@@ -6,7 +6,63 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 02 Sep 2023 18:55:00 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2023 23:22:01 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>课程表</title>
+      <link>https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link>
+      <pubDate>Sun, 03 Sep 2023 23:22:01 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid>
+      <description>&lt;h2 id=&#34;课程表httpsleetcodecnproblemscourse-scheduledescription&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/course-schedule/description/&#34;&gt;课程表&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。&lt;/p&gt;
+&lt;p&gt;在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。&lt;/p&gt;
+&lt;p&gt;例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：numCourses = 2, prerequisites = [[1,0]]&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;li&gt;解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;这里有一个暗坑：可能要多节课才能解锁一节课，但是题目中并没有特殊说明。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;can_finish&lt;/span&gt;(num_courses: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, prerequisites: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 不学或者没锁，一定能完成
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; num_courses &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; prerequisites.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; num_courses &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; num_courses &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 上锁的课和可解锁的课
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; lock, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; unlock) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; num_courses], vec![vec![]; num_courses]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; pair &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; prerequisites.iter() {
+            lock[pair[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            unlock[pair[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;].push(pair[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;);
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 自由无锁的课
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; free &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;num_courses)
+            .filter(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;x&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; lock[x] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+            .collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;_&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; free_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; free_id &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; free.len() {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 尝试解锁课程
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unlock_course &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unlock[free[free_id]] {
+                lock[unlock_course] &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                &lt;span style=&#34;color:#75715e&#34;&gt;// 解锁完毕成为自由的课
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; lock[unlock_course] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                    free.push(unlock_course);
+                }
+            }
+            free_id &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 如果最后没有上锁的课，就能全部完成
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; lock.iter().all(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>反转链表</title>
       <link>https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</link>
