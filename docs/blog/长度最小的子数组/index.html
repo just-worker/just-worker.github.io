@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>长度最小的子数组</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@长度最小的子数组 给定一个含有 n 个正整数的数组和一个正整数 target 。 找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl&#43;1, &hellip;, numsr-1, numsr] ，并返回其长度。">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="长度最小的子数组" />
+<meta property="og:description" content="长度最小的子数组 给定一个含有 n 个正整数的数组和一个正整数 target 。 找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl&#43;1, &hellip;, numsr-1, numsr] ，并返回其长度。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-09-04T23:28:28+08:00" />
+<meta property="article:modified_time" content="2023-09-04T23:28:28+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="长度最小的子数组"/>
+<meta name="twitter:description" content="长度最小的子数组 给定一个含有 n 个正整数的数组和一个正整数 target 。 找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl&#43;1, &hellip;, numsr-1, numsr] ，并返回其长度。"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "长度最小的子数组",
+      "item": "https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "长度最小的子数组",
+  "name": "长度最小的子数组",
+  "description": "长度最小的子数组 给定一个含有 n 个正整数的数组和一个正整数 target 。 找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl+1, \u0026hellip;, numsr-1, numsr] ，并返回其长度。",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "长度最小的子数组 给定一个含有 n 个正整数的数组和一个正整数 target 。\n找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl+1, …, numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。\n  输入：target = 7, nums = [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。   题目解析 // time: O(N) // space: O(1) impl Solution { pub fn min_sub_array_len(target: i32, nums: Veci32) - i32 { let len = nums.len(); if len == 0 { return 0; } let (mut left, mut sum, mut res) = (0, 0, len + 1); for right in 0..len { if nums[right] = target { return 1; } sum += nums[right]; while sum = target { res = res.min(right - left + 1); sum -= nums[left]; left += 1; } } if res == len + 1 { return 0; } return res as i32; } } ",
+  "wordCount" : "227",
+  "inLanguage": "zh",
+  "datePublished": "2023-09-04T23:28:28+08:00",
+  "dateModified": "2023-09-04T23:28:28+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/">单词拆分</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>长度最小的子数组</h1>
+  </header>
+
+  <p>
   <small>
-    2023年8月11日&nbsp;· 214 字&nbsp;· 1 分钟</small>
+    2023年9月4日&nbsp;· 227 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -138,219 +177,67 @@
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/">复制带随机指针的链表</a></h3>
-              <p>
-  <small>
-    2023年8月11日&nbsp;· 504 字&nbsp;· 2 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97ii/">只出现一次的数字II</a></h3>
-              <p>
-  <small>
-    2023年8月9日&nbsp;· 374 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="长度最小的子数组httpsleetcodecnproblemsminimum-size-subarray-sum"><a href="https://leetcode.cn/problems/minimum-size-subarray-sum/">长度最小的子数组</a></h2>
+<p>给定一个含有 n 个正整数的数组和一个正整数 target 。</p>
+<p>找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl+1, &hellip;, numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。</p>
+<blockquote>
+<ul>
+<li>输入：target = 7, nums = [2,3,1,2,4,3]</li>
+<li>输出：2</li>
+<li>解释：子数组 [4,3] 是该条件下的长度最小的子数组。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(1)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">min_sub_array_len</span>(target: <span style="color:#66d9ef">i32</span>, nums: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> nums.len();
+        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> left, <span style="color:#66d9ef">mut</span> sum, <span style="color:#66d9ef">mut</span> res) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+        <span style="color:#66d9ef">for</span> right <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>len {
+            <span style="color:#66d9ef">if</span> nums[right] <span style="color:#f92672">&gt;=</span> target {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+            }
+            sum <span style="color:#f92672">+=</span> nums[right];
+            <span style="color:#66d9ef">while</span> sum <span style="color:#f92672">&gt;=</span> target {
+                res <span style="color:#f92672">=</span> res.min(right <span style="color:#f92672">-</span> left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                sum <span style="color:#f92672">-=</span> nums[left];
+                left <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+        }
+        <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+        <span style="color:#66d9ef">return</span> res <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/">只出现一次的数字</a></h3>
-              <p>
-  <small>
-    2023年8月8日&nbsp;· 162 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/">分发糖果</a></h3>
-              <p>
-  <small>
-    2023年8月8日&nbsp;· 490 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8A%A0%E6%B2%B9%E7%AB%99/">加油站</a></h3>
-              <p>
-  <small>
-    2023年8月7日&nbsp;· 572 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%85%8B%E9%9A%86%E5%9B%BE/">克隆图</a></h3>
-              <p>
-  <small>
-    2023年8月7日&nbsp;· 312 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2ii/">分割回文串II</a></h3>
-              <p>
-  <small>
-    2023年8月5日&nbsp;· 275 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2/">分割回文串</a></h3>
-              <p>
-  <small>
-    2023年8月5日&nbsp;· 540 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E8%A2%AB%E5%9B%B4%E7%BB%95%E7%9A%84%E5%8C%BA%E5%9F%9F/">被围绕的区域</a></h3>
-              <p>
-  <small>
-    2023年8月2日&nbsp;· 871 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/blog/page/5/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/blog/page/7/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/"><span>实现Trie</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程表</title>
+    <title>实现Trie</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@课程表 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程">
+    <meta name="description" content="Ladder@实现 Trie (前缀树) Trie（发音类似 &ldquo;try&rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="课程表" />
-<meta property="og:description" content="课程表 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程" />
+    <meta property="og:title" content="实现Trie" />
+<meta property="og:description" content="实现 Trie (前缀树) Trie（发音类似 &ldquo;try&rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-09-03T23:22:01+08:00" />
-<meta property="article:modified_time" content="2023-09-03T23:22:01+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-09-04T23:15:32+08:00" />
+<meta property="article:modified_time" content="2023-09-04T23:15:32+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="课程表"/>
-<meta name="twitter:description" content="课程表 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程"/>
+<meta name="twitter:title" content="实现Trie"/>
+<meta name="twitter:description" content="实现 Trie (前缀树) Trie（发音类似 &ldquo;try&rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "课程表",
-      "item": "https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/"
+      "name": "实现Trie",
+      "item": "https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "课程表",
-  "name": "课程表",
-  "description": "课程表 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程",
+  "headline": "实现Trie",
+  "name": "实现Trie",
+  "description": "实现 Trie (前缀树) Trie（发音类似 \u0026ldquo;try\u0026rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "课程表 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。\n在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程 bi 。\n例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。\n  输入：numCourses = 2, prerequisites = [[1,0]] 输出：true 解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。   题目解析 这里有一个暗坑：可能要多节课才能解锁一节课，但是题目中并没有特殊说明。\nimpl Solution { pub fn can_finish(num_courses: i32, prerequisites: VecVeci32) - bool { // 不学或者没锁，一定能完成  if num_courses == 0 || prerequisites.len() == 0 { return true; } let num_courses = num_courses as usize; // 上锁的课和可解锁的课  let (mut lock, mut unlock) = (vec![0; num_courses], vec![vec![]; num_courses]); for pair in prerequisites.iter() { lock[pair[0] as usize] += 1; unlock[pair[1] as usize].push(pair[0] as usize); } // 自由无锁的课  let mut free = (0..num_courses) .filter(|\u0026x| lock[x] == 0) .collect::Vec_(); let mut free_id = 0; while free_id  free.len() { // 尝试解锁课程  for \u0026unlock_course in \u0026unlock[free[free_id]] { lock[unlock_course] -= 1; // 解锁完毕成为自由的课  if lock[unlock_course] == 0 { free.push(unlock_course); } } free_id += 1; } // 如果最后没有上锁的课，就能全部完成  return lock.iter().all(|\u0026v| v == 0); } } ",
-  "wordCount" : "414",
+  "articleBody": "实现 Trie (前缀树) Trie（发音类似 “try”）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。\n请你实现 Trie 类：\n Trie() 初始化前缀树对象。 void insert(String word) 向前缀树中插入字符串 word 。 boolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。 boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false 。    输入 [“Trie”, “insert”, “search”, “search”, “startsWith”, “insert”, “search”] [[], [“apple”], [“apple”], [“app”], [“app”], [“app”], [“app”]] 输出 [null, null, true, false, true, null, true]     解释 Trie trie = new Trie(); trie.insert(“apple”); trie.search(“apple”); // 返回 True trie.search(“app”); // 返回 False trie.startsWith(“app”); // 返回 True trie.insert(“app”); trie.search(“app”); // 返回 True   题目解析 #[derive(Default)] struct Trie([OptionBoxTrie; 26], bool); impl Trie { fn new() - Self { Default::default() } fn insert(\u0026mut self, word: String) { word.as_bytes() .iter() .map(|\u0026c| (c - b'a') as usize) .fold(self, |trie, ch| { trie.0[ch].get_or_insert_with(Default::default) }) .1 = true } fn exist(\u0026self, word: String) - (bool, bool) { let mut trie = self; for \u0026ch in word.as_bytes().iter() { trie = match \u0026trie.0[(ch - b'a') as usize] { Some(t) = t, None = return (false, false), } } return (true, trie.1); } fn search(\u0026self, word: String) - bool { return Self::exist(\u0026self, word).1; } fn starts_with(\u0026self, prefix: String) - bool { return Self::exist(\u0026self, prefix).0; } } ",
+  "wordCount" : "369",
   "inLanguage": "zh",
-  "datePublished": "2023-09-03T23:22:01+08:00",
-  "dateModified": "2023-09-03T23:22:01+08:00",
+  "datePublished": "2023-09-04T23:15:32+08:00",
+  "dateModified": "2023-09-04T23:15:32+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/"
+    "@id": "https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>课程表</h1>
+    <h1>实现Trie</h1>
   </header>
 
   <p>
   <small>
-    2023年9月3日&nbsp;· 414 字&nbsp;· 1 分钟</small>
+    2023年9月4日&nbsp;· 369 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,67 +178,90 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="课程表httpsleetcodecnproblemscourse-scheduledescription"><a href="https://leetcode.cn/problems/course-schedule/description/">课程表</a></h2>
-<p>你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。</p>
-<p>在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。</p>
-<p>例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
-请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。</p>
+  <section class="blog-content"><h2 id="实现-trie-前缀树httpsleetcodecnproblemsimplement-trie-prefix-tree"><a href="https://leetcode.cn/problems/implement-trie-prefix-tree/">实现 Trie (前缀树)</a></h2>
+<p>Trie（发音类似 &ldquo;try&rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。</p>
+<p>请你实现 Trie 类：</p>
+<ul>
+<li>Trie() 初始化前缀树对象。</li>
+<li>void insert(String word) 向前缀树中插入字符串 word 。</li>
+<li>boolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。</li>
+<li>boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false 。</li>
+</ul>
 <blockquote>
 <ul>
-<li>输入：numCourses = 2, prerequisites = [[1,0]]</li>
-<li>输出：true</li>
-<li>解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。</li>
+<li>输入</li>
+<li>[&ldquo;Trie&rdquo;, &ldquo;insert&rdquo;, &ldquo;search&rdquo;, &ldquo;search&rdquo;, &ldquo;startsWith&rdquo;, &ldquo;insert&rdquo;, &ldquo;search&rdquo;]</li>
+<li>[[], [&ldquo;apple&rdquo;], [&ldquo;apple&rdquo;], [&ldquo;app&rdquo;], [&ldquo;app&rdquo;], [&ldquo;app&rdquo;], [&ldquo;app&rdquo;]]</li>
+<li>输出</li>
+<li>[null, null, true, false, true, null, true]</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>解释</li>
+<li>Trie trie = new Trie();</li>
+<li>trie.insert(&ldquo;apple&rdquo;);</li>
+<li>trie.search(&ldquo;apple&rdquo;);   // 返回 True</li>
+<li>trie.search(&ldquo;app&rdquo;);     // 返回 False</li>
+<li>trie.startsWith(&ldquo;app&rdquo;); // 返回 True</li>
+<li>trie.insert(&ldquo;app&rdquo;);</li>
+<li>trie.search(&ldquo;app&rdquo;);     // 返回 True</li>
 </ul>
 </blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>这里有一个暗坑：可能要多节课才能解锁一节课，但是题目中并没有特殊说明。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">can_finish</span>(num_courses: <span style="color:#66d9ef">i32</span>, prerequisites: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) -&gt; <span style="color:#66d9ef">bool</span> {
-        <span style="color:#75715e">// 不学或者没锁，一定能完成
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> num_courses <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> prerequisites.len() <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-        }
-        <span style="color:#66d9ef">let</span> num_courses <span style="color:#f92672">=</span> num_courses <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>;
-        <span style="color:#75715e">// 上锁的课和可解锁的课
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> lock, <span style="color:#66d9ef">mut</span> unlock) <span style="color:#f92672">=</span> (vec![<span style="color:#ae81ff">0</span>; num_courses], vec![vec![]; num_courses]);
-        <span style="color:#66d9ef">for</span> pair <span style="color:#66d9ef">in</span> prerequisites.iter() {
-            lock[pair[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-            unlock[pair[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>].push(pair[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>);
-        }
-        <span style="color:#75715e">// 自由无锁的课
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> free <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>num_courses)
-            .filter(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> lock[x] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
-            .collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> free_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">while</span> free_id <span style="color:#f92672">&lt;</span> free.len() {
-            <span style="color:#75715e">// 尝试解锁课程
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span>unlock_course <span style="color:#66d9ef">in</span> <span style="color:#f92672">&amp;</span>unlock[free[free_id]] {
-                lock[unlock_course] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
-                <span style="color:#75715e">// 解锁完毕成为自由的课
-</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> lock[unlock_course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-                    free.push(unlock_course);
-                }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">#[derive(Default)]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Trie</span>([Option<span style="color:#f92672">&lt;</span>Box<span style="color:#f92672">&lt;</span>Trie<span style="color:#f92672">&gt;&gt;</span>; <span style="color:#ae81ff">26</span>], <span style="color:#66d9ef">bool</span>);
+
+<span style="color:#66d9ef">impl</span> Trie {
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">new</span>() -&gt; <span style="color:#a6e22e">Self</span> {
+        Default::default()
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, word: String) {
+        word.as_bytes()
+            .iter()
+            .map(<span style="color:#f92672">|&amp;</span>c<span style="color:#f92672">|</span> (c <span style="color:#f92672">-</span> <span style="color:#e6db74">b&#39;a&#39;</span>) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>)
+            .fold(self, <span style="color:#f92672">|</span>trie, ch<span style="color:#f92672">|</span> {
+                trie.<span style="color:#ae81ff">0</span>[ch].get_or_insert_with(Default::default)
+            })
+            .<span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">exist</span>(<span style="color:#f92672">&amp;</span>self, word: String) -&gt; (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">bool</span>) {
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> trie <span style="color:#f92672">=</span> self;
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span>ch <span style="color:#66d9ef">in</span> word.as_bytes().iter() {
+            trie <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> <span style="color:#f92672">&amp;</span>trie.<span style="color:#ae81ff">0</span>[(ch <span style="color:#f92672">-</span> <span style="color:#e6db74">b&#39;a&#39;</span>) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] {
+                Some(t) <span style="color:#f92672">=&gt;</span> t,
+                None <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>),
             }
-            free_id <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
         }
-        <span style="color:#75715e">// 如果最后没有上锁的课，就能全部完成
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> lock.iter().all(<span style="color:#f92672">|&amp;</span>v<span style="color:#f92672">|</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">true</span>, trie.<span style="color:#ae81ff">1</span>);
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">search</span>(<span style="color:#f92672">&amp;</span>self, word: String) -&gt; <span style="color:#66d9ef">bool</span> {
+        <span style="color:#66d9ef">return</span> Self::exist(<span style="color:#f92672">&amp;</span>self, word).<span style="color:#ae81ff">1</span>;
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">starts_with</span>(<span style="color:#f92672">&amp;</span>self, prefix: String) -&gt; <span style="color:#66d9ef">bool</span> {
+        <span style="color:#66d9ef">return</span> Self::exist(<span style="color:#f92672">&amp;</span>self, prefix).<span style="color:#ae81ff">0</span>;
     }
 }
+
 </code></pre></div></section>
 
   
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/">
+    <a class="prev" href="https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
-      <span>实现Trie</span></a>
+      <span>长度最小的子数组</span></a>
     
     
-    <a class="next" href="https://just-worker.github.io/blog/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"><span>反转链表</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/"><span>课程表</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>

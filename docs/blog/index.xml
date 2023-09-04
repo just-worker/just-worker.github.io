@@ -6,7 +6,132 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 03 Sep 2023 23:22:01 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Sep 2023 23:28:28 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>长度最小的子数组</title>
+      <link>https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Mon, 04 Sep 2023 23:28:28 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</guid>
+      <description>&lt;h2 id=&#34;长度最小的子数组httpsleetcodecnproblemsminimum-size-subarray-sum&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/minimum-size-subarray-sum/&#34;&gt;长度最小的子数组&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个含有 n 个正整数的数组和一个正整数 target 。&lt;/p&gt;
+&lt;p&gt;找出该数组中满足其总和大于等于 target 的长度最小的 连续子数组 [numsl, numsl+1, &amp;hellip;, numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：target = 7, nums = [2,3,1,2,4,3]&lt;/li&gt;
+&lt;li&gt;输出：2&lt;/li&gt;
+&lt;li&gt;解释：子数组 [4,3] 是该条件下的长度最小的子数组。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;min_sub_array_len&lt;/span&gt;(target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; left, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; right &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;len {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[right] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; target {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            sum &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; nums[right];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; target {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res.min(right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                sum &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; nums[left];
+                left &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>实现Trie</title>
+      <link>https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/</link>
+      <pubDate>Mon, 04 Sep 2023 23:15:32 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AE%9E%E7%8E%B0trie/</guid>
+      <description>&lt;h2 id=&#34;实现-trie-前缀树httpsleetcodecnproblemsimplement-trie-prefix-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/implement-trie-prefix-tree/&#34;&gt;实现 Trie (前缀树)&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Trie（发音类似 &amp;ldquo;try&amp;rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。&lt;/p&gt;
+&lt;p&gt;请你实现 Trie 类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Trie() 初始化前缀树对象。&lt;/li&gt;
+&lt;li&gt;void insert(String word) 向前缀树中插入字符串 word 。&lt;/li&gt;
+&lt;li&gt;boolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。&lt;/li&gt;
+&lt;li&gt;boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入&lt;/li&gt;
+&lt;li&gt;[&amp;ldquo;Trie&amp;rdquo;, &amp;ldquo;insert&amp;rdquo;, &amp;ldquo;search&amp;rdquo;, &amp;ldquo;search&amp;rdquo;, &amp;ldquo;startsWith&amp;rdquo;, &amp;ldquo;insert&amp;rdquo;, &amp;ldquo;search&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;[[], [&amp;ldquo;apple&amp;rdquo;], [&amp;ldquo;apple&amp;rdquo;], [&amp;ldquo;app&amp;rdquo;], [&amp;ldquo;app&amp;rdquo;], [&amp;ldquo;app&amp;rdquo;], [&amp;ldquo;app&amp;rdquo;]]&lt;/li&gt;
+&lt;li&gt;输出&lt;/li&gt;
+&lt;li&gt;[null, null, true, false, true, null, true]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;解释&lt;/li&gt;
+&lt;li&gt;Trie trie = new Trie();&lt;/li&gt;
+&lt;li&gt;trie.insert(&amp;ldquo;apple&amp;rdquo;);&lt;/li&gt;
+&lt;li&gt;trie.search(&amp;ldquo;apple&amp;rdquo;);   // 返回 True&lt;/li&gt;
+&lt;li&gt;trie.search(&amp;ldquo;app&amp;rdquo;);     // 返回 False&lt;/li&gt;
+&lt;li&gt;trie.startsWith(&amp;ldquo;app&amp;rdquo;); // 返回 True&lt;/li&gt;
+&lt;li&gt;trie.insert(&amp;ldquo;app&amp;rdquo;);&lt;/li&gt;
+&lt;li&gt;trie.search(&amp;ldquo;app&amp;rdquo;);     // 返回 True&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#[derive(Default)]&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Trie&lt;/span&gt;([Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Box&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Trie&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;], &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Trie {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;() -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        Default::default()
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;insert&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; self, word: String) {
+        word.as_bytes()
+            .iter()
+            .map(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (c &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;a&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;)
+            .fold(self, &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;trie, ch&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; {
+                trie.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;[ch].get_or_insert_with(Default::default)
+            })
+            .&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;exist&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, word: String) -&amp;gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; trie &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; word.as_bytes().iter() {
+            trie &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;trie.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;[(ch &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;a&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] {
+                Some(t) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; t,
+                None &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;),
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;, trie.&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;search&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, word: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::exist(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, word).&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;starts_with&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, prefix: String) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Self::exist(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, prefix).&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>课程表</title>
       <link>https://just-worker.github.io/blog/%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link>
