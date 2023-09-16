@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title>解决clash for Windows服务模式安装失败</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@Blogs - just-worker">
+    <meta name="description" content="Ladder@设置服务模式 之前安装了xerolinux，因为安装clash-for-windows安装服务模式启动失败，一直很烦，后面直接放弃了。 既然是为">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/blog/" />
+    <meta property="og:title" content="解决clash for Windows服务模式安装失败" />
+<meta property="og:description" content="设置服务模式 之前安装了xerolinux，因为安装clash-for-windows安装服务模式启动失败，一直很烦，后面直接放弃了。 既然是为" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-09-16T16:08:31+08:00" />
+<meta property="article:modified_time" content="2023-09-16T16:08:31+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Blogs"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="解决clash for Windows服务模式安装失败"/>
+<meta name="twitter:description" content="设置服务模式 之前安装了xerolinux，因为安装clash-for-windows安装服务模式启动失败，一直很烦，后面直接放弃了。 既然是为"/>
 
 
 <script type="application/ld+json">
@@ -33,8 +35,47 @@
       "position":  2 ,
       "name": "Blogs",
       "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "解决clash for Windows服务模式安装失败",
+      "item": "https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "解决clash for Windows服务模式安装失败",
+  "name": "解决clash for Windows服务模式安装失败",
+  "description": "设置服务模式 之前安装了xerolinux，因为安装clash-for-windows安装服务模式启动失败，一直很烦，后面直接放弃了。 既然是为",
+  "keywords": [
+    "archlinux", "clash-for-windows"
+  ],
+  "articleBody": "设置服务模式 之前安装了xerolinux，因为安装clash-for-windows安装服务模式启动失败，一直很烦，后面直接放弃了。\n既然是为了想一个安稳的环境，何不使用ubuntu，可是我哪里是什么良人，对于见过xeroLinux美貌的人，我真的忍受不了这戒色戒欲的古板桌面；当然，折腾是不可能折腾的，否则都自己原装arch美化了。\n重新安装好系统之后，耐心的等待十分钟后，clash-for-windows再次回到了我的电脑，看到熟悉的页面，果然还是熟悉的服务模式安装失败。\n继续耐心的寻找解决方案\n 找到线索1 索引之后找到线索2，不过看这路径，完全匹配不上，心态要炸了 耐心看到最后，终于看到了解决方案，果然是神教万岁  具体流程  编辑服务  # /usr/lib/systemd/system/clash-core-service.service [Unit] Description=Clash core service created by Clash for Windows After=network-online.target nftables.service iptables.service [Service] Type=simple ExecStart=/opt/clash-for-windows-bin/resources/static/files/linux/x64/service/clash-core-service Restart=always RestartSec=5 [Install] WantedBy=multi-user.target 重启服务  sudo systemctl enable clash-core-service sudo systemctl start clash-core-service ",
+  "wordCount" : "347",
+  "inLanguage": "zh",
+  "datePublished": "2023-09-16T16:08:31+08:00",
+  "dateModified": "2023-09-16T16:08:31+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
 }
 </script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
@@ -115,242 +156,83 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%88%86%E6%95%B0%E5%88%B0%E5%B0%8F%E6%95%B0/">分数到小数</a></h3>
-              <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>解决clash for Windows服务模式安装失败</h1>
+  </header>
+
+  <p>
   <small>
-    2023年8月16日&nbsp;· 296 字&nbsp;· 1 分钟</small>
+    2023年9月16日&nbsp;· 347 字&nbsp;· 1 分钟</small>
 
   <small>
       
       ·
       
       
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      <a href="https://just-worker.github.io/tags/archlinux/">archlinux</a>
       
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      <a href="https://just-worker.github.io/tags/clash-for-windows/">clash-for-windows</a>
       
     </small>
   
 <p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%AF%94%E8%BE%83%E7%89%88%E6%9C%AC%E5%8F%B7/">比较版本号</a></h3>
-              <p>
-  <small>
-    2023年8月16日&nbsp;· 497 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%9C%80%E5%A4%A7%E9%97%B4%E8%B7%9D/">最大间距</a></h3>
-              <p>
-  <small>
-    2023年8月16日&nbsp;· 474 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="设置服务模式">设置服务模式</h2>
+<p>之前安装了<a href="https://xerolinux.xyz/">xerolinux</a>，因为安装<a href="https://docs.cfw.lbyczf.com/">clash-for-windows</a>安装服务模式启动失败，一直很烦，后面直接放弃了。</p>
+<p>既然是为了想一个安稳的环境，何不使用<a href="https://cn.ubuntu.com/">ubuntu</a>，可是我哪里是什么良人，对于见过<a href="https://xerolinux.xyz/">xeroLinux</a>美貌的人，我真的忍受不了这戒色戒欲的古板桌面；当然，折腾是不可能折腾的，否则都自己原装<a href="https://www.archlinuxcn.org/">arch</a>美化了。</p>
+<p>重新安装好系统之后，耐心的等待十分钟后，<code>clash-for-windows</code>再次回到了我的电脑，看到熟悉的页面，果然还是熟悉的服务模式安装失败。</p>
+<p>继续耐心的寻找解决方案</p>
+<ol>
+<li>找到<a href="https://docs.cfw.lbyczf.com/contents/questions.html#service-mode-%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85">线索1</a></li>
+<li>索引之后找到<a href="https://github.com/Fndroid/clash_for_windows_pkg/issues/3464">线索2</a>，不过看这路径，完全匹配不上，心态要炸了</li>
+<li>耐心看到最后，终于看到了解决方案，果然是<a href="https://www.zhihu.com/question/49056249">神教</a>万岁</li>
+</ol>
+<h2 id="具体流程">具体流程</h2>
+<ol>
+<li>编辑服务</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># /usr/lib/systemd/system/clash-core-service.service</span>
+<span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>Clash core service created by Clash <span style="color:#66d9ef">for</span> Windows
+After<span style="color:#f92672">=</span>network-online.target nftables.service iptables.service
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC/">寻找峰值</a></h3>
-              <p>
-  <small>
-    2023年8月15日&nbsp;· 329 字&nbsp;· 1 分钟</small>
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Type<span style="color:#f92672">=</span>simple
+ExecStart<span style="color:#f92672">=</span>/opt/clash-for-windows-bin/resources/static/files/linux/x64/service/clash-core-service
+Restart<span style="color:#f92672">=</span>always
+RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">相交链表</a></h3>
-              <p>
-  <small>
-    2023年8月15日&nbsp;· 242 字&nbsp;· 1 分钟</small>
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
+</code></pre></div><ol start="2">
+<li>重启服务</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo systemctl enable clash-core-service
+sudo systemctl start clash-core-service
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E6%9C%80%E5%B0%8F%E6%A0%88/">最小栈</a></h3>
-              <p>
-  <small>
-    2023年8月15日&nbsp;· 212 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BCii/">寻找旋转排序数组中的最小值II</a></h3>
-              <p>
-  <small>
-    2023年8月15日&nbsp;· 308 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%AF%BB%E6%89%BE%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC/">寻找旋转排序数组中的最小值</a></h3>
-              <p>
-  <small>
-    2023年8月14日&nbsp;· 323 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/">乘积最大子数组</a></h3>
-              <p>
-  <small>
-    2023年8月14日&nbsp;· 325 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      
-        <article>
-          <div class="blog-card">
-              <h3><a href="/blog/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D/">反转字符串中的单词</a></h3>
-              <p>
-  <small>
-    2023年8月14日&nbsp;· 225 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          </div>
-        </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/blog/page/3/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/blog/page/5/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8Dii/"><span>打家劫舍II</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>

@@ -2,16 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://just-worker.github.io/tags/archlinux/</loc>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
+  </url><url>
     <loc>https://just-worker.github.io/blog/</loc>
-    <lastmod>2023-09-11T22:46:30+08:00</lastmod>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/clash-for-windows/</loc>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/</loc>
-    <lastmod>2023-09-11T22:46:30+08:00</lastmod>
-  </url><url>
-    <loc>https://just-worker.github.io/tags/leetcode/</loc>
-    <lastmod>2023-09-11T22:46:30+08:00</lastmod>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/tags/</loc>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/</loc>
+    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/leetcode/</loc>
     <lastmod>2023-09-11T22:46:30+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/blog/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8Dii/</loc>
@@ -148,9 +157,6 @@
   </url><url>
     <loc>https://just-worker.github.io/blog/lru%E7%BC%93%E5%AD%98/</loc>
     <lastmod>2023-08-13T22:35:24+08:00</lastmod>
-  </url><url>
-    <loc>https://just-worker.github.io/tags/archlinux/</loc>
-    <lastmod>2023-08-12T22:18:25+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</loc>
     <lastmod>2023-08-12T22:18:25+08:00</lastmod>

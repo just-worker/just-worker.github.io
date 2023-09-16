@@ -6,7 +6,48 @@
     <description>Recent content in archlinux on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 12 Aug 2023 22:18:25 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Sep 2023 16:08:31 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>解决clash for Windows服务模式安装失败</title>
+      <link>https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/</link>
+      <pubDate>Sat, 16 Sep 2023 16:08:31 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/</guid>
+      <description>&lt;h2 id=&#34;设置服务模式&#34;&gt;设置服务模式&lt;/h2&gt;
+&lt;p&gt;之前安装了&lt;a href=&#34;https://xerolinux.xyz/&#34;&gt;xerolinux&lt;/a&gt;，因为安装&lt;a href=&#34;https://docs.cfw.lbyczf.com/&#34;&gt;clash-for-windows&lt;/a&gt;安装服务模式启动失败，一直很烦，后面直接放弃了。&lt;/p&gt;
+&lt;p&gt;既然是为了想一个安稳的环境，何不使用&lt;a href=&#34;https://cn.ubuntu.com/&#34;&gt;ubuntu&lt;/a&gt;，可是我哪里是什么良人，对于见过&lt;a href=&#34;https://xerolinux.xyz/&#34;&gt;xeroLinux&lt;/a&gt;美貌的人，我真的忍受不了这戒色戒欲的古板桌面；当然，折腾是不可能折腾的，否则都自己原装&lt;a href=&#34;https://www.archlinuxcn.org/&#34;&gt;arch&lt;/a&gt;美化了。&lt;/p&gt;
+&lt;p&gt;重新安装好系统之后，耐心的等待十分钟后，&lt;code&gt;clash-for-windows&lt;/code&gt;再次回到了我的电脑，看到熟悉的页面，果然还是熟悉的服务模式安装失败。&lt;/p&gt;
+&lt;p&gt;继续耐心的寻找解决方案&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;找到&lt;a href=&#34;https://docs.cfw.lbyczf.com/contents/questions.html#service-mode-%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85&#34;&gt;线索1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;索引之后找到&lt;a href=&#34;https://github.com/Fndroid/clash_for_windows_pkg/issues/3464&#34;&gt;线索2&lt;/a&gt;，不过看这路径，完全匹配不上，心态要炸了&lt;/li&gt;
+&lt;li&gt;耐心看到最后，终于看到了解决方案，果然是&lt;a href=&#34;https://www.zhihu.com/question/49056249&#34;&gt;神教&lt;/a&gt;万岁&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;具体流程&#34;&gt;具体流程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;编辑服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# /usr/lib/systemd/system/clash-core-service.service&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Unit&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+Description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;Clash core service created by Clash &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; Windows
+After&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;network-online.target nftables.service iptables.service
+
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Service&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+Type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;simple
+ExecStart&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/opt/clash-for-windows-bin/resources/static/files/linux/x64/service/clash-core-service
+Restart&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;always
+RestartSec&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Install&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+WantedBy&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;重启服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo systemctl enable clash-core-service
+sudo systemctl start clash-core-service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>系统设置</title>
       <link>https://just-worker.github.io/blog/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE/</link>
