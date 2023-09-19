@@ -2,31 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://just-worker.github.io/tags/archlinux/</loc>
-    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
-  </url><url>
     <loc>https://just-worker.github.io/blog/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/leetcode/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/blog/%E6%9C%80%E7%9F%AD%E5%9B%9E%E6%96%87%E4%B8%B2/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2023-09-19T22:25:48+08:00</lastmod>
+  </url><url>
+    <loc>https://just-worker.github.io/tags/archlinux/</loc>
     <lastmod>2023-09-16T16:08:31+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/tags/clash-for-windows/</loc>
     <lastmod>2023-09-16T16:08:31+08:00</lastmod>
   </url><url>
-    <loc>https://just-worker.github.io/</loc>
-    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
-  </url><url>
-    <loc>https://just-worker.github.io/tags/</loc>
-    <lastmod>2023-09-16T16:08:31+08:00</lastmod>
-  </url><url>
     <loc>https://just-worker.github.io/blog/%E8%A7%A3%E5%86%B3clash-for-windows%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/</loc>
     <lastmod>2023-09-16T16:08:31+08:00</lastmod>
   </url><url>
-    <loc>https://just-worker.github.io/tags/leetcode/</loc>
-    <lastmod>2023-09-11T22:46:30+08:00</lastmod>
-  </url><url>
     <loc>https://just-worker.github.io/blog/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8Dii/</loc>
-    <lastmod>2023-09-11T22:46:30+08:00</lastmod>
-  </url><url>
-    <loc>https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2023-09-11T22:46:30+08:00</lastmod>
   </url><url>
     <loc>https://just-worker.github.io/blog/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2ii/</loc>
