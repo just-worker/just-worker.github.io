@@ -6,7 +6,116 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 19 Sep 2023 22:25:48 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Sep 2023 20:48:26 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>存在重复元素</title>
+      <link>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</link>
+      <pubDate>Wed, 20 Sep 2023 20:48:26 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</guid>
+      <description>&lt;h2 id=&#34;存在重复元素httpsleetcodecnproblemscontains-duplicate&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/contains-duplicate/&#34;&gt;存在重复元素&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 nums 。如果任一值在数组中出现 至少两次 ，返回 true ；如果数组中每个元素互不相同，返回 false 。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contains_duplicate&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; nums.len() &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; nums.into_iter().collect::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;std::collections::HashSet&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;().len();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>组合总和III</title>
+      <link>https://just-worker.github.io/blog/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8Ciii/</link>
+      <pubDate>Wed, 20 Sep 2023 20:40:13 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8Ciii/</guid>
+      <description>&lt;h2 id=&#34;组合总和-iiihttpsleetcodecnproblemscombination-sum-iii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/combination-sum-iii/&#34;&gt;组合总和 III&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只使用数字1到9&lt;/li&gt;
+&lt;li&gt;每个数字 最多使用一次&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;返回 所有可能的有效组合的列表 。该列表不能包含相同的组合两次，组合可以以任何顺序返回。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: k = 3, n = 7&lt;/li&gt;
+&lt;li&gt;输出: [[1,2,4]]&lt;/li&gt;
+&lt;li&gt;解释:&lt;/li&gt;
+&lt;li&gt;1 + 2 + 4 = 7&lt;/li&gt;
+&lt;li&gt;没有其他符合的组合了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;combination_sum3&lt;/span&gt;(count: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; target {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        Self::dfs(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; vec![], target, count &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dfs&lt;/span&gt;(current: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, sum: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, collect: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, target: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, count: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, res: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; collect.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; count {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; target &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; collect.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; count {
+            res.push(collect.clone());
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        Self::dfs(current &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, sum, collect, target, count, res);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; current &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; target {
+            collect.push(current);
+            Self::dfs(current &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, sum &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; current, collect, target, count, res);
+            collect.pop();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>数组中的第K个最大元素</title>
+      <link>https://just-worker.github.io/blog/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/</link>
+      <pubDate>Wed, 20 Sep 2023 20:35:52 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACk%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/</guid>
+      <description>&lt;h2 id=&#34;数组中的第k个最大元素httpsleetcodecnproblemskth-largest-element-in-an-array&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/kth-largest-element-in-an-array/&#34;&gt;数组中的第K个最大元素&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。&lt;/p&gt;
+&lt;p&gt;请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。&lt;/p&gt;
+&lt;p&gt;你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入: [3,2,1,5,6,4], k = 2&lt;/li&gt;
+&lt;li&gt;输出: 5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_kth_largest&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, k: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 默认实现的大顶堆
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::BinaryHeap;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; k &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; heap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; BinaryHeap::with_capacity(k);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; num &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; nums {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; heap.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; k {
+                heap.push(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;num);
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-*&lt;/span&gt;heap.peek().unwrap() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; num {
+                heap.pop();
+                heap.push(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;num);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;heap.pop().unwrap();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>最短回文串</title>
       <link>https://just-worker.github.io/blog/%E6%9C%80%E7%9F%AD%E5%9B%9E%E6%96%87%E4%B8%B2/</link>
