@@ -6,7 +6,160 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 20 Sep 2023 20:48:26 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Oct 2023 23:09:44 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>存在重复元素II</title>
+      <link>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/</link>
+      <pubDate>Sat, 07 Oct 2023 23:09:44 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/</guid>
+      <description>&lt;h2 id=&#34;存在重复元素-iihttpsleetcodecnproblemscontains-duplicate-ii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/contains-duplicate-ii/&#34;&gt;存在重复元素 II&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 nums 和一个整数 k ，判断数组中是否存在两个 不同的索引 i 和 j ，满足 nums[i] == nums[j] 且 abs(i - j) &amp;lt;= k 。如果存在，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [1,2,3,1], k = 3&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;区间 -&amp;gt; 窗口
+去重 -&amp;gt; 集合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contains_nearby_duplicate&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, k: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;{
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len().min(k &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; set &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::collections::HashSet::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;nums.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; k {
+                set.insert(nums[idx]);
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; set.contains(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums[idx]) {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                }
+                set.insert(nums[idx]);
+                set.remove(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nums[idx &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; k]);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; set.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; k;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>天际线问题</title>
+      <link>https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 07 Oct 2023 22:35:45 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;h2 id=&#34;天际线问题httpsleetcodecnproblemsthe-skyline-problem&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/the-skyline-problem/&#34;&gt;天际线问题&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。&lt;/p&gt;
+&lt;p&gt;每个建筑物的几何信息由数组 buildings 表示，其中三元组 buildings[i] = [lefti, righti, heighti] 表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lefti 是第 i 座建筑物左边缘的 x 坐标。&lt;/li&gt;
+&lt;li&gt;righti 是第 i 座建筑物右边缘的 x 坐标。&lt;/li&gt;
+&lt;li&gt;heighti 是第 i 座建筑物的高度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你可以假设所有的建筑都是完美的长方形，在高度为 0 的绝对平坦的表面上。&lt;/p&gt;
+&lt;p&gt;天际线 应该表示为由 “关键点” 组成的列表，格式 [[x1,y1],[x2,y2],&amp;hellip;] ，并按 x 坐标 进行 排序 。关键点是水平线段的左端点。列表中最后一个点是最右侧建筑物的终点，y 坐标始终为 0 ，仅用于标记天际线的终点。此外，任何两个相邻建筑物之间的地面都应被视为天际线轮廓的一部分。&lt;/p&gt;
+&lt;p&gt;注意：输出天际线中不得有连续的相同高度的水平线。例如 [&amp;hellip;[2 3], [4 5], [7 5], [11 5], [12 7]&amp;hellip;] 是不正确的答案；三条高度为 5 的线应该在最终输出中合并为一个：[&amp;hellip;[2 3], [4 5], [12 7], &amp;hellip;]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/12/01/merged.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]&lt;/li&gt;
+&lt;li&gt;输出：[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]&lt;/li&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;图 A 显示输入的所有建筑物的位置和高度，&lt;/li&gt;
+&lt;li&gt;图 B 显示由这些建筑物形成的天际线。图 B 中的红点表示输出列表中的关键点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;一看题目，都知道要合并，但是怎么合并是一个问题。&lt;/p&gt;
+&lt;p&gt;这里先排除一下直接遍历合并的方案：并非顺序合并就能解决问题，如果长建筑中有很多超高建筑，可能要合并到很早之前的建筑，无法传递合并结果。&lt;/p&gt;
+&lt;p&gt;现在就能安心总结一下题目的特点了&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;关键点一定出现在边界上&lt;/li&gt;
+&lt;li&gt;等高的只会收纳最左边的一个点&lt;/li&gt;
+&lt;li&gt;区域内的点不会被收集&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;转换为一般语言&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;关键点横坐标&lt;code&gt;x&lt;/code&gt;由边界决定&lt;/li&gt;
+&lt;li&gt;关键点纵坐标&lt;code&gt;y&lt;/code&gt;由高度和顺序决定&lt;/li&gt;
+&lt;li&gt;天际线两端点一定跨边界（左闭右开）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因此，我们可以按照如下方法进行筛选&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;按照顺序访问边界&lt;/li&gt;
+&lt;li&gt;将跨越边界的天际线右端点添加到队列&lt;/li&gt;
+&lt;li&gt;筛选符合关键点进行加入&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;简单来说，其实就是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;整体按照顺序，确定边界&lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;边界内按照高度&lt;code&gt;y&lt;/code&gt;进行逐个选取&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果边界内有更突出的&lt;code&gt;y&lt;/code&gt;，自然逐个选取，到下一个边界的时候就会被丢弃；如果出现了一个超长超高的阴影，则会因为等高而被去重。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_skyline&lt;/span&gt;(buildings: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; buildings.len();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![
+                vec![buildings[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], buildings[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]],
+                vec![buildings[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],
+            ];
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 边界爱排序
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; edges &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; build &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; buildings.iter() {
+            edges.push(build[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]);
+            edges.push(build[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+        }
+        edges.sort_unstable();
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; idx, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; heap) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (
+            Vec::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;::new(),
+            &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+            std::collections::BinaryHeap::new(),
+        );
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 顺序访问
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; edge &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; edges {
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 收纳跨边界的点
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; len &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; buildings[idx][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; edge {
+                heap.push((buildings[idx][&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;], buildings[idx][&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]));
+                idx &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 移除边界内的无用点
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(_, x)) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; heap.peek() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; edge {
+                    heap.pop();
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+                }
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 选取最高
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; high &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt; heap.peek() {
+                Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(h, _)) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; h,
+                None &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+            };
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 相同高度只会加入一个
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; res.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; res.last().unwrap()[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; high {
+                res.push(vec![edge, high]);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>存在重复元素</title>
       <link>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</link>

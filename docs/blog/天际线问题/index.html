@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天际线问题</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@天际线问题 城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。 每个建">
+    <meta name="author" content="just-worker">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/">
+
+    <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
+
+    
+
+
+    <meta property="og:title" content="天际线问题" />
+<meta property="og:description" content="天际线问题 城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。 每个建" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-10-07T22:35:45+08:00" />
+<meta property="article:modified_time" content="2023-10-07T22:35:45+08:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="天际线问题"/>
+<meta name="twitter:description" content="天际线问题 城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。 每个建"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "天际线问题",
+      "item": "https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "天际线问题",
+  "name": "天际线问题",
+  "description": "天际线问题 城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。 每个建",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "天际线问题 城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。\n每个建筑物的几何信息由数组 buildings 表示，其中三元组 buildings[i] = [lefti, righti, heighti] 表示：\n lefti 是第 i 座建筑物左边缘的 x 坐标。 righti 是第 i 座建筑物右边缘的 x 坐标。 heighti 是第 i 座建筑物的高度。  你可以假设所有的建筑都是完美的长方形，在高度为 0 的绝对平坦的表面上。\n天际线 应该表示为由 “关键点” 组成的列表，格式 [[x1,y1],[x2,y2],…] ，并按 x 坐标 进行 排序 。关键点是水平线段的左端点。列表中最后一个点是最右侧建筑物的终点，y 坐标始终为 0 ，仅用于标记天际线的终点。此外，任何两个相邻建筑物之间的地面都应被视为天际线轮廓的一部分。\n注意：输出天际线中不得有连续的相同高度的水平线。例如 […[2 3], [4 5], [7 5], [11 5], [12 7]…] 是不正确的答案；三条高度为 5 的线应该在最终输出中合并为一个：[…[2 3], [4 5], [12 7], …]\n  输入：buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]] 输出：[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]] 解释： 图 A 显示输入的所有建筑物的位置和高度， 图 B 显示由这些建筑物形成的天际线。图 B 中的红点表示输出列表中的关键点。   题目解析 一看题目，都知道要合并，但是怎么合并是一个问题。\n这里先排除一下直接遍历合并的方案：并非顺序合并就能解决问题，如果长建筑中有很多超高建筑，可能要合并到很早之前的建筑，无法传递合并结果。\n现在就能安心总结一下题目的特点了\n 关键点一定出现在边界上 等高的只会收纳最左边的一个点 区域内的点不会被收集  转换为一般语言\n 关键点横坐标x由边界决定 关键点纵坐标y由高度和顺序决定 天际线两端点一定跨边界（左闭右开）  因此，我们可以按照如下方法进行筛选\n 按照顺序访问边界 将跨越边界的天际线右端点添加到队列 筛选符合关键点进行加入  简单来说，其实就是\n 整体按照顺序，确定边界x 边界内按照高度y进行逐个选取  如果边界内有更突出的y，自然逐个选取，到下一个边界的时候就会被丢弃；如果出现了一个超长超高的阴影，则会因为等高而被去重。\nimpl Solution { pub fn get_skyline(buildings: VecVeci32) - VecVeci32 { let len = buildings.len(); if len == 0 { return vec![]; } if len == 1 { return vec![ vec![buildings[0][0], buildings[0][2]], vec![buildings[0][1], 0], ]; } // 边界爱排序  let mut edges = vec![]; for build in buildings.iter() { edges.push(build[0]); edges.push(build[1]); } edges.sort_unstable(); let (mut res, mut idx, mut heap) = ( Vec::Veci32::new(), 0, std::collections::BinaryHeap::new(), ); // 顺序访问  for edge in edges { // 收纳跨边界的点  while idx  len \u0026\u0026 buildings[idx][0]  edge { heap.push((buildings[idx][2], buildings[idx][1])); idx += 1; } // 移除边界内的无用点  while let Some(\u0026(_, x)) = heap.peek() { if x  edge { heap.pop(); } else { break; } } // 选取最高  let high = match heap.peek() { Some(\u0026(h, _)) = h, None = 0, }; // 相同高度只会加入一个  if res.is_empty() || res.last().unwrap()[1] != high { res.push(vec![edge, high]); } } return res; } } ",
+  "wordCount" : "1021",
+  "inLanguage": "zh",
+  "datePublished": "2023-10-07T22:35:45+08:00",
+  "dateModified": "2023-10-07T22:35:45+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%A4%A9%E9%99%85%E7%BA%BF%E9%97%AE%E9%A2%98/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.jpeg">
+
+<link rel="manifest" href="/images/avatar.jpeg">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.67948f7c66a9fbc41a44bdf373913a59c1ee97594879c9b41f62c08440af5291.css" integrity="sha256-Z5SPfGap&#43;8QaRL3zc5E6WcHul1lIecm0H2LAhECvUpE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.f6a23da83df7f66cbfe262036561fe5a3f8d59f21314b55aae8c09ea70eb5212.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var b=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,a=localStorage.getItem("theme");b&&a===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),b&&a==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),a==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            我的主页
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">全部文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类管理</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史记录</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>天际线问题</h1>
+  </header>
+
+  <p>
+  <small>
+    2023年10月7日&nbsp;· 1021 字&nbsp;· 3 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+
+  <section class="blog-content"><h2 id="天际线问题httpsleetcodecnproblemsthe-skyline-problem"><a href="https://leetcode.cn/problems/the-skyline-problem/">天际线问题</a></h2>
+<p>城市的 天际线 是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回 由这些建筑物形成的 天际线 。</p>
+<p>每个建筑物的几何信息由数组 buildings 表示，其中三元组 buildings[i] = [lefti, righti, heighti] 表示：</p>
+<ul>
+<li>lefti 是第 i 座建筑物左边缘的 x 坐标。</li>
+<li>righti 是第 i 座建筑物右边缘的 x 坐标。</li>
+<li>heighti 是第 i 座建筑物的高度。</li>
+</ul>
+<p>你可以假设所有的建筑都是完美的长方形，在高度为 0 的绝对平坦的表面上。</p>
+<p>天际线 应该表示为由 “关键点” 组成的列表，格式 [[x1,y1],[x2,y2],&hellip;] ，并按 x 坐标 进行 排序 。关键点是水平线段的左端点。列表中最后一个点是最右侧建筑物的终点，y 坐标始终为 0 ，仅用于标记天际线的终点。此外，任何两个相邻建筑物之间的地面都应被视为天际线轮廓的一部分。</p>
+<p>注意：输出天际线中不得有连续的相同高度的水平线。例如 [&hellip;[2 3], [4 5], [7 5], [11 5], [12 7]&hellip;] 是不正确的答案；三条高度为 5 的线应该在最终输出中合并为一个：[&hellip;[2 3], [4 5], [12 7], &hellip;]</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/12/01/merged.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]</li>
+<li>输出：[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]</li>
+<li>解释：</li>
+<li>图 A 显示输入的所有建筑物的位置和高度，</li>
+<li>图 B 显示由这些建筑物形成的天际线。图 B 中的红点表示输出列表中的关键点。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>一看题目，都知道要合并，但是怎么合并是一个问题。</p>
+<p>这里先排除一下直接遍历合并的方案：并非顺序合并就能解决问题，如果长建筑中有很多超高建筑，可能要合并到很早之前的建筑，无法传递合并结果。</p>
+<p>现在就能安心总结一下题目的特点了</p>
+<ol>
+<li>关键点一定出现在边界上</li>
+<li>等高的只会收纳最左边的一个点</li>
+<li>区域内的点不会被收集</li>
+</ol>
+<p>转换为一般语言</p>
+<ol>
+<li>关键点横坐标<code>x</code>由边界决定</li>
+<li>关键点纵坐标<code>y</code>由高度和顺序决定</li>
+<li>天际线两端点一定跨边界（左闭右开）</li>
+</ol>
+<p>因此，我们可以按照如下方法进行筛选</p>
+<ol>
+<li>按照顺序访问边界</li>
+<li>将跨越边界的天际线右端点添加到队列</li>
+<li>筛选符合关键点进行加入</li>
+</ol>
+<p>简单来说，其实就是</p>
+<ol>
+<li>整体按照顺序，确定边界<code>x</code></li>
+<li>边界内按照高度<code>y</code>进行逐个选取</li>
+</ol>
+<p>如果边界内有更突出的<code>y</code>，自然逐个选取，到下一个边界的时候就会被丢弃；如果出现了一个超长超高的阴影，则会因为等高而被去重。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">get_skyline</span>(buildings: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span> {
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> buildings.len();
+        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#66d9ef">return</span> vec![];
+        }
+        <span style="color:#66d9ef">if</span> len <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> vec![
+                vec![buildings[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>], buildings[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">2</span>]],
+                vec![buildings[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">0</span>],
+            ];
+        }
+        <span style="color:#75715e">// 边界爱排序
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> edges <span style="color:#f92672">=</span> vec![];
+        <span style="color:#66d9ef">for</span> build <span style="color:#66d9ef">in</span> buildings.iter() {
+            edges.push(build[<span style="color:#ae81ff">0</span>]);
+            edges.push(build[<span style="color:#ae81ff">1</span>]);
+        }
+        edges.sort_unstable();
+
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> res, <span style="color:#66d9ef">mut</span> idx, <span style="color:#66d9ef">mut</span> heap) <span style="color:#f92672">=</span> (
+            Vec::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>::new(),
+            <span style="color:#ae81ff">0</span>,
+            std::collections::BinaryHeap::new(),
+        );
+        <span style="color:#75715e">// 顺序访问
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> edge <span style="color:#66d9ef">in</span> edges {
+            <span style="color:#75715e">// 收纳跨边界的点
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> idx <span style="color:#f92672">&lt;</span> len <span style="color:#f92672">&amp;&amp;</span> buildings[idx][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;=</span> edge {
+                heap.push((buildings[idx][<span style="color:#ae81ff">2</span>], buildings[idx][<span style="color:#ae81ff">1</span>]));
+                idx <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#75715e">// 移除边界内的无用点
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">let</span> Some(<span style="color:#f92672">&amp;</span>(_, x)) <span style="color:#f92672">=</span> heap.peek() {
+                <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> edge {
+                    heap.pop();
+                } <span style="color:#66d9ef">else</span> {
+                    <span style="color:#66d9ef">break</span>;
+                }
+            }
+            <span style="color:#75715e">// 选取最高
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">let</span> high <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> heap.peek() {
+                Some(<span style="color:#f92672">&amp;</span>(h, _)) <span style="color:#f92672">=&gt;</span> h,
+                None <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+            };
+            <span style="color:#75715e">// 相同高度只会加入一个
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> res.is_empty() <span style="color:#f92672">||</span> res.last().unwrap()[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> high {
+                res.push(vec![edge, high]);
+            }
+        }
+        <span style="color:#66d9ef">return</span> res;
+    }
+}
+</code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>存在重复元素II</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/"><span>存在重复元素</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.e02624bc38670c46ea2d95b7a5526a080a0d890af856155bbae501d0e248f2a49b4c1cfe5c3a7902d1edc9dff4333eec594df8a39d9510cdee06ce12f2dd9009.js" integrity="sha512-4CYkvDhnDEbqLZW3pVJqCAoNiQr4VhVbuuUB0OJI8qSbTBz&#43;XDp5AtHtyd/0Mz7sWU34o52VEM3uBs4S8t2QCQ==" crossorigin="anonymous" defer></script></html>
