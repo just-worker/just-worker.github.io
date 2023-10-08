@@ -6,7 +6,187 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 07 Oct 2023 23:09:44 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Oct 2023 23:01:41 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>矩形面积</title>
+      <link>https://just-worker.github.io/blog/%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</link>
+      <pubDate>Sun, 08 Oct 2023 23:01:41 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</guid>
+      <description>&lt;h2 id=&#34;矩形面积httpsleetcodecnproblemsrectangle-area&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/rectangle-area/&#34;&gt;矩形面积&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你 二维 平面上两个 由直线构成且边与坐标轴平行/垂直 的矩形，请你计算并返回两个矩形覆盖的总面积。&lt;/p&gt;
+&lt;p&gt;每个矩形由其 左下 顶点和 右上 顶点坐标表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一个矩形由其左下顶点 (ax1, ay1) 和右上顶点 (ax2, ay2) 定义。&lt;/li&gt;
+&lt;li&gt;第二个矩形由其左下顶点 (bx1, by1) 和右上顶点 (bx2, by2) 定义。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/05/08/rectangle-plane.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：ax1 = -3, ay1 = 0, ax2 = 3, ay2 = 4, bx1 = 0, by1 = -1, bx2 = 9, by2 = 2&lt;/li&gt;
+&lt;li&gt;输出：45&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;减去相交的面积即可，问题来了，怎么计算相交面积。&lt;/p&gt;
+&lt;p&gt;其实很简单，要么不相交，要么相交的矩形的点一定是原来的坐标之一，而且位于边界之中。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;compute_area&lt;/span&gt;(ax1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, ay1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, ax2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, ay2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, bx1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, by1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, bx2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, by2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; area &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (ax2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ax1) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (ay2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ay1) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; (bx2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; bx1) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (by2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; by1);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ax2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; bx1 &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; bx2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; ax1 &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; ay2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; by1 &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; by2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; ay1 {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; area;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![ax1, ax2, bx1, bx2];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![ay1, ay2, by1, by2];
+        x.sort_unstable();
+        y.sort_unstable();
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; area &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (x[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; x[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (y[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; y[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>完全二叉树的节点个数</title>
+      <link>https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</link>
+      <pubDate>Sun, 08 Oct 2023 22:56:45 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;完全二叉树的节点个数httpsleetcodecnproblemscount-complete-tree-nodes&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/count-complete-tree-nodes/&#34;&gt;完全二叉树的节点个数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一棵 完全二叉树 的根节点 root ，求出该树的节点个数。&lt;/p&gt;
+&lt;p&gt;完全二叉树 的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含 1~ 2h 个节点。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/01/14/complete.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：root = [1,2,3,4,5,6]&lt;/li&gt;
+&lt;li&gt;输出：6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;不搞骚操作&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;count_nodes&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(node) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; root {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::count_nodes(node.borrow().left.clone()) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::count_nodes(node.borrow().right.clone());
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>最大正方形</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/</link>
+      <pubDate>Sun, 08 Oct 2023 22:45:09 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/</guid>
+      <description>&lt;h2 id=&#34;最大正方形httpsleetcodecnproblemsmaximal-square&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximal-square/&#34;&gt;最大正方形&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;在一个由 &amp;lsquo;0&amp;rsquo; 和 &amp;lsquo;1&amp;rsquo; 组成的二维矩阵内，找到只包含 &amp;lsquo;1&amp;rsquo; 的最大正方形，并返回其面积。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/11/26/max1grid.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：matrix = [[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;],[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;],[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;1&amp;rdquo;],[&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;0&amp;rdquo;,&amp;ldquo;1&amp;rdquo;,&amp;ldquo;0&amp;rdquo;]]&lt;/li&gt;
+&lt;li&gt;输出：4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;左上角到右下角，&lt;code&gt;dp&lt;/code&gt;即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;maximal_square&lt;/span&gt;(matrix: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; matrix.len() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].iter().map(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (c &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;u8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;0&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;).max().unwrap();
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (row, column) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (matrix.len(), matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; column]; row];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; side &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; r &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;row {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;column {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; matrix[r][c] {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;;
+                }
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; r &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                    dp[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                    dp[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; dp[r&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][c&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;].min(dp[r&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][c].min(dp[r][c&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]));
+                }
+                side &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; side.max(dp[r][c]);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; side &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; side;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>存在重复元素III</title>
+      <link>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0iii/</link>
+      <pubDate>Sun, 08 Oct 2023 22:28:02 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0iii/</guid>
+      <description>&lt;h2 id=&#34;存在重复元素-iiihttpsleetcodecnproblemscontains-duplicate-iii&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/contains-duplicate-iii/&#34;&gt;存在重复元素 III&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 nums 和两个整数 indexDiff 和 valueDiff 。&lt;/p&gt;
+&lt;p&gt;找出满足下述条件的下标对 (i, j)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;i != j,&lt;/li&gt;
+&lt;li&gt;abs(i - j) &amp;lt;= indexDiff&lt;/li&gt;
+&lt;li&gt;abs(nums[i] - nums[j]) &amp;lt;= valueDiff&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果存在，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;滑动窗口的提示很明显，其中区间的话可以用桶算法。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contains_nearby_almost_duplicate&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, index_diff: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, value_diff: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; index_diff &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; generate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;v: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;{
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (value_diff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (v &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; (value_diff &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        };
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; index_diff &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nums.len().min(index_diff &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; bucket &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::collections::HashMap::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (idx, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;value) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; nums.iter().enumerate() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generate(value);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; bucket.contains_key(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;id) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;another) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bucket.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(id &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (another &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; value).abs() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; value_diff {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;another) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bucket.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(id &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)) {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (another &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; value) .abs() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; value_diff {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                }
+            }
+            bucket.insert(id, value);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; index_diff {
+                bucket.remove(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;generate(nums[idx &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; index_diff]));
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>存在重复元素II</title>
       <link>https://just-worker.github.io/blog/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0ii/</link>
