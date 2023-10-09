@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leetcode</title>
+    <title>翻转二叉树</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@翻转二叉树 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。 输入：root = [4,2,7,1,3,6,9] 输出：[4,7,2,9,6,3,1] 题目解析 递归 use std::rc::Rc; use">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/leetcode/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="leetcode" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/leetcode/" />
+    <meta property="og:title" content="翻转二叉树" />
+<meta property="og:description" content="翻转二叉树 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。 输入：root = [4,2,7,1,3,6,9] 输出：[4,7,2,9,6,3,1] 题目解析 递归 use std::rc::Rc; use" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-10-09T23:21:51+08:00" />
+<meta property="article:modified_time" content="2023-10-09T23:21:51+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="leetcode"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="翻转二叉树"/>
+<meta name="twitter:description" content="翻转二叉树 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。 输入：root = [4,2,7,1,3,6,9] 输出：[4,7,2,9,6,3,1] 题目解析 递归 use std::rc::Rc; use"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "翻转二叉树",
+      "item": "https://just-worker.github.io/blog/%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "翻转二叉树",
+  "name": "翻转二叉树",
+  "description": "翻转二叉树 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。 输入：root = [4,2,7,1,3,6,9] 输出：[4,7,2,9,6,3,1] 题目解析 递归 use std::rc::Rc; use",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "翻转二叉树 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。\n  输入：root = [4,2,7,1,3,6,9] 输出：[4,7,2,9,6,3,1]   题目解析 递归\nuse std::rc::Rc; use std::cell::RefCell; impl Solution { pub fn invert_tree(root: OptionRcRefCellTreeNode) - OptionRcRefCellTreeNode { if let Some(node) = root { let left = Self::invert_tree(node.borrow_mut().left.take()); let right = Self::invert_tree(node.borrow_mut().right.take()); node.borrow_mut().left = right; node.borrow_mut().right = left; return Some(node); } None } } ",
+  "wordCount" : "107",
+  "inLanguage": "zh",
+  "datePublished": "2023-10-09T23:21:51+08:00",
+  "dateModified": "2023-10-09T23:21:51+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">编辑距离</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>翻转二叉树</h1>
+  </header>
+
+  <p>
   <small>
-    2023年7月9日&nbsp;· 340 字&nbsp;· 1 分钟</small>
+    2023年10月9日&nbsp;· 107 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -123,229 +177,62 @@
     </small>
   
 <p>
-          编辑距离 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84/">简化路径</a></h3>
-          <p>
-  <small>
-    2023年7月9日&nbsp;· 453 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          简化路径 给你一个字符串 path ，表示指向某一文件或目录的 Unix 风格 绝对路径 （以 &lsquo;/&rsquo; 开头），请你将其转化为更加简洁的规范路径。 在 Unix 风格的文件系统中，一个点
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%88%AC%E6%A5%BC%E6%A2%AF/">爬楼梯</a></h3>
-          <p>
-  <small>
-    2023年7月9日&nbsp;· 206 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="翻转二叉树httpsleetcodecnproblemsinvert-binary-tree"><a href="https://leetcode.cn/problems/invert-binary-tree/">翻转二叉树</a></h2>
+<p>给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/03/14/invert1-tree.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：root = [4,2,7,1,3,6,9]</li>
+<li>输出：[4,7,2,9,6,3,1]</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>递归</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#66d9ef">use</span> std::rc::Rc;
+<span style="color:#66d9ef">use</span> std::cell::RefCell;
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">invert_tree</span>(root: Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Rc<span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">&gt;&gt;&gt;</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Some(node) <span style="color:#f92672">=</span> root {
+            <span style="color:#66d9ef">let</span> left <span style="color:#f92672">=</span> Self::invert_tree(node.borrow_mut().left.take());
+            <span style="color:#66d9ef">let</span> right <span style="color:#f92672">=</span> Self::invert_tree(node.borrow_mut().right.take());
+            node.borrow_mut().left <span style="color:#f92672">=</span> right;
+            node.borrow_mut().right <span style="color:#f92672">=</span> left;
+            <span style="color:#66d9ef">return</span> Some(node);
+        }
+        None
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          爬楼梯 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 输入：n = 2 输出：2 解释：有两
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9/">X的平方根</a></h3>
-          <p>
-  <small>
-    2023年7月9日&nbsp;· 201 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          x的平方根 给你一个非负整数 x ，计算并返回 x 的 算术平方根 。 由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。 注意：不允许使用任何内置指
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%96%87%E6%9C%AC%E5%B7%A6%E5%8F%B3%E5%AF%B9%E9%BD%90/">文本左右对齐</a></h3>
-          <p>
-  <small>
-    2023年7月9日&nbsp;· 439 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          文本左右对齐 给定一个单词数组 words 和一个长度 maxWidth ，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。 你应该使用 “贪心算法” 来放置给定
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/">二进制求和</a></h3>
-          <p>
-  <small>
-    2023年7月7日&nbsp;· 257 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          二进制求和 给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。 输入:a = &ldquo;11&rdquo;, b = &ldquo;1&rdquo; 输出：&ldquo;100&rdquo; 题目解析 //
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8A%A0%E4%B8%80/">加一</a></h3>
-          <p>
-  <small>
-    2023年7月7日&nbsp;· 201 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          加一 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。 你可以假设除
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97/">有效数字</a></h3>
-          <p>
-  <small>
-    2023年7月7日&nbsp;· 494 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          有效数字 有效数字（按顺序）可以分成以下几个部分： 一个 小数 或者 整数 （可选）一个 &lsquo;e&rsquo; 或 &lsquo;E&rsquo; ，后面跟着一个 整数 小数（按顺序）可以分成以下几个部分： （可
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/">最小路径和</a></h3>
-          <p>
-  <small>
-    2023年7月7日&nbsp;· 209 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          最小路径和 给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。 说明：每次只能向下或者向右移动一
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84ii/">不同路径II</a></h3>
-          <p>
-  <small>
-    2023年7月7日&nbsp;· 346 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          不同路径II 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/tags/leetcode/page/13/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/tags/leetcode/page/15/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    <a class="prev" href="https://just-worker.github.io/blog/%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8ii/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>基本计算器II</span></a>
+    
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/"><span>用队列实现栈</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
