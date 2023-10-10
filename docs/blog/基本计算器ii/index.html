@@ -55,8 +55,8 @@
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "基本计算器 II 给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。\n整数除法仅保留整数部分。\n你可以假设给定的表达式总是有效的。所有中间结果将在 [-231, 231 - 1] 的范围内。\n注意：不允许使用任何将字符串作为数学表达式计算的内置函数，比如 eval() 。\n  输入：s = “3+2*2” 输出：7    ",
-  "wordCount" : "128",
+  "articleBody": "基本计算器 II 给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。\n整数除法仅保留整数部分。\n你可以假设给定的表达式总是有效的。所有中间结果将在 [-231, 231 - 1] 的范围内。\n注意：不允许使用任何将字符串作为数学表达式计算的内置函数，比如 eval() 。\n  输入：s = “3+2*2” 输出：7   题目解析 impl Solution { pub fn calculate(s: String) - i32 { let (mut value, mut values, mut op) = (0, vec![], '+'); let chars = s.trim().chars().collect::Vecchar(); let len = chars.len(); for (idx, ch) in chars.into_iter().enumerate() { if ch == ' ' { continue; } let is_num = ch.is_digit(10); if is_num { value = value * 10 + (ch as u8 - b'0') as i32; } if is_num \u0026\u0026 idx != len - 1 { continue; } match op { '+' = { values.push(value); }, '-' = { values.push(-value); }, '*' = { *values.last_mut().unwrap() *= value; }, '/' = { *values.last_mut().unwrap() /= value; } _ = unreachable!() } value = 0; op = ch; } return values.iter().sum(); } } ",
+  "wordCount" : "249",
   "inLanguage": "zh",
   "datePublished": "2023-10-09T23:25:32+08:00",
   "dateModified": "2023-10-09T23:25:32+08:00",
@@ -163,7 +163,7 @@
 
   <p>
   <small>
-    2023年10月9日&nbsp;· 128 字&nbsp;· 1 分钟</small>
+    2023年10月9日&nbsp;· 249 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -189,12 +189,56 @@
 <li>输出：7</li>
 </ul>
 </blockquote>
-<h2 id="heading"></h2>
-</section>
+<h2 id="题目解析">题目解析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calculate</span>(s: String) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> value, <span style="color:#66d9ef">mut</span> values, <span style="color:#66d9ef">mut</span> op) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, vec![], <span style="color:#e6db74">&#39;+&#39;</span>);
+        <span style="color:#66d9ef">let</span> chars <span style="color:#f92672">=</span> s.trim().chars().collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;</span>();
+        <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> chars.len();
+        <span style="color:#66d9ef">for</span> (idx, ch) <span style="color:#66d9ef">in</span>  chars.into_iter().enumerate() {
+            <span style="color:#66d9ef">if</span> ch <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39; &#39;</span> {
+                <span style="color:#66d9ef">continue</span>;
+            }
+            <span style="color:#66d9ef">let</span> is_num <span style="color:#f92672">=</span> ch.is_digit(<span style="color:#ae81ff">10</span>);
+            <span style="color:#66d9ef">if</span> is_num {
+                value <span style="color:#f92672">=</span> value <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> (ch <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">u8</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">b&#39;0&#39;</span>) <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+            } 
+            <span style="color:#66d9ef">if</span> is_num <span style="color:#f92672">&amp;&amp;</span> idx <span style="color:#f92672">!=</span> len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> {
+                <span style="color:#66d9ef">continue</span>;
+            }
+            <span style="color:#66d9ef">match</span> op {
+                <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">=&gt;</span> {
+                    values.push(value);
+                },
+                <span style="color:#e6db74">&#39;-&#39;</span> <span style="color:#f92672">=&gt;</span> {
+                    values.push(<span style="color:#f92672">-</span>value);
+                },
+                <span style="color:#e6db74">&#39;*&#39;</span> <span style="color:#f92672">=&gt;</span> {
+                    <span style="color:#f92672">*</span>values.last_mut().unwrap() <span style="color:#f92672">*=</span> value;
+                },
+                <span style="color:#e6db74">&#39;/&#39;</span> <span style="color:#f92672">=&gt;</span> {
+                    <span style="color:#f92672">*</span>values.last_mut().unwrap() <span style="color:#f92672">/=</span> value;
+                }
+                _ <span style="color:#f92672">=&gt;</span> unreachable!()
+            }
+            value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            op <span style="color:#f92672">=</span> ch;
+        }
+        <span style="color:#66d9ef">return</span> values.iter().sum();
+    }
+}
+</code></pre></div></section>
 
   
   
   <div class="paginator">
+    
+    <a class="prev" href="https://just-worker.github.io/blog/%E6%B1%87%E6%80%BB%E5%8C%BA%E9%97%B4/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>汇总区间</span></a>
     
     
     <a class="next" href="https://just-worker.github.io/blog/%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91/"><span>翻转二叉树</span>

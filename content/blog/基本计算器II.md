@@ -19,6 +19,47 @@ tags: ["leetcode", "算法"]
 >- 输入：s = "3+2*2"
 >- 输出：7
 
-## 
+## 题目解析
+
+```rust
+
+impl Solution {
+    pub fn calculate(s: String) -> i32 {
+        let (mut value, mut values, mut op) = (0, vec![], '+');
+        let chars = s.trim().chars().collect::<Vec<char>>();
+        let len = chars.len();
+        for (idx, ch) in  chars.into_iter().enumerate() {
+            if ch == ' ' {
+                continue;
+            }
+            let is_num = ch.is_digit(10);
+            if is_num {
+                value = value * 10 + (ch as u8 - b'0') as i32;
+            } 
+            if is_num && idx != len - 1 {
+                continue;
+            }
+            match op {
+                '+' => {
+                    values.push(value);
+                },
+                '-' => {
+                    values.push(-value);
+                },
+                '*' => {
+                    *values.last_mut().unwrap() *= value;
+                },
+                '/' => {
+                    *values.last_mut().unwrap() /= value;
+                }
+                _ => unreachable!()
+            }
+            value = 0;
+            op = ch;
+        }
+        return values.iter().sum();
+    }
+}
+```
 
 
