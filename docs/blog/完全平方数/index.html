@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leetcode</title>
+    <title>完全平方数</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@完全平方数 给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/leetcode/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="leetcode" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/leetcode/" />
+    <meta property="og:title" content="完全平方数" />
+<meta property="og:description" content="完全平方数 给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-10-15T22:29:44+08:00" />
+<meta property="article:modified_time" content="2023-10-15T22:29:44+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="leetcode"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="完全平方数"/>
+<meta name="twitter:description" content="完全平方数 给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "完全平方数",
+      "item": "https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "完全平方数",
+  "name": "完全平方数",
+  "description": "完全平方数 给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "完全平方数 给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。\n完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。\n  输入：n = 12 输出：3 解释：12 = 4 + 4 + 4   题目解析 逐个生成\nimpl Solution { pub fn num_squares(n: i32) - i32 { if n == 1 { return 1; } let n = n as usize; let mut dp = vec![0; n + 1]; dp[1] = 1; for target in 2..=n { let mut res = u32::MAX; for seed in 1..=target/2 { match seed * seed { v if v  target = res = res.min(dp[target - v]), _ = {} } } dp[target] = res + 1; } return dp[n] as i32; } } ",
+  "wordCount" : "209",
+  "inLanguage": "zh",
+  "datePublished": "2023-10-15T22:29:44+08:00",
+  "dateModified": "2023-10-15T22:29:44+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/">单词接龙</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>完全平方数</h1>
+  </header>
+
+  <p>
   <small>
-    2023年7月31日&nbsp;· 402 字&nbsp;· 1 分钟</small>
+    2023年10月15日&nbsp;· 209 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -123,229 +177,64 @@
     </small>
   
 <p>
-          单词接龙 字典 wordList 中从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列 beginWord -&gt; s1 -&gt; s2 -&gt; &hellip; -&gt; sk： 每一对相邻的单词只差一个字母。 对于 1 &lt;= i &lt;= k 时，每个 si
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99ii/">单词接龙II</a></h3>
-          <p>
-  <small>
-    2023年7月28日&nbsp;· 1185 字&nbsp;· 3 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          单词接龙 II 按字典 wordList 完成从单词 beginWord 到单词 endWord 转化，一个表示此过程的 转换序列 是形式上像 beginWord -&gt; s1 -&gt; s2 -&gt; &hellip; -&gt; sk 这样的单词序列，并满足： 每对相邻的单词之间仅
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/">验证回文串</a></h3>
-          <p>
-  <small>
-    2023年7月27日&nbsp;· 278 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="完全平方数httpsleetcodecnproblemsperfect-squares"><a href="https://leetcode.cn/problems/perfect-squares/">完全平方数</a></h2>
+<p>给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。</p>
+<p>完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。</p>
+<blockquote>
+<ul>
+<li>输入：n = 12</li>
+<li>输出：3</li>
+<li>解释：12 = 4 + 4 + 4</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>逐个生成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">num_squares</span>(n: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>;
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> dp <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>; n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+        dp[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">for</span> target <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">..=</span>n {
+            <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">u32</span>::MAX;
+            <span style="color:#66d9ef">for</span> seed <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">..=</span>target<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> {
+                <span style="color:#66d9ef">match</span> seed <span style="color:#f92672">*</span> seed {
+                    v <span style="color:#66d9ef">if</span> v <span style="color:#f92672">&lt;=</span> target <span style="color:#f92672">=&gt;</span> res <span style="color:#f92672">=</span> res.min(dp[target <span style="color:#f92672">-</span> v]),
+                    _ <span style="color:#f92672">=&gt;</span> {}
+                }
+            }
+            dp[target] <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> dp[n] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>;
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          验证回文串 如果在将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 回文串 。 字母和数
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">二叉树中的最大路径和</a></h3>
-          <p>
-  <small>
-    2023年7月27日&nbsp;· 502 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          二叉树中的最大路径和 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAiii/">买卖股票的最佳时机III</a></h3>
-          <p>
-  <small>
-    2023年7月26日&nbsp;· 448 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          买卖股票的最佳时机 III 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAii/">买卖股票的最佳时机II</a></h3>
-          <p>
-  <small>
-    2023年7月26日&nbsp;· 352 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          买卖股票的最佳时机 II 给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。 在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/">买卖股票的最佳时机</a></h3>
-          <p>
-  <small>
-    2023年7月26日&nbsp;· 206 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          买卖股票的最佳时机 给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E4%B8%89%E8%A7%92%E5%BD%A2%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/">三角形最小路径和</a></h3>
-          <p>
-  <small>
-    2023年7月25日&nbsp;· 260 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          三角形最小路径和 给定一个三角形 triangle ，找出自顶向下的最小路径和。 每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92ii/">杨辉三角II</a></h3>
-          <p>
-  <small>
-    2023年7月25日&nbsp;· 200 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          杨辉三角 II 给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。 在「杨辉三角」中，每个数是它左上方和右上方的数的和。 输入: rowIndex = 3 输出:
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/">杨辉三角</a></h3>
-          <p>
-  <small>
-    2023年7月25日&nbsp;· 144 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          杨辉三角 给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。 在「杨辉三角」中，每个数是它左上方和右上方的数的和。 输入: numRows = 5 输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]] 题
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/tags/leetcode/page/10/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/tags/leetcode/page/12/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC/"><span>第一个错误的版本</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
