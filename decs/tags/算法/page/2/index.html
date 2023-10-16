@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算法</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@">
+    <meta name="author" content="just-worker">
+    <link rel="canonical" href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">
+
+    <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
+
+    
+
+
+    <meta property="og:title" content="算法" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法"/>
+<meta name="twitter:description" content=""/>
+
+    <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.jpeg">
+
+<link rel="manifest" href="/images/avatar.jpeg">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.67948f7c66a9fbc41a44bdf373913a59c1ee97594879c9b41f62c08440af5291.css" integrity="sha256-Z5SPfGap&#43;8QaRL3zc5E6WcHul1lIecm0H2LAhECvUpE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.f6a23da83df7f66cbfe262036561fe5a3f8d59f21314b55aae8c09ea70eb5212.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var b=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,a=localStorage.getItem("theme");b&&a===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),b&&a==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),a==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            我的主页
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">全部文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类管理</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史记录</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<div class="blog-wrapper">
+  <div>
+    <div class="blog-list">
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E4%B8%91%E6%95%B0/">丑数</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 125 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          丑数 丑数 就是只包含质因数 2、3 和 5 的正整数。 给你一个整数 n ，请你判断 n 是否为 丑数 。如果是，返回 true ；否则，返回 false 。 输入：n = 6 输出：true 解
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97iii/">只出现一次的数字III</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 317 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          只出现一次的数字 III 给你一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E5%90%84%E4%BD%8D%E7%9B%B8%E5%8A%A0/">各位相加</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 144 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          各位相加 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。 输入: num = 38 输出: 2 解释: 各位相加的过程为： 38 &ndash;&gt; 3
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84/">二叉树的所有路径</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 208 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          二叉树的所有路径 给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。 叶子节点 是指没有子节点的节点。 输入：root = [1,2,3,null,5] 输出
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D/">有效的字母异位词</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 154 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          有效的字母异位词 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E4%B8%BA%E8%BF%90%E7%AE%97%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%85%88%E7%BA%A7/">为运算表达式设计优先级</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 289 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leeetcode/">leeetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          为运算表达式设计优先级 给你一个由数字和运算符组成的字符串 expression ，按不同优先级组合数字和运算符，计算并返回所有可能组合的结果。你可以 按任意顺序 返回
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5ii/">搜索二维矩阵II</a></h3>
+          <p>
+  <small>
+    2023年10月13日&nbsp;· 440 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          搜索二维矩阵 II 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性： 每行的元素从左到右升序排列。 每列的元素从上到下升序排
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC/">滑动窗口最大值</a></h3>
+          <p>
+  <small>
+    2023年10月11日&nbsp;· 307 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          滑动窗口最大值 给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF/">除自身以外数组的乘积</a></h3>
+          <p>
+  <small>
+    2023年10月11日&nbsp;· 211 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          除自身以外数组的乘积 给你一个整数数组 nums，返回 数组 answer ，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积 。 题目数据 保证 数组 nums之中任意元素的全部
+        </div>
+      </article>
+      
+      <article>
+        <div class="blog-card">
+          <h3><a href="/blog/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/">删除链表中的节点</a></h3>
+          <p>
+  <small>
+    2023年10月11日&nbsp;· 336 字&nbsp;· 1 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
+      
+      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+      
+    </small>
+  
+<p>
+          删除链表中的节点 有一个单链表的 head，我们想删除它其中的一个节点 node。 给你一个需要删除的节点 node 。你将 无法访问 第一个节点 head。 链表的
+        </div>
+      </article>
+      </div>
+    
+    <div class="paginator">
+      
+      <a class="prev" href="/tags/%E7%AE%97%E6%B3%95/">&larr;&nbsp;&nbsp;Pre Page</a>
+      
+      
+      <a class="next" href="/tags/%E7%AE%97%E6%B3%95/page/3/">Next Page&nbsp;&nbsp;&rarr;</a>
+      
+    </div>
+    
+  </div>
+</div>
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.e02624bc38670c46ea2d95b7a5526a080a0d890af856155bbae501d0e248f2a49b4c1cfe5c3a7902d1edc9dff4333eec594df8a39d9510cdee06ce12f2dd9009.js" integrity="sha512-4CYkvDhnDEbqLZW3pVJqCAoNiQr4VhVbuuUB0OJI8qSbTBz&#43;XDp5AtHtyd/0Mz7sWU34o52VEM3uBs4S8t2QCQ==" crossorigin="anonymous" defer></script></html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflector</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@基础介绍 refletor的简单介绍可以参看WIKI。 这里部分进行摘录 Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的">
+    <meta name="author" content="just-worker">
+    <link rel="canonical" href="https://just-worker.github.io/reflector/">
+
+    <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
+
+    
+
+
+    <meta property="og:title" content="Reflector" />
+<meta property="og:description" content="基础介绍 refletor的简单介绍可以参看WIKI。 这里部分进行摘录 Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/reflector/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2023-08-12T20:08:57+08:00" />
+<meta property="article:modified_time" content="2023-08-12T20:08:57+08:00" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reflector"/>
+<meta name="twitter:description" content="基础介绍 refletor的简单介绍可以参看WIKI。 这里部分进行摘录 Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Reflector",
+      "item": "https://just-worker.github.io/reflector/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Reflector",
+  "name": "Reflector",
+  "description": "基础介绍 refletor的简单介绍可以参看WIKI。 这里部分进行摘录 Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的",
+  "keywords": [
+    "archlinux", "reflector"
+  ],
+  "articleBody": "基础介绍 refletor的简单介绍可以参看WIKI。\n这里部分进行摘录\n Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的镜像并按速度排序，最后将结果写入到 /etc/pacman.d/mirrorlist 文件。\n arch自带的mirrorlist并非一定适用，自定义筛选才能更适合自己。\n官方介绍 官方文档很简洁，但是也足够用了。\n研究一下具体参数\n$ reflector --help usage: reflector [-h] [--connection-timeout n] [--download-timeout n] [--list-countries] [--cache-timeout n] [--url URL] [--save ] [--sort {age,rate,country,score,delay}] [--threads n] [--verbose] [--info] [-a n] [--delay n] [-c ] [-f n] [-i ] [-x ] [-l n] [--score n] [-n n] [-p ] [--completion-percent [0-100]] [--isos] [--ipv4] [--ipv6] retrieve and filter a list of the latest Arch Linux mirrors options: -h, --help show this help message and exit --connection-timeout n The number of seconds to wait before a connection times out. Default: 5 --download-timeout n The number of seconds to wait before a download times out. Default: 5 --list-countries Display a table of the distribution of servers by country. --cache-timeout n The cache timeout in seconds for the data retrieved from the Arch Linux Mirror Status API. The default is 300. --url URL The URL from which to retrieve the mirror data in JSON format. If different from the default, it must follow the same format. Default: https://archlinux.org/mirrors/status/json/ --save  Save the mirrorlist to the given path. --sort {age,rate,country,score,delay} Sort the mirrorlist. \"age\": last server synchronization; \"rate\": download rate; \"country\": country name, either alphabetically or in the order given by the --country option; \"score\": MirrorStatus score; \"delay\": MirrorStatus delay. --threads n Use n threads for rating mirrors. This option will speed up the rating step but the results will be inaccurate if the local bandwidth is saturated at any point during the operation. If rating takes too long without this option then you should probably apply more filters to reduce the number of rated servers before using this option. --verbose Print extra information to STDERR. Only works with some options. --info Print mirror information instead of a mirror list. Filter options apply. filters: The following filters are inclusive, i.e. the returned list will only contain mirrors for which all of the given conditions are met. -a n, --age n Only return mirrors that have synchronized in the last n hours. n may be an integer or a decimal number. --delay n Only return mirrors with a reported sync delay of n hours or less, where n is a float. For example. to limit the results to mirrors with a reported delay of 15 minutes or less, pass 0.25. -c , --country Restrict mirrors to selected countries. Countries may be given by name or country code, or a mix of both. The case is ignored. Multiple countries may be selected using commas (e.g. --country France,Germany) or by passing this option multiple times (e.g. -c fr -c de). Use \"--list-countries\" to display a table of available countries along with their country codes. When sorting by country, this option may also be used to sort by a preferred order instead of alphabetically. For example, to select mirrors from Sweden, Norway, Denmark and Finland, in that order, use the options \"--country se,no,dk,fi --sort country\". To set a preferred country sort order without filtering any countries. this option also recognizes the glob pattern \"*\", which will match any country. For example, to ensure that any mirrors from Sweden are at the top of the list and any mirrors from Denmark are at the bottom, with any other countries in between, use \"--country 'se,*,dk' --sort country\". It is however important to note that when \"*\" is given along with other filter criteria, there is no guarantee that certain countries will be included in the results. For example, with the options \"--country 'se,*,dk' --sort country --latest 10\", the latest 10 mirrors may all be from the United States. When the glob pattern is present, it only ensures that if certain countries are included in the results, they will be sorted in the requested order. -f n, --fastest n Return the n fastest mirrors that meet the other criteria. Do not use this option without other filtering options. -i , --include  Include servers that match , where  is a Python regular express. -x , --exclude  Exclude servers that match , where  is a Python regular express. -l n, --latest n Limit the list to the n most recently synchronized servers. --score n Limit the list to the n servers with the highest score. -n n, --number n Return at most n mirrors. -p , --protocol  Match one of the given protocols, e.g. \"https\" or \"ftp\". Multiple protocols may be selected using commas (e.g. \"https,http\") or by passing this option multiple times. --completion-percent [0-100] Set the minimum completion percent for the returned mirrors. Check the mirrorstatus webpage for the meaning of this parameter. Default value: 100.0. --isos Only return mirrors that host ISOs. --ipv4 Only return mirrors that support IPv4. --ipv6 Only return mirrors that support IPv6. 这里专门记录几个可能会常用的几个参数\n   param description     --save 指定保存路径   --sort 排序，我们可以指定最新、最快   --threads 多线程，加快更新   -a --age 最近更新，n标识几小时内更新   -c --country 指定城市   -f n, --fastest n 指定最快的镜像   -p , --protocol  指定协议    常用参数  最新的5个，按照速度排序  reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist  最新200个，指定协议，按照速度排序  reflector --latest 200 --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist  指定城市，最新12小时更新，执行协议，按照速度排序  reflector --country France,Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist  中国，最新12小时内更新，支持https，保留10个  reflector --country China --latest 10 --sort --age 12 rate --protocol https --save /etc/pacman.d/mirrorlist ",
+  "wordCount" : "1156",
+  "inLanguage": "zh",
+  "datePublished": "2023-08-12T20:08:57+08:00",
+  "dateModified": "2023-08-12T20:08:57+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/reflector/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.jpeg">
+
+<link rel="manifest" href="/images/avatar.jpeg">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.67948f7c66a9fbc41a44bdf373913a59c1ee97594879c9b41f62c08440af5291.css" integrity="sha256-Z5SPfGap&#43;8QaRL3zc5E6WcHul1lIecm0H2LAhECvUpE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.f6a23da83df7f66cbfe262036561fe5a3f8d59f21314b55aae8c09ea70eb5212.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var b=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,a=localStorage.getItem("theme");b&&a===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),b&&a==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),a==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            我的主页
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">全部文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类管理</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史记录</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>Reflector</h1>
+  </header>
+
+  <p>
+  <small>
+    2023年8月12日&nbsp;· 1156 字&nbsp;· 3 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="https://just-worker.github.io/tags/archlinux/">archlinux</a>
+      
+      <a href="https://just-worker.github.io/tags/reflector/">reflector</a>
+      
+    </small>
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础介绍">基础介绍</a></li>
+    <li><a href="#官方介绍">官方介绍</a></li>
+    <li><a href="#常用参数">常用参数</a></li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><h2 id="基础介绍">基础介绍</h2>
+<p><code>refletor</code>的简单介绍可以参看<a href="https://wiki.archlinuxcn.org/wiki/Reflector?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DReflector_%28%25E7%25AE%2580%25E4%25BD%2593%25E4%25B8%25AD%25E6%2596%2587%29%26redirect%3Dno">WIKI</a>。</p>
+<p>这里部分进行摘录</p>
+<blockquote>
+<p>Reflector 是一个 Python 脚本；它可以从 Arch Linux Mirror Status 页面获取最新的镜像列表，然后筛选出最新的镜像并按速度排序，最后将结果写入到 /etc/pacman.d/mirrorlist 文件。</p>
+</blockquote>
+<p><code>arch</code>自带的<code>mirrorlist</code>并非一定适用，自定义筛选才能更适合自己。</p>
+<h2 id="官方介绍">官方介绍</h2>
+<p><a href="https://xyne.dev/projects/reflector/">官方文档</a>很简洁，但是也足够用了。</p>
+<p>研究一下具体参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">$ reflector --help
+
+usage: reflector [-h] [--connection-timeout n] [--download-timeout n]
+                 [--list-countries] [--cache-timeout n] [--url URL]
+                 [--save &lt;filepath&gt;] [--sort {age,rate,country,score,delay}]
+                 [--threads n] [--verbose] [--info] [-a n] [--delay n]
+                 [-c &lt;country name or code&gt;] [-f n] [-i &lt;regex&gt;] [-x &lt;regex&gt;]
+                 [-l n] [--score n] [-n n] [-p &lt;protocol&gt;]
+                 [--completion-percent [0-100]] [--isos] [--ipv4] [--ipv6]
+
+retrieve and filter a list of the latest Arch Linux mirrors
+
+options:
+  -h, --help            show this help message and exit
+  --connection-timeout n
+                        The number of seconds to wait before a connection
+                        times out. Default: 5
+  --download-timeout n  The number of seconds to wait before a download times
+                        out. Default: 5
+  --list-countries      Display a table of the distribution of servers by
+                        country.
+  --cache-timeout n     The cache timeout in seconds for the data retrieved
+                        from the Arch Linux Mirror Status API. The default is
+                        300.
+  --url URL             The URL from which to retrieve the mirror data in JSON
+                        format. If different from the default, it must follow
+                        the same format. Default:
+                        https://archlinux.org/mirrors/status/json/
+  --save &lt;filepath&gt;     Save the mirrorlist to the given path.
+  --sort {age,rate,country,score,delay}
+                        Sort the mirrorlist. &#34;age&#34;: last server
+                        synchronization; &#34;rate&#34;: download rate; &#34;country&#34;:
+                        country name, either alphabetically or in the order
+                        given by the --country option; &#34;score&#34;: MirrorStatus
+                        score; &#34;delay&#34;: MirrorStatus delay.
+  --threads n           Use n threads for rating mirrors. This option will
+                        speed up the rating step but the results will be
+                        inaccurate if the local bandwidth is saturated at any
+                        point during the operation. If rating takes too long
+                        without this option then you should probably apply
+                        more filters to reduce the number of rated servers
+                        before using this option.
+  --verbose             Print extra information to STDERR. Only works with
+                        some options.
+  --info                Print mirror information instead of a mirror list.
+                        Filter options apply.
+
+filters:
+  The following filters are inclusive, i.e. the returned list will only
+  contain mirrors for which all of the given conditions are met.
+
+  -a n, --age n         Only return mirrors that have synchronized in the last
+                        n hours. n may be an integer or a decimal number.
+  --delay n             Only return mirrors with a reported sync delay of n
+                        hours or less, where n is a float. For example. to
+                        limit the results to mirrors with a reported delay of
+                        15 minutes or less, pass 0.25.
+  -c &lt;country name or code&gt;, --country &lt;country name or code&gt;
+                        Restrict mirrors to selected countries. Countries may
+                        be given by name or country code, or a mix of both.
+                        The case is ignored. Multiple countries may be
+                        selected using commas (e.g. --country France,Germany)
+                        or by passing this option multiple times (e.g. -c fr
+                        -c de). Use &#34;--list-countries&#34; to display a table of
+                        available countries along with their country codes.
+                        When sorting by country, this option may also be used
+                        to sort by a preferred order instead of
+                        alphabetically. For example, to select mirrors from
+                        Sweden, Norway, Denmark and Finland, in that order,
+                        use the options &#34;--country se,no,dk,fi --sort
+                        country&#34;. To set a preferred country sort order
+                        without filtering any countries. this option also
+                        recognizes the glob pattern &#34;*&#34;, which will match any
+                        country. For example, to ensure that any mirrors from
+                        Sweden are at the top of the list and any mirrors from
+                        Denmark are at the bottom, with any other countries in
+                        between, use &#34;--country &#39;se,*,dk&#39; --sort country&#34;. It
+                        is however important to note that when &#34;*&#34; is given
+                        along with other filter criteria, there is no
+                        guarantee that certain countries will be included in
+                        the results. For example, with the options &#34;--country
+                        &#39;se,*,dk&#39; --sort country --latest 10&#34;, the latest 10
+                        mirrors may all be from the United States. When the
+                        glob pattern is present, it only ensures that if
+                        certain countries are included in the results, they
+                        will be sorted in the requested order.
+  -f n, --fastest n     Return the n fastest mirrors that meet the other
+                        criteria. Do not use this option without other
+                        filtering options.
+  -i &lt;regex&gt;, --include &lt;regex&gt;
+                        Include servers that match &lt;regex&gt;, where &lt;regex&gt; is a
+                        Python regular express.
+  -x &lt;regex&gt;, --exclude &lt;regex&gt;
+                        Exclude servers that match &lt;regex&gt;, where &lt;regex&gt; is a
+                        Python regular express.
+  -l n, --latest n      Limit the list to the n most recently synchronized
+                        servers.
+  --score n             Limit the list to the n servers with the highest
+                        score.
+  -n n, --number n      Return at most n mirrors.
+  -p &lt;protocol&gt;, --protocol &lt;protocol&gt;
+                        Match one of the given protocols, e.g. &#34;https&#34; or
+                        &#34;ftp&#34;. Multiple protocols may be selected using commas
+                        (e.g. &#34;https,http&#34;) or by passing this option multiple
+                        times.
+  --completion-percent [0-100]
+                        Set the minimum completion percent for the returned
+                        mirrors. Check the mirrorstatus webpage for the
+                        meaning of this parameter. Default value: 100.0.
+  --isos                Only return mirrors that host ISOs.
+  --ipv4                Only return mirrors that support IPv4.
+  --ipv6                Only return mirrors that support IPv6.
+</code></pre></div><p>这里专门记录几个可能会常用的几个参数</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--save</code></td>
+<td>指定保存路径</td>
+</tr>
+<tr>
+<td><code>--sort</code></td>
+<td>排序，我们可以指定最新、最快</td>
+</tr>
+<tr>
+<td><code>--threads</code></td>
+<td>多线程，加快更新</td>
+</tr>
+<tr>
+<td><code>-a --age</code></td>
+<td>最近更新，<code>n</code>标识几小时内更新</td>
+</tr>
+<tr>
+<td><code>-c --country</code></td>
+<td>指定城市</td>
+</tr>
+<tr>
+<td><code>-f n, --fastest n</code></td>
+<td>指定最快的镜像</td>
+</tr>
+<tr>
+<td><code>-p &lt;protocol&gt;, --protocol &lt;protocol&gt;</code></td>
+<td>指定协议</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用参数">常用参数</h2>
+<ul>
+<li>最新的5个，按照速度排序</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">reflector --latest <span style="color:#ae81ff">5</span> --sort rate --save /etc/pacman.d/mirrorlist
+</code></pre></div><ul>
+<li>最新200个，指定协议，按照速度排序</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">reflector --latest <span style="color:#ae81ff">200</span> --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
+</code></pre></div><ul>
+<li>指定城市，最新12小时更新，执行协议，按照速度排序</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">reflector --country France,Germany --age <span style="color:#ae81ff">12</span> --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+</code></pre></div><ul>
+<li>中国，最新12小时内更新，支持<code>https</code>，保留10个</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">reflector --country China --latest <span style="color:#ae81ff">10</span> --sort --age <span style="color:#ae81ff">12</span> rate --protocol https --save /etc/pacman.d/mirrorlist
+</code></pre></div></section>
+
+  
+  
+
+  
+
+
+</article>
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.e02624bc38670c46ea2d95b7a5526a080a0d890af856155bbae501d0e248f2a49b4c1cfe5c3a7902d1edc9dff4333eec594df8a39d9510cdee06ce12f2dd9009.js" integrity="sha512-4CYkvDhnDEbqLZW3pVJqCAoNiQr4VhVbuuUB0OJI8qSbTBz&#43;XDp5AtHtyd/0Mz7sWU34o52VEM3uBs4S8t2QCQ==" crossorigin="anonymous" defer></script></html>
