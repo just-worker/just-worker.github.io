@@ -6,7 +6,218 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 17 Oct 2023 22:52:00 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Oct 2023 23:06:39 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>猜数字游戏</title>
+      <link>https://just-worker.github.io/blog/%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Thu, 19 Oct 2023 23:06:39 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</guid>
+      <description>&lt;h2 id=&#34;猜数字游戏httpsleetcodecnproblemsbulls-and-cows&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/bulls-and-cows/&#34;&gt;猜数字游戏&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;你在和朋友一起玩 猜数字（Bulls and Cows）游戏，该游戏规则如下：&lt;/p&gt;
+&lt;p&gt;写出一个秘密数字，并请朋友猜这个数字是多少。朋友每猜测一次，你就会给他一个包含下述信息的提示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;猜测数字中有多少位属于数字和确切位置都猜对了（称为 &amp;ldquo;Bulls&amp;rdquo;，公牛），&lt;/li&gt;
+&lt;li&gt;有多少位属于数字猜对了但是位置不对（称为 &amp;ldquo;Cows&amp;rdquo;，奶牛）。也就是说，这次猜测中有多少位非公牛数字可以通过重新排列转换成公牛数字。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;给你一个秘密数字 secret 和朋友猜测的数字 guess ，请你返回对朋友这次猜测的提示。&lt;/p&gt;
+&lt;p&gt;提示的格式为 &amp;ldquo;xAyB&amp;rdquo; ，x 是公牛个数， y 是奶牛个数，A 表示公牛，B 表示奶牛。&lt;/p&gt;
+&lt;p&gt;请注意秘密数字和朋友猜测的数字都可能含有重复数字。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;相同的计A，不参与计B。
+B其实就是两字符中除A外相同数字的最小值(猜对数要数量匹配)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_hint&lt;/span&gt;(secret: String, guess: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; secret &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; guess {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}A0B&amp;#34;&lt;/span&gt;, secret.len());
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sc, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; gc) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ([&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;], [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;]);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (s, g) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; secret.bytes().zip(guess.bytes()) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; g {
+                a &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                sc[(s &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;0&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+                gc[(g &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;0&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sc.into_iter().zip(gc.into_iter()).fold(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;c, (s, g)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; s.min(g));
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{}A{}B&amp;#34;&lt;/span&gt;, a, b);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉树的序列化与反序列化</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Thu, 19 Oct 2023 22:55:40 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;二叉树的序列化与反序列化httpsleetcodecnproblemsserialize-and-deserialize-binary-tree&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/&#34;&gt;二叉树的序列化与反序列化&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。&lt;/p&gt;
+&lt;p&gt;请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;这里的难点在于：如何界定节点的边界。&lt;/p&gt;
+&lt;p&gt;因为整个二叉树没有任何限制，可能单边无限长，无法界定边界；&lt;/p&gt;
+&lt;p&gt;因此，必须采用一种顺序检索的方式进行序列化，这里采用先序列遍历。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::rc::Rc;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cell::RefCell;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Codec&lt;/span&gt; {
+	
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Codec {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;() -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        Self {}
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;serialize&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; String {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; String::new();
+        serialize(root, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+	
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deserialize&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, data: String) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; data.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data.split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;).rev().collect();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; deserialize(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; data);
+    }
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;serialize&lt;/span&gt;(root: Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;, collect: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; String) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(node) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; root {
+        collect.push_str(format!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{},&amp;#34;&lt;/span&gt;, node.borrow().val).as_str());
+        serialize(node.borrow_mut().left.take(), collect);
+        serialize(node.borrow_mut().right.take(), collect);
+    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+        collect.push_str(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x,&amp;#34;&lt;/span&gt;);
+    }
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deserialize&lt;/span&gt;(data: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Option&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Rc&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;RefCell&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;TreeNode&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data.pop().unwrap();
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; curr &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deserialize(data);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deserialize(data);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Some(Rc::new(RefCell::new(TreeNode {
+        val: &lt;span style=&#34;color:#a6e22e&#34;&gt;curr&lt;/span&gt;.parse().unwrap(),
+        left, right
+    })))
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>数据流的中位数</title>
+      <link>https://just-worker.github.io/blog/%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</link>
+      <pubDate>Thu, 19 Oct 2023 22:48:05 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</guid>
+      <description>&lt;h2 id=&#34;数据流的中位数httpsleetcodecnproblemsfind-median-from-data-stream&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/find-median-from-data-stream/&#34;&gt;数据流的中位数&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;中位数是有序整数列表中的中间值。如果列表的大小是偶数，则没有中间值，中位数是两个中间值的平均值。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如 arr = [2,3,4] 的中位数是 3 。&lt;/li&gt;
+&lt;li&gt;例如 arr = [2,3] 的中位数是 (2 + 3) / 2 = 2.5 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实现 MedianFinder 类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MedianFinder() 初始化 MedianFinder 对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;void addNum(int num) 将数据流中的整数 num 添加到数据结构中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;double findMedian() 返回到目前为止所有元素的中位数。与实际答案相差 10-5 以内的答案将被接受。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;两个优先队列，一个记录一半&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::cmp::Reverse;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::BinaryHeap;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MedianFinder&lt;/span&gt; {
+    min_heap: &lt;span style=&#34;color:#a6e22e&#34;&gt;BinaryHeap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;,
+    max_heap: &lt;span style=&#34;color:#a6e22e&#34;&gt;BinaryHeap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Reverse&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; MedianFinder {
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;() -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        Self {
+            min_heap: &lt;span style=&#34;color:#a6e22e&#34;&gt;BinaryHeap&lt;/span&gt;::new(),
+            max_heap: &lt;span style=&#34;color:#a6e22e&#34;&gt;BinaryHeap&lt;/span&gt;::new()
+        }
+    }
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add_num&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; self, num: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.min_heap.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; num &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_heap.peek().unwrap() {
+            self.min_heap.push(num);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.min_heap.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; self.max_heap.len() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self.min_heap.pop().unwrap();
+                self.max_heap.push(Reverse(t));
+            }
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+            self.max_heap.push(Reverse(num));
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.max_heap.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; self.min_heap.len() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self.max_heap.pop().unwrap();
+                self.min_heap.push(t.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+            }
+        }
+    } 
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_median&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; self.min_heap.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; self.max_heap.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_heap.peek().unwrap() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;self.min_heap.peek().unwrap() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; self.max_heap.peek().unwrap().&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.0&lt;/span&gt;;
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Nim游戏</title>
+      <link>https://just-worker.github.io/blog/nim%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Thu, 19 Oct 2023 22:30:18 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/nim%E6%B8%B8%E6%88%8F/</guid>
+      <description>&lt;h2 id=&#34;nim-游戏httpsleetcodecnproblemsnim-game&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/nim-game/&#34;&gt;Nim 游戏&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;你和你的朋友，两个人一起玩 Nim 游戏：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;桌子上有一堆石头。&lt;/li&gt;
+&lt;li&gt;你们轮流进行自己的回合， 你作为先手 。&lt;/li&gt;
+&lt;li&gt;每一回合，轮到的人拿掉 1 - 3 块石头。&lt;/li&gt;
+&lt;li&gt;拿掉最后一块石头的人就是获胜者。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;假设你们每一步都是最优解。请编写一个函数，来判断你是否可以在给定石头数量为 n 的情况下赢得游戏。如果可以赢，返回 true；否则，返回 false 。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;虽然说每个人可以拿掉1~3块石头，但是隐含的要素在于，每轮至少拿掉1块，最多拿掉3块。&lt;/p&gt;
+&lt;p&gt;我们拿到最后一块的情况，最后剩下数量肯定是1,2,3其中一种。&lt;/p&gt;
+&lt;p&gt;所以根据拿掉的可能是1,2,3块，反推之前剩余数目可能是2,3,4,5,6。&lt;/p&gt;
+&lt;p&gt;因为都是理性人，绝不会放过赢的机会，所以2,3都可以排除；&lt;/p&gt;
+&lt;p&gt;并且，首先将数量推到3以内的人必然是输家，这里只能够借由规则：每次至少拿一个，来致胜。&lt;/p&gt;
+&lt;p&gt;很明显，只有将4推到对方，才能取得胜利；&lt;/p&gt;
+&lt;p&gt;因为是轮流抽取的，每次只要补齐4块，整体其实都是4块降低的，也就是说，只要不是4的倍数，就一定能赢。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time; O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;can_win_nim&lt;/span&gt;(n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>单词规律</title>
       <link>https://just-worker.github.io/blog/%E5%8D%95%E8%AF%8D%E8%A7%84%E5%BE%8B/</link>
