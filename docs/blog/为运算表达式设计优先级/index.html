@@ -53,7 +53,7 @@
   "name": "为运算表达式设计优先级",
   "description": "为运算表达式设计优先级 给你一个由数字和运算符组成的字符串 expression ，按不同优先级组合数字和运算符，计算并返回所有可能组合的结果。你可以 按任意顺序 返回",
   "keywords": [
-    "leeetcode", "算法"
+    "leetcode", "算法"
   ],
   "articleBody": "为运算表达式设计优先级 给你一个由数字和运算符组成的字符串 expression ，按不同优先级组合数字和运算符，计算并返回所有可能组合的结果。你可以 按任意顺序 返回答案。\n生成的测试用例满足其对应输出值符合 32 位整数范围，不同结果的数量不超过 104 。\n  输入：expression = “2-1-1” 输出：[0,2] 解释： ((2-1)-1) = 0 (2-(1-1)) = 2   题目解析 抛开其他迷雾，可以看到的就是每次只有一个主运算符，主运算符将算式分为两个部分，以此递归即可。\nimpl Solution { pub fn diff_ways_to_compute(expression: String) - Veci32 { return Self::calc(expression.chars().collect::Vecchar().as_ref()); } fn calc(expr: \u0026[char]) - Veci32 { let mut res = vec![]; for (idx, \u0026ch) in expr.iter().enumerate() { match ch { '+' | '-' | '*' = { let left = Self::calc(\u0026expr[0..idx]); let right = Self::calc(\u0026expr[idx+1..]); for l in left { for r in right.clone() { match ch { '+' = res.push(l + r), '-' = res.push(l - r), '*' = res.push(l * r), _ = {} } } } }, _ = {} } } if !res.is_empty() { return res; } return vec![expr.iter().collect::String().parse::i32().unwrap()]; } } ",
   "wordCount" : "289",
@@ -170,7 +170,7 @@
       ·
       
       
-      <a href="https://just-worker.github.io/tags/leeetcode/">leeetcode</a>
+      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
       
       <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
       
