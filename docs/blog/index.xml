@@ -6,7 +6,232 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 19 Oct 2023 23:06:39 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Oct 2023 23:03:37 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二维区域和检索 矩阵不可变</title>
+      <link>https://just-worker.github.io/blog/%E4%BA%8C%E7%BB%B4%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E7%9F%A9%E9%98%B5%E4%B8%8D%E5%8F%AF%E5%8F%98/</link>
+      <pubDate>Sun, 22 Oct 2023 23:03:37 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%BA%8C%E7%BB%B4%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E7%9F%A9%E9%98%B5%E4%B8%8D%E5%8F%AF%E5%8F%98/</guid>
+      <description>&lt;h2 id=&#34;二维区域和检索---矩阵不可变httpsleetcodecnproblemsrange-sum-query-2d-immutable&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/range-sum-query-2d-immutable/&#34;&gt;二维区域和检索 - 矩阵不可变&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个二维矩阵 matrix，以下类型的多个请求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算其子矩形范围内元素的总和，该子矩阵的 左上角 为 (row1, col1) ，右下角 为 (row2, col2) 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实现 NumMatrix 类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化&lt;/li&gt;
+&lt;li&gt;int sumRegion(int row1, int col1, int row2, int col2) 返回 左上角 (row1, col1) 、右下角 (row2, col2) 所描述的子矩阵的元素 总和 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://pic.leetcode-cn.com/1626332422-wUpUHT-image.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入:
+[&amp;ldquo;NumMatrix&amp;rdquo;,&amp;ldquo;sumRegion&amp;rdquo;,&amp;ldquo;sumRegion&amp;rdquo;,&amp;ldquo;sumRegion&amp;rdquo;]
+[[[[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]]],[2,1,4,3],[1,1,2,2],[1,2,2,4]]&lt;/li&gt;
+&lt;li&gt;输出:
+[null, 8, 11, 12]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NumMatrix&lt;/span&gt; {
+    sum: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; NumMatrix {
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;(matrix: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (row, column) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (matrix.len(), matrix[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;].len());
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; column]; row];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; r &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;row {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; c &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;column {
+                s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; matrix[r][c];
+                sum[r][c] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s;
+            }
+        }
+        Self {sum}
+    }
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum_region&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, row1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, col1: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, row2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, col2: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; r &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; row1&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;row2 {
+            res &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; self.sum[r &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;][col2 &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;];
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; col1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                res &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; self.sum[r &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;][col1 &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>区域和检索 数组不可变</title>
+      <link>https://just-worker.github.io/blog/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8F%AF%E5%8F%98/</link>
+      <pubDate>Sun, 22 Oct 2023 22:58:57 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8F%AF%E5%8F%98/</guid>
+      <description>&lt;h2 id=&#34;区域和检索---数组不可变httpsleetcodecnproblemsrange-sum-query-immutable&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/range-sum-query-immutable/&#34;&gt;区域和检索 - 数组不可变&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组  nums，处理以下类型的多个查询:&lt;/p&gt;
+&lt;p&gt;计算索引 left 和 right （包含 left 和 right）之间的 nums 元素的 和 ，其中 left &amp;lt;= right
+实现 NumArray 类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NumArray(int[] nums) 使用数组 nums 初始化对象&lt;/li&gt;
+&lt;li&gt;int sumRange(int i, int j) 返回数组 nums 中索引 left 和 right 之间的元素的 总和 ，包含 left 和 right 两点（也就是 nums[left] + nums[left + 1] + &amp;hellip; + nums[right] )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;可以先计算，后续直接读取&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NumArray&lt;/span&gt; {
+    sum: &lt;span style=&#34;color:#a6e22e&#34;&gt;HashMap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; NumArray {
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;new&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Self&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; sum &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashMap::new();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;nums.len() {
+            s &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; nums[idx];
+            sum.insert(idx &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, s);
+        }
+        Self {sum}
+    }
+    
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum_range&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;self, left: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; sr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; self.sum.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;right).unwrap().to_owned();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sr;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sr &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; self.sum.get(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;(left &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)).unwrap().to_owned();
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>删除无效的括号</title>
+      <link>https://just-worker.github.io/blog/%E5%88%A0%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</link>
+      <pubDate>Sun, 22 Oct 2023 22:37:43 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%88%A0%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</guid>
+      <description>&lt;h2 id=&#34;删除无效的括号httpsleetcodecnproblemsremove-invalid-parentheses&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/remove-invalid-parentheses/&#34;&gt;删除无效的括号&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。&lt;/p&gt;
+&lt;p&gt;返回所有可能的结果。答案可以按 任意顺序 返回。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;()())()&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：[&amp;quot;(())()&amp;quot;,&amp;quot;()()()&amp;quot;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;删除最小数量的无效括号，也就是说可能需要删除很多，那就爆破算了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove_invalid_parentheses&lt;/span&gt;(s: String) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; is_valid(s.as_str()) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; vec![s];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; set &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::collections::HashSet::new();
+        set.insert(s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;loop&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; set.iter() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; is_valid(s) {
+                    res.push(s.clone());
+                }
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;res.is_empty() {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; std::collections::HashSet::new();
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; s &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; set {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; chs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.as_bytes();
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;chs.len() {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; chs[idx] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; chs[idx &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] {
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;;
+                    }
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;(&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; chs[idx] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;)&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; chs[idx] {
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; String::with_capacity(s.len() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                        chs.iter().enumerate().for_each(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;(cursor, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ch)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; cursor &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; idx {curr.push(ch &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;)} );
+                        next.insert(curr);
+                    }
+                }
+            }
+            set &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next;
+        }
+
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_valid&lt;/span&gt;(s: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.is_empty() {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; cnt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; s.as_bytes() {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;(&amp;#39;&lt;/span&gt; {
+            cnt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;)&amp;#39;&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; cnt &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+            }
+            cnt &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cnt &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>最长递增子序列</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/</link>
+      <pubDate>Fri, 20 Oct 2023 21:00:23 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/</guid>
+      <description>&lt;h2 id=&#34;最长递增子序列httpsleetcodecnproblemslongest-increasing-subsequence&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/longest-increasing-subsequence/&#34;&gt;最长递增子序列&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。&lt;/p&gt;
+&lt;p&gt;子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [10,9,2,5,3,7,101,18]&lt;/li&gt;
+&lt;li&gt;输出：4&lt;/li&gt;
+&lt;li&gt;解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;以&lt;code&gt;nums[i]&lt;/code&gt;结尾的最大的递增序列，逐步推进。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;length_of_lis&lt;/span&gt;(nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; nums.len() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; dp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; nums.len()];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; end &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;nums.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; idx &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..=&lt;/span&gt;end {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; nums[end] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; nums[idx] {
+                    dp[end] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dp[end].max(dp[idx] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+                    res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res.max(dp[end]);
+                }
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>猜数字游戏</title>
       <link>https://just-worker.github.io/blog/%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</link>
