@@ -6,7 +6,48 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 24 Oct 2023 22:50:52 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 Oct 2023 22:50:27 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>买卖股票的最佳时机含冷冻期</title>
+      <link>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/</link>
+      <pubDate>Wed, 25 Oct 2023 22:50:27 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/</guid>
+      <description>&lt;h2 id=&#34;买卖股票的最佳时机含冷冻期httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock-with-cooldown&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/&#34;&gt;买卖股票的最佳时机含冷冻期&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给定一个整数数组prices，其中第  prices[i] 表示第 i 天的股票价格 。​&lt;/p&gt;
+&lt;p&gt;设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:&lt;/p&gt;
+&lt;p&gt;卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。&lt;/p&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;反正是股票交易的题，肯定是要&lt;code&gt;dp&lt;/code&gt;的，现在来分析一下状态和转换&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;持有股票：继续上次持有或者从自由时间购买股票&lt;/li&gt;
+&lt;li&gt;冷冻期间：卖出持有股票&lt;/li&gt;
+&lt;li&gt;自由时间：原自由时间或者从冷冻期间转换&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(1)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_profit&lt;/span&gt;(prices: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; prices.is_empty() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; hold, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; frozen, &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; free) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;prices[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; price &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; prices {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_hold &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hold.max(free &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; price);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_frozen &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hold &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; price;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; next_free &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; free.max(frozen);
+            hold &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_hold;
+            frozen &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_frozen;
+            free &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next_free;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; frozen.max(free);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>区域和检索 数组可修改</title>
       <link>https://just-worker.github.io/blog/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/</link>
