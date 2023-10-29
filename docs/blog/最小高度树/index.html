@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>买卖股票的最佳时机含冷冻期</title>
+    <title>最小高度树</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@买卖股票的最佳时机含冷冻期 给定一个整数数组prices，其中第 prices[i] 表示第 i 天的股票价格 。​ 设计一个算法计算出最大利润。在满足以下约束条件下，你">
+    <meta name="description" content="Ladder@最小高度树 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。 给你一棵包含 n 个节点的树，标">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="买卖股票的最佳时机含冷冻期" />
-<meta property="og:description" content="买卖股票的最佳时机含冷冻期 给定一个整数数组prices，其中第 prices[i] 表示第 i 天的股票价格 。​ 设计一个算法计算出最大利润。在满足以下约束条件下，你" />
+    <meta property="og:title" content="最小高度树" />
+<meta property="og:description" content="最小高度树 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。 给你一棵包含 n 个节点的树，标" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2023-10-25T22:50:27+08:00" />
-<meta property="article:modified_time" content="2023-10-25T22:50:27+08:00" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-10-29T22:25:42+08:00" />
+<meta property="article:modified_time" content="2023-10-29T22:25:42+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="买卖股票的最佳时机含冷冻期"/>
-<meta name="twitter:description" content="买卖股票的最佳时机含冷冻期 给定一个整数数组prices，其中第 prices[i] 表示第 i 天的股票价格 。​ 设计一个算法计算出最大利润。在满足以下约束条件下，你"/>
+<meta name="twitter:title" content="最小高度树"/>
+<meta name="twitter:description" content="最小高度树 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。 给你一棵包含 n 个节点的树，标"/>
 
 
 <script type="application/ld+json">
@@ -39,8 +39,8 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "买卖股票的最佳时机含冷冻期",
-      "item": "https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/"
+      "name": "最小高度树",
+      "item": "https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/"
     }
   ]
 }
@@ -49,24 +49,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "买卖股票的最佳时机含冷冻期",
-  "name": "买卖股票的最佳时机含冷冻期",
-  "description": "买卖股票的最佳时机含冷冻期 给定一个整数数组prices，其中第 prices[i] 表示第 i 天的股票价格 。​ 设计一个算法计算出最大利润。在满足以下约束条件下，你",
+  "headline": "最小高度树",
+  "name": "最小高度树",
+  "description": "最小高度树 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。 给你一棵包含 n 个节点的树，标",
   "keywords": [
     "leetcode", "算法"
   ],
-  "articleBody": "买卖股票的最佳时机含冷冻期 给定一个整数数组prices，其中第 prices[i] 表示第 i 天的股票价格 。​\n设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:\n卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。\n题目解析 反正是股票交易的题，肯定是要dp的，现在来分析一下状态和转换\n 持有股票：继续上次持有或者从自由时间购买股票 冷冻期间：卖出持有股票 自由时间：原自由时间或者从冷冻期间转换  // time: O(N) // space: O(1) impl Solution { pub fn max_profit(prices: Veci32) - i32 { if prices.is_empty() { return 0; } let (mut hold, mut frozen, mut free) = (-prices[0], 0, 0); for price in prices { let next_hold = hold.max(free - price); let next_frozen = hold + price; let next_free = free.max(frozen); hold = next_hold; frozen = next_frozen; free = next_free; } return frozen.max(free); } } ",
-  "wordCount" : "309",
+  "articleBody": "最小高度树 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。\n给你一棵包含 n 个节点的树，标记为 0 到 n - 1 。给定数字 n 和一个有 n - 1 条无向边的 edges 列表（每一个边都是一对标签），其中 edges[i] = [ai, bi] 表示树中节点 ai 和 bi 之间存在一条无向边。\n可选择树中任何一个节点作为根。当选择节点 x 作为根节点时，设结果树的高度为 h 。在所有可能的树中，具有最小高度的树（即，min(h)）被称为 最小高度树 。\n请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。\n树的 高度 是指根节点和叶子节点之间最长向下路径上边的数量\n  输入：n = 6, edges = [[3,0],[3,1],[3,2],[3,4],[5,4]] 输出：[3,4]   题目解析 边界情况\n n=1: vec![0] n=2: vec[0, 1]  其他情况，实际上只要从边缘，也就是叶子节点逐个收缩到最后即可\n// time: O(N) // space: O(N)  impl Solution { pub fn find_min_height_trees(n: i32, edges: VecVeci32) - Veci32 { if n == 1 { return vec![0]; } if n == 2 { return vec![0, 1]; } let mut link = vec![std::collections::HashSet::new(); n as usize]; let mut ref_cnt = vec![0; n as usize]; for pair in edges.iter() { link[pair[0] as usize].insert(pair[1] as usize); link[pair[1] as usize].insert(pair[0] as usize); ref_cnt[pair[0] as usize] += 1; ref_cnt[pair[1] as usize] += 1; } let mut queue = std::collections::VecDeque::new(); for (idx, \u0026cnt) in ref_cnt.iter().enumerate() { if cnt == 1 { queue.push_back(idx); } } let mut remain = n as usize; while remain  2 { remain -= queue.len(); for _ in 0..queue.len() { if let Some(curr) = queue.pop_front() { for \u0026next in \u0026link[curr] { // 层层包围  ref_cnt[next] -= 1; if ref_cnt[next] == 1 { queue.push_back(next); } } } } } queue.iter().map(|\u0026v| v as i32).collect() } } ",
+  "wordCount" : "480",
   "inLanguage": "zh",
-  "datePublished": "2023-10-25T22:50:27+08:00",
-  "dateModified": "2023-10-25T22:50:27+08:00",
+  "datePublished": "2023-10-29T22:25:42+08:00",
+  "dateModified": "2023-10-29T22:25:42+08:00",
   "author":{
     "@type": "Person",
     "name": "just-worker"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/"
+    "@id": "https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/"
   },
   "publisher": {
     "@type": "Organization",
@@ -158,12 +158,12 @@
 <div id="content">
 <article class="blog-single">
   <header class="blog-title">
-    <h1>买卖股票的最佳时机含冷冻期</h1>
+    <h1>最小高度树</h1>
   </header>
 
   <p>
   <small>
-    2023年10月25日&nbsp;· 309 字&nbsp;· 1 分钟</small>
+    2023年10月29日&nbsp;· 480 字&nbsp;· 1 分钟</small>
 
   <small>
       
@@ -178,36 +178,67 @@
   
 <p>
 
-  <section class="blog-content"><h2 id="买卖股票的最佳时机含冷冻期httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock-with-cooldown"><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/">买卖股票的最佳时机含冷冻期</a></h2>
-<p>给定一个整数数组prices，其中第  prices[i] 表示第 i 天的股票价格 。​</p>
-<p>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
-<p>卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
-注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+  <section class="blog-content"><h2 id="最小高度树httpsleetcodecnproblemsminimum-height-trees"><a href="https://leetcode.cn/problems/minimum-height-trees/">最小高度树</a></h2>
+<p>树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。</p>
+<p>给你一棵包含 n 个节点的树，标记为 0 到 n - 1 。给定数字 n 和一个有 n - 1 条无向边的 edges 列表（每一个边都是一对标签），其中 edges[i] = [ai, bi] 表示树中节点 ai 和 bi 之间存在一条无向边。</p>
+<p>可选择树中任何一个节点作为根。当选择节点 x 作为根节点时，设结果树的高度为 h 。在所有可能的树中，具有最小高度的树（即，min(h)）被称为 最小高度树 。</p>
+<p>请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。</p>
+<p>树的 高度 是指根节点和叶子节点之间最长向下路径上边的数量</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/01/e2.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：n = 6, edges = [[3,0],[3,1],[3,2],[3,4],[5,4]]</li>
+<li>输出：[3,4]</li>
+</ul>
+</blockquote>
 <h2 id="题目解析">题目解析</h2>
-<p>反正是股票交易的题，肯定是要<code>dp</code>的，现在来分析一下状态和转换</p>
-<ol>
-<li>持有股票：继续上次持有或者从自由时间购买股票</li>
-<li>冷冻期间：卖出持有股票</li>
-<li>自由时间：原自由时间或者从冷冻期间转换</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
-<span style="color:#75715e">// time: O(N)
-</span><span style="color:#75715e">// space: O(1)
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span> Solution {
-    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">max_profit</span>(prices: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#66d9ef">i32</span> {
-        <span style="color:#66d9ef">if</span> prices.is_empty() {
-            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+<p>边界情况</p>
+<ul>
+<li><code>n=1</code>: <code>vec![0]</code></li>
+<li><code>n=2</code>: <code>vec[0, 1]</code></li>
+</ul>
+<p>其他情况，实际上只要从边缘，也就是叶子节点逐个收缩到最后即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// time: O(N)
+</span><span style="color:#75715e">// space: O(N)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">find_min_height_trees</span>(n: <span style="color:#66d9ef">i32</span>, edges: Vec<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>) -&gt; Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> vec![<span style="color:#ae81ff">0</span>];
         }
-        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> hold, <span style="color:#66d9ef">mut</span> frozen, <span style="color:#66d9ef">mut</span> free) <span style="color:#f92672">=</span> (<span style="color:#f92672">-</span>prices[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
-        <span style="color:#66d9ef">for</span> price <span style="color:#66d9ef">in</span> prices {
-            <span style="color:#66d9ef">let</span> next_hold <span style="color:#f92672">=</span> hold.max(free <span style="color:#f92672">-</span> price);
-            <span style="color:#66d9ef">let</span> next_frozen <span style="color:#f92672">=</span> hold <span style="color:#f92672">+</span> price;
-            <span style="color:#66d9ef">let</span> next_free <span style="color:#f92672">=</span> free.max(frozen);
-            hold <span style="color:#f92672">=</span> next_hold;
-            frozen <span style="color:#f92672">=</span> next_frozen;
-            free <span style="color:#f92672">=</span> next_free;
+        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> {
+            <span style="color:#66d9ef">return</span> vec![<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>];
         }
-        <span style="color:#66d9ef">return</span> frozen.max(free);
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> link <span style="color:#f92672">=</span> vec![std::collections::HashSet::new(); n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>];
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ref_cnt <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>; n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>];
+        <span style="color:#66d9ef">for</span> pair <span style="color:#66d9ef">in</span> edges.iter() {
+            link[pair[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>].insert(pair[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>);
+            link[pair[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>].insert(pair[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>);
+            ref_cnt[pair[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            ref_cnt[pair[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> queue <span style="color:#f92672">=</span> std::collections::VecDeque::new();
+        <span style="color:#66d9ef">for</span> (idx, <span style="color:#f92672">&amp;</span>cnt) <span style="color:#66d9ef">in</span> ref_cnt.iter().enumerate() {
+            <span style="color:#66d9ef">if</span> cnt <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+                queue.push_back(idx);
+            }
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> remain <span style="color:#f92672">=</span> n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>;
+        <span style="color:#66d9ef">while</span> remain <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span> {
+            remain <span style="color:#f92672">-=</span> queue.len();
+            <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>queue.len() {
+                <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Some(curr) <span style="color:#f92672">=</span> queue.pop_front() {
+                    <span style="color:#66d9ef">for</span> <span style="color:#f92672">&amp;</span>next <span style="color:#66d9ef">in</span> <span style="color:#f92672">&amp;</span>link[curr] {
+                        <span style="color:#75715e">// 层层包围
+</span><span style="color:#75715e"></span>                        ref_cnt[next] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
+                        <span style="color:#66d9ef">if</span> ref_cnt[next] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+                            queue.push_back(next);
+                        }
+                    }
+                }
+            }
+        }
+        queue.iter().map(<span style="color:#f92672">|&amp;</span>v<span style="color:#f92672">|</span> v <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>).collect()
     }
 }
 </code></pre></div></section>
@@ -216,14 +247,8 @@
   
   <div class="paginator">
     
-    <a class="prev" href="https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/">
-      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
-      </svg>
-      <span>最小高度树</span></a>
     
-    
-    <a class="next" href="https://just-worker.github.io/blog/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/"><span>区域和检索 数组可修改</span>
+    <a class="next" href="https://just-worker.github.io/blog/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F/"><span>买卖股票的最佳时机含冷冻期</span>
       <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
       </svg>
