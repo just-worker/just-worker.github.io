@@ -6,7 +6,102 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 29 Oct 2023 22:25:42 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Nov 2023 20:41:45 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>戳气球</title>
+      <link>https://just-worker.github.io/blog/%E6%88%B3%E6%B0%94%E7%90%83/</link>
+      <pubDate>Mon, 06 Nov 2023 20:41:45 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%88%B3%E6%B0%94%E7%90%83/</guid>
+      <description>&lt;h2 id=&#34;戳气球httpsleetcodecnproblemsburst-balloons&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/burst-balloons/&#34;&gt;戳气球&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;有 n 个气球，编号为0 到 n - 1，每个气球上都标有一个数字，这些数字存在数组 nums 中。&lt;/p&gt;
+&lt;p&gt;现在要求你戳破所有的气球。戳破第 i 个气球，你可以获得 nums[i - 1] * nums[i] * nums[i + 1] 枚硬币。 这里的 i - 1 和 i + 1 代表和 i 相邻的两个气球的序号。如果 i - 1或 i + 1 超出了数组的边界，那么就当它是一个数字为 1 的气球。&lt;/p&gt;
+&lt;p&gt;求所能获得硬币的最大数量。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：nums = [3,1,5,8]&lt;/li&gt;
+&lt;li&gt;输出：167&lt;/li&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;nums = [3,1,5,8] &amp;ndash;&amp;gt; [3,5,8] &amp;ndash;&amp;gt; [3,8] &amp;ndash;&amp;gt; [8] &amp;ndash;&amp;gt; []&lt;/li&gt;
+&lt;li&gt;coins =  3&lt;em&gt;1&lt;/em&gt;5    +   3&lt;em&gt;5&lt;/em&gt;8   +  1&lt;em&gt;3&lt;/em&gt;8  + 1&lt;em&gt;8&lt;/em&gt;1 = 167&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// time: O(N ^ 3)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space: O(N ^ 2)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_coins&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; nums: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Vec::with_capacity(nums.len() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+        values.push(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        values.append(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; nums);
+        values.push(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![vec![&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; values.len()]; values.len()];
+        Self::solve(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, values.len() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;values, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res)
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;solve&lt;/span&gt;(left: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, right: &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;, values: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, res: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; res[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res[left][right];
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; curr &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; left &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;right {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; ans &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; values[left] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; values[curr] &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; values[right]
+                &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::solve(left, curr, values, res)
+                &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Self::solve(curr, right, values, res);
+            res[left][right] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res[left][right].max(ans);
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res[left][right];
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;选举递归&#34;&gt;选举递归&lt;/h2&gt;
+&lt;p&gt;递归的三大要素&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;自我调用&lt;/li&gt;
+&lt;li&gt;边界条件&lt;/li&gt;
+&lt;li&gt;状态流转&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;前两点不必多说，核心在于 &lt;code&gt;状态流转&lt;/code&gt;，这也是每次递归都会说到&lt;code&gt;递推方程&lt;/code&gt;的原因，这是一个递归问题最核心的地方。&lt;/p&gt;
+&lt;p&gt;它的作用就是将一个问题状态，逐步转移，最终到达边界条件，从而计算出结果。&lt;/p&gt;
+&lt;p&gt;但是这种状态流转，可以详细划分为两类&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;直接依赖&lt;/li&gt;
+&lt;li&gt;结果选举&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;基础的&lt;code&gt;直接依赖&lt;/code&gt;，比如菲波那切数列，其中的状态流转是显而易见的，而且是直接依赖的，通过直接的计算就可以得到具体的结果。
+而&lt;code&gt;结果选举&lt;/code&gt;，顾名思义，它并不能直接计算出结果，它需要遍历一次递归阶段的全部可能，然后在这些结果中进行选举，才能具体得出当前递归的确切的值。&lt;/p&gt;
+&lt;p&gt;比如这道题：矩阵中有数，只能向右或者向下，求从左上角到右下角和最大的路径。
+每一格子，都需要去对比两个方向的值，才能确定当前格子的最大值，这就是&lt;code&gt;结果选举&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;显而易见的是，对于&lt;code&gt;结果选举&lt;/code&gt;，必须要有一个地方存储这些递归的结果，才能将选举进行下去。
+而递归的自相似性要求了，局部递归结果的存储和整体递归流程的存储将会是同一个。那整个递归流程大概就是这样的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;共享一个递归上下文&lt;/li&gt;
+&lt;li&gt;递归结果会存储在上下文中&lt;/li&gt;
+&lt;li&gt;选举出来的递归结果也会存在上下文中&lt;/li&gt;
+&lt;li&gt;递归之间的依赖，也通过上下文进行传递&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;和前面矩阵求和的例子有差异的是，就如同本题一样，部分题目的递归不同一般&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;递归的结果终究会出来，但是不一定发生在边界条件计算的时候&lt;/li&gt;
+&lt;li&gt;递归之间总有关系，但是具体的执行顺序不一定很明确&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;本题在边界的时候的确计算了一个值，但是对于具体先添加左边还是先添加右边的问题上，依赖数值是边界条件时候计算的，但是值的选举是发生在后续的递归中。&lt;/p&gt;
+&lt;p&gt;和上一点类似，我们最终确定了一个值，但是对于这个值是哪一轮递归计算、筛选的，顺序上面并不很明确。&lt;/p&gt;
+&lt;p&gt;面对这种递归问题，我们只能明确如下步骤&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;详细描述边界计算&lt;/li&gt;
+&lt;li&gt;详细描述选举规则&lt;/li&gt;
+&lt;li&gt;记住时刻更新上下文&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;理解上或许还欠火候，但是这样去解题，基本不会出错。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以发现，就是因为上下文的透传，加上递归自相似的计算和引用、每一轮递归结果的选举和更新，才导致了顺序和步骤的不明却。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
     <item>
       <title>最小高度树</title>
       <link>https://just-worker.github.io/blog/%E6%9C%80%E5%B0%8F%E9%AB%98%E5%BA%A6%E6%A0%91/</link>
