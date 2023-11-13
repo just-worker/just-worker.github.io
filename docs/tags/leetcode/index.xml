@@ -6,7 +6,144 @@
     <description>Recent content in leetcode on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 11 Nov 2023 22:23:07 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Nov 2023 23:36:45 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>灯泡开关</title>
+      <link>https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/</link>
+      <pubDate>Mon, 13 Nov 2023 23:36:45 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/</guid>
+      <description>&lt;h2 id=&#34;灯泡开关httpsleetcodecnproblemsbulb-switcher&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/bulb-switcher/&#34;&gt;灯泡开关&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。&lt;/p&gt;
+&lt;p&gt;第三轮，你每三个灯泡就切换第三个灯泡的开关（即，打开变关闭，关闭变打开）。第 i 轮，你每 i 个灯泡就切换第 i 个灯泡的开关。直到第 n 轮，你只需要切换最后一个灯泡的开关。&lt;/p&gt;
+&lt;p&gt;找出并返回 n 轮后有多少个亮着的灯泡。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2020/11/05/bulb.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：n = 3&lt;/li&gt;
+&lt;li&gt;输出：1&lt;/li&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;li&gt;初始时, 灯泡状态 [关闭, 关闭, 关闭].&lt;/li&gt;
+&lt;li&gt;第一轮后, 灯泡状态 [开启, 开启, 开启].&lt;/li&gt;
+&lt;li&gt;第二轮后, 灯泡状态 [开启, 关闭, 开启].&lt;/li&gt;
+&lt;li&gt;第三轮后, 灯泡状态 [开启, 关闭, 关闭].&lt;/li&gt;
+&lt;li&gt;你应该返回 1，因为只有一个灯泡还亮着。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;每个轮次都是，从&lt;code&gt;i&lt;/code&gt;开始，间隔&lt;code&gt;i&lt;/code&gt;状态翻转。&lt;/p&gt;
+&lt;p&gt;也就是说，&lt;code&gt;i&lt;/code&gt;的状态其实和&lt;code&gt;i&lt;/code&gt;内的约数相关，如果约数个数是偶数，那最终都会关闭，只有约数为奇数的数，才会开启。&lt;/p&gt;
+&lt;p&gt;如果&lt;code&gt;a = v / b&lt;/code&gt;，那么我们肯定，如果约数出现，一定是成对出现的，除非&lt;code&gt;a == b&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;因此，只有平方数才能够保证灯亮，整道题就转换为了求&lt;code&gt;n&lt;/code&gt;内的平方数个数。&lt;/p&gt;
+&lt;p&gt;因为都是自然数的平方，假设区间内平方数个数为&lt;code&gt;x&lt;/code&gt;，那么很容易得到&lt;code&gt;x ^ 2 &amp;lt;= n &amp;lt; (x + 1) ^ 2&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;也就是 &lt;code&gt;x = sqrt(n)&lt;/code&gt;，这里的根号需要取整，为了防止精度丢失问题，额外加上 &lt;code&gt;0.5&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bulb_switch&lt;/span&gt;(n: &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        (n &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;f64&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;).sqrt() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>最大单词长度乘积</title>
+      <link>https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/</link>
+      <pubDate>Mon, 13 Nov 2023 23:29:54 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/</guid>
+      <description>&lt;h2 id=&#34;最大单词长度乘积httpsleetcodecnproblemsmaximum-product-of-word-lengths&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/maximum-product-of-word-lengths/&#34;&gt;最大单词长度乘积&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串数组 words ，找出并返回 length(words[i]) * length(words[j]) 的最大值，并且这两个单词不含有公共字母。如果不存在这样的两个单词，返回 0 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：words = [&amp;ldquo;abcw&amp;rdquo;,&amp;ldquo;baz&amp;rdquo;,&amp;ldquo;foo&amp;rdquo;,&amp;ldquo;bar&amp;rdquo;,&amp;ldquo;xtfn&amp;rdquo;,&amp;ldquo;abcdef&amp;rdquo;]&lt;/li&gt;
+&lt;li&gt;输出：16&lt;/li&gt;
+&lt;li&gt;解释：这两个单词为 &amp;ldquo;abcw&amp;rdquo;, &amp;ldquo;xtfn&amp;rdquo;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;直接计算&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; A: &lt;span style=&#34;color:#66d9ef&#34;&gt;u8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;a&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;u8&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max_product&lt;/span&gt;(words: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ai &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;words.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; bi &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ai&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;words.len() {
+                Self::resolve(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;words[ai], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;words[bi], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res);
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;(a: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;, b: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;str&lt;/span&gt;, res: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; a.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; b.is_empty() &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; (a.len() &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; b.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;res) {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; cnt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;];
+        a.as_bytes().iter().for_each(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; cnt[(v &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; b.as_bytes().iter().all(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;cnt[(v &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;]) {
+            &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a.len() &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; b.len();
+        }
+    }
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>去除重复字母</title>
+      <link>https://just-worker.github.io/blog/%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AF%8D/</link>
+      <pubDate>Mon, 13 Nov 2023 22:22:41 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AF%8D/</guid>
+      <description>&lt;h2 id=&#34;去除重复字母httpsleetcodecnproblemsremove-duplicate-letters&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/remove-duplicate-letters/&#34;&gt;去除重复字母&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个字符串 s ，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证 返回结果的字典序最小（要求不能打乱其他字符的相对位置）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：s = &amp;ldquo;bcabc&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;输出：&amp;ldquo;abc&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;强制有序，单调栈；前一个添加的且大于当前字符且有剩余，移除。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; A: &lt;span style=&#34;color:#66d9ef&#34;&gt;u8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;a&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;u8&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove_duplicate_letters&lt;/span&gt;(s: String) -&amp;gt; String {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 无需过滤
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s;
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 只有一个不用考虑移除
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; counter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;];
+        s.as_bytes().iter().for_each(&lt;span style=&#34;color:#f92672&#34;&gt;|&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; counter[(v &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; visited &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;26&lt;/span&gt;];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; s.as_bytes() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (v &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;visited[idx] {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;lv) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; res.last() {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; lv &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; counter[(lv &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; {
+                        res.pop();
+                        visited[(lv &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; A) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;usize&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+                    } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+                        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+                    }
+                }
+                res.push(v);
+                visited[idx] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#75715e&#34;&gt;// 当前字符一定要
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            counter[idx] &lt;span style=&#34;color:#f92672&#34;&gt;-=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res.into_iter().map(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;v&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;).collect();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>计算右侧小于当前元素的个数</title>
       <link>https://just-worker.github.io/blog/%E8%AE%A1%E7%AE%97%E5%8F%B3%E4%BE%A7%E5%B0%8F%E4%BA%8E%E5%BD%93%E5%89%8D%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0/</link>

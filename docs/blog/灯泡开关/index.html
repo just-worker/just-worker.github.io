@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leetcode</title>
+    <title>灯泡开关</title>
     <meta charset="utf-8">
-    <meta name="description" content="Ladder@">
+    <meta name="description" content="Ladder@灯泡开关 初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。 第三轮，你每三个灯泡就切换第三">
     <meta name="author" content="just-worker">
-    <link rel="canonical" href="https://just-worker.github.io/tags/leetcode/">
+    <link rel="canonical" href="https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/">
 
     <link rel="alternate" type="application/rss+xml" href="https://just-worker.github.io/index.xml" title="just-worker">
 
     
 
 
-    <meta property="og:title" content="leetcode" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://just-worker.github.io/tags/leetcode/" />
+    <meta property="og:title" content="灯泡开关" />
+<meta property="og:description" content="灯泡开关 初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。 第三轮，你每三个灯泡就切换第三" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-11-13T23:36:45+08:00" />
+<meta property="article:modified_time" content="2023-11-13T23:36:45+08:00" />
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="leetcode"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="灯泡开关"/>
+<meta name="twitter:description" content="灯泡开关 初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。 第三轮，你每三个灯泡就切换第三"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Blogs",
+      "item": "https://just-worker.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "灯泡开关",
+      "item": "https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "灯泡开关",
+  "name": "灯泡开关",
+  "description": "灯泡开关 初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。 第三轮，你每三个灯泡就切换第三",
+  "keywords": [
+    "leetcode", "算法"
+  ],
+  "articleBody": "灯泡开关 初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。\n第三轮，你每三个灯泡就切换第三个灯泡的开关（即，打开变关闭，关闭变打开）。第 i 轮，你每 i 个灯泡就切换第 i 个灯泡的开关。直到第 n 轮，你只需要切换最后一个灯泡的开关。\n找出并返回 n 轮后有多少个亮着的灯泡。\n  输入：n = 3 输出：1 解释： 初始时, 灯泡状态 [关闭, 关闭, 关闭]. 第一轮后, 灯泡状态 [开启, 开启, 开启]. 第二轮后, 灯泡状态 [开启, 关闭, 开启]. 第三轮后, 灯泡状态 [开启, 关闭, 关闭]. 你应该返回 1，因为只有一个灯泡还亮着。   题目解析 每个轮次都是，从i开始，间隔i状态翻转。\n也就是说，i的状态其实和i内的约数相关，如果约数个数是偶数，那最终都会关闭，只有约数为奇数的数，才会开启。\n如果a = v / b，那么我们肯定，如果约数出现，一定是成对出现的，除非a == b。\n因此，只有平方数才能够保证灯亮，整道题就转换为了求n内的平方数个数。\n因为都是自然数的平方，假设区间内平方数个数为x，那么很容易得到x ^ 2 。\n也就是 x = sqrt(n)，这里的根号需要取整，为了防止精度丢失问题，额外加上 0.5。\nimpl Solution { pub fn bulb_switch(n: i32) - i32 { (n as f64 + 0.5).sqrt() as i32 } } ",
+  "wordCount" : "517",
+  "inLanguage": "zh",
+  "datePublished": "2023-11-13T23:36:45+08:00",
+  "dateModified": "2023-11-13T23:36:45+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "just-worker"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://just-worker.github.io/blog/%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "just-worker",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://just-worker.github.io/favicon.ico"
+    }
+  }
+}
+</script>
     <link rel="icon" href="/images/avatar.jpeg" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/avatar.jpeg">
@@ -100,16 +156,14 @@
     </section>
 </nav>
 <div id="content">
-<div class="blog-wrapper">
-  <div>
-    <div class="blog-list">
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/">环形链表II</a></h3>
-          <p>
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>灯泡开关</h1>
+  </header>
+
+  <p>
   <small>
-    2023年8月12日&nbsp;· 565 字&nbsp;· 2 分钟</small>
+    2023年11月13日&nbsp;· 517 字&nbsp;· 2 分钟</small>
 
   <small>
       
@@ -123,229 +177,60 @@
     </small>
   
 <p>
-          环形链表 II 给定一个链表的头节点 head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。 如果链表中有某个节点，可以通过连续跟踪 next 指针再
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">环形链表</a></h3>
-          <p>
-  <small>
-    2023年8月12日&nbsp;· 272 字&nbsp;· 1 分钟</small>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          环形链表 给你一个链表的头节点 head ，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86ii/">单词拆分II</a></h3>
-          <p>
-  <small>
-    2023年8月11日&nbsp;· 256 字&nbsp;· 1 分钟</small>
+  <section class="blog-content"><h2 id="灯泡开关httpsleetcodecnproblemsbulb-switcher"><a href="https://leetcode.cn/problems/bulb-switcher/">灯泡开关</a></h2>
+<p>初始时有 n 个灯泡处于关闭状态。第一轮，你将会打开所有灯泡。接下来的第二轮，你将会每两个灯泡关闭第二个。</p>
+<p>第三轮，你每三个灯泡就切换第三个灯泡的开关（即，打开变关闭，关闭变打开）。第 i 轮，你每 i 个灯泡就切换第 i 个灯泡的开关。直到第 n 轮，你只需要切换最后一个灯泡的开关。</p>
+<p>找出并返回 n 轮后有多少个亮着的灯泡。</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/05/bulb.jpg" alt=""></p>
+<blockquote>
+<ul>
+<li>输入：n = 3</li>
+<li>输出：1</li>
+<li>解释：</li>
+<li>初始时, 灯泡状态 [关闭, 关闭, 关闭].</li>
+<li>第一轮后, 灯泡状态 [开启, 开启, 开启].</li>
+<li>第二轮后, 灯泡状态 [开启, 关闭, 开启].</li>
+<li>第三轮后, 灯泡状态 [开启, 关闭, 关闭].</li>
+<li>你应该返回 1，因为只有一个灯泡还亮着。</li>
+</ul>
+</blockquote>
+<h2 id="题目解析">题目解析</h2>
+<p>每个轮次都是，从<code>i</code>开始，间隔<code>i</code>状态翻转。</p>
+<p>也就是说，<code>i</code>的状态其实和<code>i</code>内的约数相关，如果约数个数是偶数，那最终都会关闭，只有约数为奇数的数，才会开启。</p>
+<p>如果<code>a = v / b</code>，那么我们肯定，如果约数出现，一定是成对出现的，除非<code>a == b</code>。</p>
+<p>因此，只有平方数才能够保证灯亮，整道题就转换为了求<code>n</code>内的平方数个数。</p>
+<p>因为都是自然数的平方，假设区间内平方数个数为<code>x</code>，那么很容易得到<code>x ^ 2 &lt;= n &lt; (x + 1) ^ 2</code>。</p>
+<p>也就是 <code>x = sqrt(n)</code>，这里的根号需要取整，为了防止精度丢失问题，额外加上 <code>0.5</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#66d9ef">impl</span> Solution {
+    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">bulb_switch</span>(n: <span style="color:#66d9ef">i32</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+        (n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">f64</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.5</span>).sqrt() <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">i32</span>
+    }
+}
+</code></pre></div></section>
 
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          单词拆分 II 给定一个字符串 s 和一个字符串字典 wordDict ，在字符串 s 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。以任意顺序 返回所有这些可能
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/">单词拆分</a></h3>
-          <p>
-  <small>
-    2023年8月11日&nbsp;· 214 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
   
-<p>
-          单词拆分 给你一个字符串 s 和一个字符串列表 wordDict 作为字典。请你判断是否可以利用字典中出现的单词拼接出 s 。 注意：不要求字典中出现的单词全部都使用，并
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/">复制带随机指针的链表</a></h3>
-          <p>
-  <small>
-    2023年8月11日&nbsp;· 504 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          复制带随机指针的链表 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。 构造这个链表的 深拷
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97ii/">只出现一次的数字II</a></h3>
-          <p>
-  <small>
-    2023年8月9日&nbsp;· 374 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          只出现一次的数字 II 给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。 你必须设计并实
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/">只出现一次的数字</a></h3>
-          <p>
-  <small>
-    2023年8月8日&nbsp;· 162 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          只出现一次的数字 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。 你必须设计并实现线性
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/">分发糖果</a></h3>
-          <p>
-  <small>
-    2023年8月8日&nbsp;· 490 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          分发糖果 n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。 你需要按照以下要求，给这些孩子分发糖果： 每个孩子至少分配到 1 个糖果。 相邻两个
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%8A%A0%E6%B2%B9%E7%AB%99/">加油站</a></h3>
-          <p>
-  <small>
-    2023年8月7日&nbsp;· 572 字&nbsp;· 2 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          加油站 在一条环路上有 n 个加油站，其中第 i 个加油站有汽油 gas[i] 升。 你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你
-        </div>
-      </article>
-      
-      <article>
-        <div class="blog-card">
-          <h3><a href="/blog/%E5%85%8B%E9%9A%86%E5%9B%BE/">克隆图</a></h3>
-          <p>
-  <small>
-    2023年8月7日&nbsp;· 312 字&nbsp;· 1 分钟</small>
-
-  <small>
-      
-      ·
-      
-      
-      <a href="https://just-worker.github.io/tags/leetcode/">leetcode</a>
-      
-      <a href="https://just-worker.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
-      
-    </small>
-  
-<p>
-          克隆图 给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。 图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[No
-        </div>
-      </article>
-      </div>
+  <div class="paginator">
     
-    <div class="paginator">
-      
-      <a class="prev" href="/tags/leetcode/page/11/">&larr;&nbsp;&nbsp;Pre Page</a>
-      
-      
-      <a class="next" href="/tags/leetcode/page/13/">Next Page&nbsp;&nbsp;&rarr;</a>
-      
-    </div>
+    
+    <a class="next" href="https://just-worker.github.io/blog/%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/"><span>最大单词长度乘积</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
     
   </div>
-</div>
+  
+
+  
+
+
+  
+  
+</article>
+
 
         </div><footer class="footer">
   <p>&copy; 2023 <a href="https://just-worker.github.io">just-worker</a>
