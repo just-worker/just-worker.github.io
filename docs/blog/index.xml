@@ -6,7 +6,100 @@
     <description>Recent content in Blogs on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Mon, 27 Nov 2023 23:00:37 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Dec 2023 22:46:12 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>重新安排行程</title>
+      <link>https://just-worker.github.io/blog/%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B/</link>
+      <pubDate>Fri, 29 Dec 2023 22:46:12 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B/</guid>
+      <description>&lt;h2 id=&#34;重新安排行程httpsleetcodecnproblemsreconstruct-itinerarydescription&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/reconstruct-itinerary/description/&#34;&gt;重新安排行程&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一份航线列表 tickets ，其中 tickets[i] = [fromi, toi] 表示飞机出发和降落的机场地点。请你对该行程进行重新规划排序。&lt;/p&gt;
+&lt;p&gt;所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。如果存在多种有效的行程，请你按字典排序返回最小的行程组合。&lt;/p&gt;
+&lt;p&gt;例如，行程 [&amp;ldquo;JFK&amp;rdquo;, &amp;ldquo;LGA&amp;rdquo;] 与 [&amp;ldquo;JFK&amp;rdquo;, &amp;ldquo;LGB&amp;rdquo;] 相比就更小，排序更靠前。
+假定所有机票至少存在一种合理的行程。且所有的机票 必须都用一次 且 只能用一次。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/03/14/itinerary1-graph.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：tickets = [[&amp;ldquo;MUC&amp;rdquo;,&amp;ldquo;LHR&amp;rdquo;],[&amp;ldquo;JFK&amp;rdquo;,&amp;ldquo;MUC&amp;rdquo;],[&amp;ldquo;SFO&amp;rdquo;,&amp;ldquo;SJC&amp;rdquo;],[&amp;ldquo;LHR&amp;rdquo;,&amp;ldquo;SFO&amp;rdquo;]]&lt;/li&gt;
+&lt;li&gt;输出：[&amp;ldquo;JFK&amp;rdquo;,&amp;ldquo;MUC&amp;rdquo;,&amp;ldquo;LHR&amp;rdquo;,&amp;ldquo;SFO&amp;rdquo;,&amp;ldquo;SJC&amp;rdquo;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;详细解析的话可以参考&lt;a href=&#34;https://leetcode.cn/problems/reconstruct-itinerary/solutions/389885/zhong-xin-an-pai-xing-cheng-by-leetcode-solution/&#34;&gt;官方题解&lt;/a&gt;。这里只说明一下其中不好理解的点。&lt;/p&gt;
+&lt;h3 id=&#34;入度和出度&#34;&gt;入度和出度&lt;/h3&gt;
+&lt;p&gt;题目中所谓的每个机票有且只能用一次，但是没有限定站点，因此对于相同站点是可以来回飞的。
+不如题目中欧拉通路一样仅限制一次。&lt;/p&gt;
+&lt;p&gt;但是借助其中的术语，我们能够更清晰的理解题目要点。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;入度：进入节点的数目&lt;/li&gt;
+&lt;li&gt;出度：从节点发出的数目&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;隐含的一个点在于 &amp;ldquo;JFK&amp;rdquo; 的入度，因为规定了必须从它出发。
+假设我们最后回到了&amp;quot;JFK&amp;quot;, 很明显，每个节点的出度和入度都相等。&lt;/p&gt;
+&lt;p&gt;如果没有回到&amp;quot;JFK&amp;quot;，全部节点的出度和入度都相等，唯一的差异在于最后一个节点，作为结束点，它缺少了一个出度。&lt;/p&gt;
+&lt;p&gt;这里很明确了，如果确切的存在一条路径完成题目，最多只能够有这么一个节点的出度和入度不等，且只能相差1。&lt;/p&gt;
+&lt;h3 id=&#34;死胡同&#34;&gt;死胡同&lt;/h3&gt;
+&lt;p&gt;题目中所谓的死胡同，因为在贪心算法作用下，我们优先使用字符序较小的节点开始遍历，导致提前进入终点，无法继续向下遍历。&lt;/p&gt;
+&lt;p&gt;这里有一个隐含的推论：一个节点有多少出度，必定有多少入度。
+这里基于两个规则&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;题目一定有解：如果入度小于出度，题目将没有解&lt;/li&gt;
+&lt;li&gt;沿着边移动要删除边：多出入的节点，最终会面临有无出度的边界情况&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;基于上述两个规则，我们甚至能够推论出一个简化模型的规则&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;多出入度节点，必然两两匹配&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因此，对于可能存在死胡同的点我们必然能有这样的断言&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;它非死胡同的下一个节点必然会再次回到当前点&lt;/li&gt;
+&lt;li&gt;它必然是重点或者倒数第二个遍历的点（删除边，导致两两抵消，最后没有后继点或者剩下唯一后继点）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;后置添加&#34;&gt;后置添加&lt;/h3&gt;
+&lt;p&gt;后置添加算是递归中的常用操作，它真实递归的一个精髓。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;等其他状态确定后再确定当前状态。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里之所以要使用后置添加的办法，因为你无法提前预判下一个节点中哪一个是终点。&lt;/p&gt;
+&lt;p&gt;如果我们进入的不是死胡同，最后会还会回到当前节点，并且因为后置添加依旧会进行压栈，继续遍历，直到进入死胡同。&lt;/p&gt;
+&lt;p&gt;进入死胡同的话，本身也不会有太大影响，因为死胡同意味着最后的节点，添加终点后直接添加本身节点也是合理的。&lt;/p&gt;
+&lt;p&gt;也就是说，对于走向死胡同的遍历，后置添加作用下，都会将是终点优先被添加，从而解决重点不确定问题。&lt;/p&gt;
+&lt;h3 id=&#34;题目解答&#34;&gt;题目解答&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;use&lt;/span&gt; std::collections::HashMap;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;find_itinerary&lt;/span&gt;(tickets: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;) -&amp;gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; paths &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; HashMap::&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;String, Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;::new();
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 路径
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ticket &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; tickets.iter() {
+            paths.entry(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ticket[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]).or_default().push(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ticket[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 字符序排列
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (_, next) &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; paths.iter_mut() {
+            next.sort_by(&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;a, b&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; b.cmp(a));
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; vec![];
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 搜索
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        Self::dfs(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;JFK&amp;#34;&lt;/span&gt;.to_string(), &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; paths, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; res);
+        res.reverse();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+    }
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dfs&lt;/span&gt;(current: String, map: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; HashMap&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;String, Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;amp;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;, res: &lt;span style=&#34;color:#66d9ef&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mut&lt;/span&gt; Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 查找下一条路径
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; Some(next) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; map.get_mut(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;current).unwrap_or(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;mut&lt;/span&gt; vec![]).pop() {
+            Self::dfs(next.to_string(), map, res);
+        }
+        &lt;span style=&#34;color:#75715e&#34;&gt;// 后置添加
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        res.push(current);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>验证二叉树的前序序列化</title>
       <link>https://just-worker.github.io/blog/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E5%BA%8F%E5%88%97%E5%8C%96/</link>
