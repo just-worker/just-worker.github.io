@@ -6,7 +6,105 @@
     <description>Recent content on just-worker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 30 Dec 2023 20:55:25 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Jan 2024 22:34:25 +0800</lastBuildDate><atom:link href="https://just-worker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>路径交叉</title>
+      <link>https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E4%BA%A4%E5%8F%89/</link>
+      <pubDate>Wed, 03 Jan 2024 22:34:25 +0800</pubDate>
+      
+      <guid>https://just-worker.github.io/blog/%E8%B7%AF%E5%BE%84%E4%BA%A4%E5%8F%89/</guid>
+      <description>&lt;h2 id=&#34;路径交叉httpsleetcodecnproblemsself-crossing&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/self-crossing/&#34;&gt;路径交叉&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你一个整数数组 distance 。&lt;/p&gt;
+&lt;p&gt;从 X-Y 平面上的点 (0,0) 开始，先向北移动 distance[0] 米，然后向西移动 distance[1] 米，向南移动 distance[2] 米，向东移动 distance[3] 米，持续移动。也就是说，每次移动后你的方位会发生逆时针变化。&lt;/p&gt;
+&lt;p&gt;判断你所经过的路径是否相交。如果相交，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode.com/uploads/2021/03/14/selfcross1-plane.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;输入：distance = [2,1,1,2]&lt;/li&gt;
+&lt;li&gt;输出：true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;题目解析&#34;&gt;题目解析&lt;/h2&gt;
+&lt;p&gt;什么时候线段会相交，必然是空间受限的时候。
+&lt;a href=&#34;https://leetcode.cn/problems/self-crossing/solutions/1069749/lu-jing-jiao-cha-by-leetcode-solution-dekx/&#34;&gt;官解&lt;/a&gt;中枚举的三种状态，其实只有两种，我们详细划分一下。&lt;/p&gt;
+&lt;p&gt;在此之前我们先列举一下可能用到的关系&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当前边表示为&lt;code&gt;f(i)&lt;/code&gt;，它的上一个边&lt;code&gt;f(i - 1)&lt;/code&gt;一定是另一类(纵横)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i - 2)&lt;/code&gt;同边不同向&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i - 4)&lt;/code&gt;同边同向&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;状态1&#34;&gt;状态1&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/solution-static/335/4_3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;第一种基本都能想到，属于另一边上一层受限，当前边突破。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;f(i-1) &amp;lt; f(i-3)&lt;/code&gt;: 另一边上一层受限&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i) &amp;gt;= f(i-2)&lt;/code&gt;: 当前边突破&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;状态2&#34;&gt;状态2&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/solution-static/335/5_2.png&#34; alt=&#34;&#34;&gt;
+这是一种临界状态，但是刚好可以窥探一下所谓的边界限制。&lt;/p&gt;
+&lt;p&gt;这种状态下，根据我们刚才总结的规律
+2. &lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i - 2)&lt;/code&gt;同边不同向
+3. &lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i - 4)&lt;/code&gt;同边同向&lt;/p&gt;
+&lt;p&gt;可以看到，如果循环层数过多，真正影响到本次判断的边界在于&lt;code&gt;f(i-2)&lt;/code&gt;。
+因为&lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i-4)&lt;/code&gt;同向，要想真正的制造冲突，必须满足两个条件&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;超限: &lt;code&gt;f(i) + f(i - 4) &amp;gt;= f(i - 2)&lt;/code&gt;，只有超过限制才可能相交&lt;/li&gt;
+&lt;li&gt;受限: &lt;code&gt;f(i - 2) &amp;gt;= f(i - 3)&lt;/code&gt;，如果不受限，就不存在冲突区域&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是还要提醒的一点是，要想真正的相交，需要双边受限，此种情况下已经默认另一边已经受限了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;f(i - 1) == f(i - 3)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;状态3&#34;&gt;状态3&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://assets.leetcode-cn.com/solution-static/335/6_3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;状态三直接思考比较难理解，但是如果当做图形题就比较简单了。
+过交点分辨向&lt;code&gt;f(i)&lt;/code&gt;和&lt;code&gt;f(i-1)&lt;/code&gt;作垂线，可以得到关系式如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当前边受限&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i) &amp;gt;= f(i-2) - f(i-4)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i-2) &amp;gt;= f(i - 4)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;另一边受限&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i - 1) &amp;gt;= f(i - 3) - f(i - 5)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f(i-3) &amp;gt;= f(i - 1)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;双边受限，必然存在交点，如果不满足条件，则交点不存在。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以看出，状态2是状态3的特殊情况，但是会提前出现，作为数值题二非图形题，不好统一进行检测。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;impl&lt;/span&gt; Solution {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_self_crossing&lt;/span&gt;(distance: Vec&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;i32&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;) -&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt; {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; distance.len() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt;distance.len() {
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; distance[i] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;;
+            }
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; distance[i] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+                {
+                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+                }
+            } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; distance[i] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; distance[i &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+            {
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+            }
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
     <item>
       <title>递增的三元子序列</title>
       <link>https://just-worker.github.io/blog/%E9%80%92%E5%A2%9E%E7%9A%84%E4%B8%89%E5%85%83%E5%AD%90%E5%BA%8F%E5%88%97/</link>
